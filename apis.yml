@@ -1,0 +1,20 @@
+aid: bifrost
+name: Bifrost
+description: >-
+  Bifrost provides API capabilities for connecting and bridging systems,
+  enabling integration and data exchange between different platforms and
+  services.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Integration
+  - Bridging
+  - API
+url: https://raw.githubusercontent.com/api-evangelist/bifrost/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
