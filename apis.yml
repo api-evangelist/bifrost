@@ -1,20 +1,103 @@
 aid: bifrost
 name: Bifrost
 description: >-
-  Bifrost provides API capabilities for connecting and bridging systems,
-  enabling integration and data exchange between different platforms and
-  services.
+  Bifrost is a high-performance open-source AI gateway that unifies access to
+  20+ AI providers through a single OpenAI-compatible API. It supports 1,000+
+  models with adaptive load balancing, automatic failover, semantic caching,
+  and enterprise observability features.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Integration
-  - Bridging
-  - API
+  - AI Gateway
+  - LLM
+  - Open Source
+  - Load Balancing
 url: https://raw.githubusercontent.com/api-evangelist/bifrost/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-03-16'
+modified: '2026-03-18'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: bifrost:bifrost-http-gateway-api
+    name: Bifrost HTTP Gateway API
+    description: >-
+      The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful
+      interface that routes requests to any of 20+ supported AI providers.
+      Requests specify the provider and model in the model field using the
+      format provider/model-name, enabling unified access to chat completions
+      and other AI endpoints without changing client code.
+    humanURL: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+    baseURL: http://localhost:8080
+    tags:
+      - AI Gateway
+      - REST
+      - OpenAI Compatible
+      - LLM
+    properties:
+      - type: Documentation
+        url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+      - type: Getting Started
+        url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+      - type: Reference
+        url: https://docs.getbifrost.ai/features/unified-interface
+      - type: Authentication
+        url: https://docs.getbifrost.ai/quickstart/gateway/provider-configuration
+      - type: GitHubRepository
+        url: https://github.com/maximhq/bifrost
+  - aid: bifrost:bifrost-go-sdk
+    name: Bifrost Go SDK
+    description: >-
+      The Bifrost Go SDK provides a native Go client for embedding the Bifrost
+      AI gateway directly into Go applications. It implements the same unified
+      provider interface as the HTTP gateway, allowing applications to switch
+      between AI providers without code changes using the github.com/maximhq/bifrost/core
+      package.
+    humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+    baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+    tags:
+      - Go
+      - SDK
+      - LLM
+      - AI Gateway
+    properties:
+      - type: Documentation
+        url: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+      - type: Getting Started
+        url: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+      - type: GitHubRepository
+        url: https://github.com/maximhq/bifrost
+  - aid: bifrost:bifrost-mcp-gateway
+    name: Bifrost MCP Gateway
+    description: >-
+      The Bifrost Model Context Protocol (MCP) Gateway enables AI agents to
+      discover and execute external tools through a standardized protocol. It
+      supports OAuth 2.0 authentication, tool approval controls, agent mode
+      for autonomous operations, and code mode for AI-orchestrated workflows.
+    humanURL: https://docs.getbifrost.ai/features/mcp
+    tags:
+      - MCP
+      - AI Agents
+      - Tool Execution
+      - OAuth
+    properties:
+      - type: Documentation
+        url: https://docs.getbifrost.ai/features/mcp
+      - type: GitHubRepository
+        url: https://github.com/maximhq/bifrost
+common:
+  - type: Website
+    url: https://www.getmaxim.ai/bifrost/enterprise
+  - type: Documentation
+    url: https://docs.getbifrost.ai
+  - type: Getting Started
+    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+  - type: GitHubRepository
+    url: https://github.com/maximhq/bifrost
+  - type: GitHub Organization
+    url: https://github.com/maximhq
+  - type: Change Log
+    url: https://github.com/maximhq/bifrost/releases
+  - type: Community
+    url: https://discord.gg/exN5KAydbU
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
