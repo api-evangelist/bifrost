@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChatMessage",
+  "type": "object",
+  "description": "A single message in a chat conversation.",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "Role of the message author.",
+      "enum": [
+        "system",
+        "user",
+        "assistant"
+      ],
+      "example": "user"
+    },
+    "content": {
+      "type": "string",
+      "description": "Content of the message.",
+      "example": "Hello, how are you?"
+    }
+  },
+  "required": [
+    "role",
+    "content"
+  ]
+}

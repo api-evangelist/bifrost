@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChatChoice",
+  "type": "object",
+  "description": "A single completion choice in the response.",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "Index of this choice.",
+      "example": 0
+    },
+    "message": {
+      "$ref": "#/components/schemas/ChatMessage"
+    },
+    "finish_reason": {
+      "type": "string",
+      "description": "Reason the generation stopped.",
+      "enum": [
+        "stop",
+        "length",
+        "content_filter"
+      ],
+      "example": "stop"
+    }
+  }
+}

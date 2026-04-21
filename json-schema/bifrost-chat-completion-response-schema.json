@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChatCompletionResponse",
+  "type": "object",
+  "description": "Response from a chat completion request.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the completion.",
+      "example": "chatcmpl-abc123"
+    },
+    "object": {
+      "type": "string",
+      "description": "Object type, always chat.completion.",
+      "example": "chat.completion"
+    },
+    "created": {
+      "type": "integer",
+      "description": "Unix timestamp of when the completion was created.",
+      "example": 1713000000
+    },
+    "model": {
+      "type": "string",
+      "description": "Provider and model used for the completion.",
+      "example": "openai/gpt-4o"
+    },
+    "choices": {
+      "type": "array",
+      "description": "Array of completion choices.",
+      "items": {
+        "$ref": "#/components/schemas/ChatChoice"
+      }
+    },
+    "usage": {
+      "$ref": "#/components/schemas/UsageStats"
+    }
+  }
+}

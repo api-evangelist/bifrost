@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bf": "https://www.getbifrost.ai/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "role": "schema:roleName",
+    "content": "schema:text",
+    "model": "schema:model",
+    "messages": {
+      "@id": "bf:messages",
+      "@type": "xsd:string"
+    },
+    "temperature": {
+      "@id": "bf:temperature",
+      "@type": "xsd:decimal"
+    },
+    "max_tokens": {
+      "@id": "bf:max_tokens",
+      "@type": "xsd:integer"
+    },
+    "stream": {
+      "@id": "bf:stream",
+      "@type": "xsd:boolean"
+    },
+    "top_p": {
+      "@id": "bf:top_p",
+      "@type": "xsd:decimal"
+    },
+    "n": {
+      "@id": "bf:n",
+      "@type": "xsd:integer"
+    },
+    "index": {
+      "@id": "bf:index",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "bf:message",
+      "@type": "xsd:string"
+    },
+    "finish_reason": {
+      "@id": "bf:finish_reason",
+      "@type": "xsd:string"
+    },
+    "prompt_tokens": {
+      "@id": "bf:prompt_tokens",
+      "@type": "xsd:integer"
+    },
+    "completion_tokens": {
+      "@id": "bf:completion_tokens",
+      "@type": "xsd:integer"
+    },
+    "total_tokens": {
+      "@id": "bf:total_tokens",
+      "@type": "xsd:integer"
+    },
+    "id": "schema:identifier",
+    "object": {
+      "@id": "bf:object",
+      "@type": "xsd:string"
+    },
+    "created": "schema:dateCreated",
+    "choices": {
+      "@id": "bf:choices",
+      "@type": "xsd:string"
+    },
+    "usage": {
+      "@id": "bf:usage",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "status": "schema:status",
+    "version": "schema:version",
+    "providers": {
+      "@id": "bf:providers",
+      "@type": "xsd:string"
+    }
+  }
+}

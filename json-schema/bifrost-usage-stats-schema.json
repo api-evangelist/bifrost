@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UsageStats",
+  "type": "object",
+  "description": "Token usage statistics for the completion.",
+  "properties": {
+    "prompt_tokens": {
+      "type": "integer",
+      "description": "Number of tokens in the prompt.",
+      "example": 12
+    },
+    "completion_tokens": {
+      "type": "integer",
+      "description": "Number of tokens generated.",
+      "example": 14
+    },
+    "total_tokens": {
+      "type": "integer",
+      "description": "Total tokens used.",
+      "example": 26
+    }
+  }
+}

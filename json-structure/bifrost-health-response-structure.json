@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "HealthResponse",
+  "type": "object",
+  "description": "Gateway health status response.",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall gateway status."
+    },
+    "version": {
+      "type": "string",
+      "description": "Gateway version."
+    },
+    "providers": {
+      "type": "array",
+      "description": "Status of configured providers."
+    }
+  }
+}

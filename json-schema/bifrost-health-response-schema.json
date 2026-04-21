@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HealthResponse",
+  "type": "object",
+  "description": "Gateway health status response.",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall gateway status.",
+      "example": "ok"
+    },
+    "version": {
+      "type": "string",
+      "description": "Gateway version.",
+      "example": "v1.0.0"
+    },
+    "providers": {
+      "type": "array",
+      "description": "Status of configured providers.",
+      "items": {
+        "$ref": "#/components/schemas/ProviderStatus"
+      }
+    }
+  }
+}

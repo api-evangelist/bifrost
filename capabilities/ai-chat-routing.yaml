@@ -1,0 +1,67 @@
+name: AI Chat Routing
+description: >-
+  Workflow capability for routing AI chat completions through the Bifrost
+  gateway to 20+ AI providers with automatic failover and load balancing.
+version: v1
+
+imports:
+  - shared/bifrost.yaml
+
+tools:
+  - name: create-chat-completion
+    import: bifrost.create-chat-completion
+    description: >-
+      Send a chat message to any AI provider using the provider/model-name
+      format. Supports OpenAI, Anthropic, Cohere, and 20+ other providers.
+    inputSchema:
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          description: Provider and model in format provider/model-name (e.g. openai/gpt-4o)
+        messages:
+          type: array
+          description: Conversation messages array
+        temperature:
+          type: number
+          description: Sampling temperature (0-2)
+        max_tokens:
+          type: integer
+          description: Maximum tokens to generate
+  - name: stream-chat-completion
+    import: bifrost.stream-chat-completion
+    description: >-
+      Stream a chat completion response as server-sent events from any
+      supported AI provider.
+    inputSchema:
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          description: Provider and model in format provider/model-name
+        messages:
+          type: array
+          description: Conversation messages array
+  - name: get-gateway-health
+    import: bifrost.get-health
+    description: Check the health of the Bifrost gateway and all configured providers.
+
+expose:
+  rest:
+    port: 8080
+  mcp:
+    port: 9080
+
+personas:
+  - id: ai-engineer
+    name: AI Engineer
+    description: Engineer building AI applications that need multi-provider LLM access
+  - id: platform-engineer
+    name: Platform Engineer
+    description: Engineer managing Bifrost gateway deployments and provider configuration

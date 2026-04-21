@@ -1,0 +1,94 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Bifrost
+  description: >-
+    Domain vocabulary for the Bifrost open-source AI gateway, covering
+    AI provider routing, chat completions, and observability concepts.
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: bifrost-gateway-v1
+      version: v1
+      baseUrl: http://localhost:8080
+      status: active
+      description: Bifrost HTTP Gateway API for AI provider routing
+
+  resources:
+    - name: chat-completions
+      api: bifrost-gateway-v1
+      actions: [create, stream]
+      description: Chat completion requests routed to AI providers
+    - name: health
+      api: bifrost-gateway-v1
+      actions: [get]
+      description: Gateway health and provider status
+
+  actions:
+    - name: create
+      httpMethod: POST
+      pattern: write
+    - name: stream
+      httpMethod: POST
+      pattern: write
+      description: Creates a streaming SSE response
+    - name: get
+      httpMethod: GET
+      pattern: read
+
+  schemas:
+    core:
+      - name: ChatCompletionRequest
+        keyProperties: [model, messages]
+      - name: ChatCompletionResponse
+        keyProperties: [id, model, choices, usage]
+      - name: ChatMessage
+        keyProperties: [role, content]
+      - name: ChatChoice
+        keyProperties: [index, message, finish_reason]
+      - name: UsageStats
+        keyProperties: [prompt_tokens, completion_tokens, total_tokens]
+      - name: HealthResponse
+        keyProperties: [status, version, providers]
+      - name: ProviderStatus
+        keyProperties: [name, status]
+
+  authentication:
+    schemes:
+      - type: apiKey
+        header: x-bf-provider-key
+        description: Provider API key header; can also be configured server-side
+
+capability:
+  workflows:
+    - id: ai-chat-routing
+      name: AI Chat Routing
+      description: Route chat completions to 20+ AI providers with failover
+      tools: [create-chat-completion, stream-chat-completion, get-gateway-health]
+
+  personas:
+    - id: ai-engineer
+      name: AI Engineer
+      description: Engineer building AI applications using Bifrost as a unified gateway
+      workflows: [ai-chat-routing]
+    - id: platform-engineer
+      name: Platform Engineer
+      description: Engineer managing Bifrost gateway deployments and provider config
+      workflows: [ai-chat-routing]
+
+  domains:
+    - name: AI Provider Routing
+      description: Unified routing to multiple AI LLM providers
+    - name: Chat Completions
+      description: OpenAI-compatible chat completion interface
+    - name: Gateway Observability
+      description: Health monitoring and provider status tracking
+
+crossReference:
+  resources:
+    - operational: chat-completions
+      capability: create-chat-completion
+    - operational: health
+      capability: get-gateway-health

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "UsageStats",
+  "type": "object",
+  "description": "Token usage statistics for the completion.",
+  "properties": {
+    "prompt_tokens": {
+      "type": "int32",
+      "description": "Number of tokens in the prompt."
+    },
+    "completion_tokens": {
+      "type": "int32",
+      "description": "Number of tokens generated."
+    },
+    "total_tokens": {
+      "type": "int32",
+      "description": "Total tokens used."
+    }
+  }
+}

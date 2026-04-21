@@ -1,0 +1,8 @@
+{
+  "id": "chatcmpl-abc123",
+  "object": "chat.completion",
+  "created": 1713000000,
+  "model": "openai/gpt-4o",
+  "choices": [],
+  "usage": {}
+}

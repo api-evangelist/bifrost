@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "ChatCompletionResponse",
+  "type": "object",
+  "description": "Response from a chat completion request.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the completion."
+    },
+    "object": {
+      "type": "string",
+      "description": "Object type, always chat.completion."
+    },
+    "created": {
+      "type": "int32",
+      "description": "Unix timestamp of when the completion was created."
+    },
+    "model": {
+      "type": "string",
+      "description": "Provider and model used for the completion."
+    },
+    "choices": {
+      "type": "array",
+      "description": "Array of completion choices."
+    },
+    "usage": {
+      "type": "string"
+    }
+  }
+}

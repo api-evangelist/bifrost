@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProviderStatus",
+  "type": "object",
+  "description": "Status of a configured AI provider.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Provider name.",
+      "example": "openai"
+    },
+    "status": {
+      "type": "string",
+      "description": "Provider health status.",
+      "enum": [
+        "healthy",
+        "degraded",
+        "unavailable"
+      ],
+      "example": "healthy"
+    }
+  }
+}

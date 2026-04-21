@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "ChatChoice",
+  "type": "object",
+  "description": "A single completion choice in the response.",
+  "properties": {
+    "index": {
+      "type": "int32",
+      "description": "Index of this choice."
+    },
+    "message": {
+      "type": "string"
+    },
+    "finish_reason": {
+      "type": "string",
+      "description": "Reason the generation stopped."
+    }
+  }
+}

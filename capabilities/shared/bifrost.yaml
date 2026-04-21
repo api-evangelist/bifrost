@@ -1,0 +1,38 @@
+name: Bifrost HTTP Gateway API
+description: Shared capability definitions for the Bifrost AI gateway HTTP API
+version: v1
+baseUrl: http://localhost:8080
+
+authentication:
+  type: apiKey
+  header: x-bf-provider-key
+  value: "{{BIFROST_PROVIDER_KEY}}"
+
+operations:
+  - operationId: createChatCompletion
+    name: create-chat-completion
+    summary: Create a chat completion routed to the specified AI provider
+    method: POST
+    path: /v1/chat/completions
+    tags:
+      - Chat
+  - operationId: streamChatCompletion
+    name: stream-chat-completion
+    summary: Create a streaming chat completion with SSE response
+    method: POST
+    path: /v1/chat/completions/stream
+    tags:
+      - Chat
+  - operationId: getHealth
+    name: get-health
+    summary: Get Bifrost gateway health and provider status
+    method: GET
+    path: /health
+    tags:
+      - Health
+
+expose:
+  rest:
+    port: 8100
+  mcp:
+    port: 9100
