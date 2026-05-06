@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Bifrost
 providerId: bifrost
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - AI Gateway
   - LLM
@@ -12,148 +13,121 @@ tags:
   - Open Source
   - OpenAI Compatible
   - MCP
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Bifrost is an open-source AI gateway distributed under Apache 2.0 with two commercial shapes —
+  a free, fully-featured self-hosted OSS edition (no published usage caps) and a custom-priced Enterprise
+  edition for VPC, on-premise, and air-gapped deployments. Bifrost itself does not bill per request; LLM
+  provider costs flow through transparently to whichever upstream provider (OpenAI, Anthropic, etc.) the
+  gateway routes to.
+sources:
+  - https://getbifrost.ai/pricing
+  - https://docs.getbifrost.ai/
 plans:
-  - id: bifrost-free
-    name: Free
+  - id: bifrost-oss
+    name: OSS (Open Source)
     type: freemium
-    description: Free entry tier for the Bifrost API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free forever self-hosted edition. Distributed under Apache 2.0 via Docker, Kubernetes,
+      or a Go binary. Includes drop-in replacement for AI SDK connections, OpenTelemetry, virtual-key
+      budgets and rate limits, automatic fallbacks, semantic caching, MCP gateway, and prompt repository.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Bifrost HTTP Gateway API
-      - name: Bifrost Go SDK
-      - name: Bifrost MCP Gateway
-  - id: bifrost-pro
-    name: Professional
-    type: paid
-    description: Production tier for Bifrost. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
+      - label: License
+        description: Apache 2.0 license — no usage caps imposed by the project itself
+        name: license
+        type: flat
+        metric: month
         limit: -1
         timeFrame: month
         geo: global
         domains:
           - http://localhost:8080
           - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Self-Hosted Compute
+        description: Infrastructure cost is the operator's responsibility (compute, network, storage to
+          run the gateway)
+        name: self_hosted_infra
+        type: metered
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - http://localhost:8080
+        unit: 1
+        price: see operator's cloud bill
+        userMultiplied: false
+      - label: Upstream LLM Cost
+        description: Bifrost passes requests to upstream providers (OpenAI, Anthropic, etc.); upstream
+          token/request charges apply
+        name: upstream_llm
+        type: metered
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        geo: global
+        domains:
+          - http://localhost:8080
+        unit: 1
+        price: see upstream provider pricing
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
+      - name: Drop-in Replacement for AI SDK Connections
+      - name: OpenTelemetry Metrics and Traces
+      - name: Virtual Keys with Budget and Rate Limits
+      - name: Automatic Fallbacks Between Providers
+      - name: Semantic and Simple Caching
+      - name: MCP Gateway with Code Mode
+      - name: Prompt Repository / Playground
+      - name: Community Support (Documentation + Discord)
       - name: Bifrost HTTP Gateway API
       - name: Bifrost Go SDK
       - name: Bifrost MCP Gateway
   - id: bifrost-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Bifrost. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    description: Custom-priced edition for VPC, on-premise, and air-gapped environments. Adds guardrails,
+      cluster mode, adaptive load balancing, SAML/OIDC SSO, vault integrations, RBAC, audit logs, and
+      SLA-backed support. 14-day free trial available upon request.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
+      - label: Enterprise License
+        description: Custom-negotiated annual license including support and the enterprise feature set
+        name: enterprise_license
+        type: subscription
+        metric: year
+        limit: 1
+        timeFrame: year
         geo: configurable
         domains:
           - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
         unit: 1
-        price: custom
+        price: contact sales
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
+      - label: Free Trial
+        description: 14-day evaluation of the Enterprise edition
+        name: enterprise_trial
+        type: flat
+        metric: day
+        limit: 14
+        timeFrame: usage
+        geo: global
         domains:
           - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
         unit: 1
-        price: custom
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
+      - name: VPC / On-Premise / Air-Gapped Deployment
+      - name: Content Safety Guardrails
+      - name: Cluster Mode for High Availability
+      - name: Adaptive Load Balancing
+      - name: SAML / OpenID Connect SSO
+      - name: Vault Integrations (HashiCorp, AWS, Google, Azure)
+      - name: Role-Based Access Control
+      - name: Audit Logs and Log Exports
+      - name: SLA-Backed Enterprise Support
+      - name: Custom Plugin Development Services
+      - name: SOC 2 / GDPR / ISO 27001 / HIPAA Alignment
       - name: Bifrost HTTP Gateway API
       - name: Bifrost Go SDK
       - name: Bifrost MCP Gateway

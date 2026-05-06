@@ -4,97 +4,53 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Bifrost
 providerId: bifrost
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - AI Gateway
   - LLM
-  - Load Balancing
   - Open Source
-  - OpenAI Compatible
-  - MCP
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Bifrost API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Bifrost is a self-hosted gateway, so there are no provider-imposed rate limits — limits are
+  whatever the operator configures via virtual keys, budgets, and per-key rate-limit policies. Effective
+  ceilings are governed by (1) the host's compute/network capacity and (2) the upstream LLM provider's
+  own rate limits, which Bifrost surfaces via fallback and load-balancing logic.
+sources:
+  - https://docs.getbifrost.ai/
+  - https://getbifrost.ai/pricing
+notes: No published per-second/per-minute rate-limit numbers exist for Bifrost itself. The OSS distribution
+  ships virtual-key-level rate limits and budgets that operators configure. Numeric values below are placeholders
+  intended only to illustrate the dimensions Bifrost can enforce.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: Virtual Key Request Rate
+    scope: virtual-key
     metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Bifrost HTTP Gateway API
-      - Bifrost Go SDK
-      - Bifrost MCP Gateway
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Bifrost HTTP Gateway API
-      - Bifrost Go SDK
-      - Bifrost MCP Gateway
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Bifrost HTTP Gateway API
-      - Bifrost Go SDK
-      - Bifrost MCP Gateway
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Bifrost HTTP Gateway API
-      - Bifrost Go SDK
-      - Bifrost MCP Gateway
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Bifrost HTTP Gateway API
-      - Bifrost Go SDK
-      - Bifrost MCP Gateway
+    limit: 'operator-configured'
+    notes: Bifrost virtual keys carry rate-limit policy set by the deploying operator.
+  - name: Virtual Key Budget
+    scope: virtual-key
+    metric: spend_per_period
+    limit: 'operator-configured'
+    notes: Per-key budget policy enforces upstream-cost spend caps.
+  - name: Upstream Provider Limits
+    scope: provider/model
+    metric: varies
+    limit: 'inherited from upstream provider (OpenAI, Anthropic, etc.)'
+    notes: Bifrost transparently respects and falls back across upstream provider rate limits.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Adaptive Load Balancing (Enterprise)
+    description: The Enterprise edition redistributes load across upstream providers based on observed
+      latency and error rate.
+  - name: Automatic Fallback
+    description: On 429 or 5xx from an upstream provider, Bifrost retries against a configured fallback
+      provider/model.
+  - name: Semantic Caching
+    description: Cache hits avoid upstream calls entirely, reducing effective rate-limit pressure.
+  - name: Operator-Owned Configuration
+    description: Because Bifrost is self-hosted, all rate-limit thresholds are owned by the operator —
+      not the project.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
