@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bifrost HTTP Gateway API — Chat
+  description: 'Bifrost HTTP Gateway API — Chat. 2 operations. Lead operation: Bifrost Create Chat Completion. Self-contained
+    Naftiko capability covering one Bifrost business surface.'
+  tags:
+  - Bifrost
+  - Chat
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BIFROST_API_KEY: BIFROST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-gateway-chat
+    baseUri: http://localhost:8080
+    description: Bifrost HTTP Gateway API — Chat business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-chat-completions
+      path: /v1/chat/completions
+      operations:
+      - name: createchatcompletion
+        method: POST
+        description: Bifrost Create Chat Completion
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-chat-completions-stream
+      path: /v1/chat/completions/stream
+      operations:
+      - name: streamchatcompletion
+        method: POST
+        description: Bifrost Stream Chat Completion
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-bf-provider-key
+      value: '{{env.BIFROST_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-gateway-chat-rest
+    port: 8080
+    description: REST adapter for Bifrost HTTP Gateway API — Chat. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/chat/completions
+      name: v1-chat-completions
+      description: REST surface for v1-chat-completions.
+      operations:
+      - method: POST
+        name: createchatcompletion
+        description: Bifrost Create Chat Completion
+        call: http-gateway-chat.createchatcompletion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/chat/completions/stream
+      name: v1-chat-completions-stream
+      description: REST surface for v1-chat-completions-stream.
+      operations:
+      - method: POST
+        name: streamchatcompletion
+        description: Bifrost Stream Chat Completion
+        call: http-gateway-chat.streamchatcompletion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-gateway-chat-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bifrost HTTP Gateway API — Chat. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: bifrost-create-chat-completion
+      description: Bifrost Create Chat Completion
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: http-gateway-chat.createchatcompletion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bifrost-stream-chat-completion
+      description: Bifrost Stream Chat Completion
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: http-gateway-chat.streamchatcompletion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bifrost HTTP Gateway API — Health
+  description: 'Bifrost HTTP Gateway API — Health. 1 operations. Lead operation: Bifrost Get Health. Self-contained Naftiko
+    capability covering one Bifrost business surface.'
+  tags:
+  - Bifrost
+  - Health
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BIFROST_API_KEY: BIFROST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-gateway-health
+    baseUri: http://localhost:8080
+    description: Bifrost HTTP Gateway API — Health business capability. Self-contained, no shared references.
+    resources:
+    - name: health
+      path: /health
+      operations:
+      - name: gethealth
+        method: GET
+        description: Bifrost Get Health
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-bf-provider-key
+      value: '{{env.BIFROST_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-gateway-health-rest
+    port: 8080
+    description: REST adapter for Bifrost HTTP Gateway API — Health. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/health
+      name: health
+      description: REST surface for health.
+      operations:
+      - method: GET
+        name: gethealth
+        description: Bifrost Get Health
+        call: http-gateway-health.gethealth
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-gateway-health-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bifrost HTTP Gateway API — Health. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: bifrost-get-health
+      description: Bifrost Get Health
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-gateway-health.gethealth
+      outputParameters:
+      - type: object
+        mapping: $.
