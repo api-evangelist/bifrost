@@ -134,6 +134,8 @@ common:
     description: Route to Azure-hosted OpenAI deployments.
   - name: Google Vertex AI
     description: Route to Gemini and other models on Google Vertex AI.
+- type: LLMsTxt
+  url: https://docs.getbifrost.ai/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
