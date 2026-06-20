@@ -4,7 +4,7 @@ description: Bifrost is a high-performance open-source AI gateway that unifies a
   OpenAI-compatible API. It supports 1,000+ models with adaptive load balancing, automatic failover, semantic caching, and
   enterprise observability features. Bifrost is open-source under Apache 2.0.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - AI Gateway
 - LLM
