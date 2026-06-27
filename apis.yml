@@ -34,9 +34,9 @@ apis:
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/bifrost/refs/heads/main/openapi/bifrost-http-gateway-api.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/http-gateway-chat.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/http-gateway-health.yaml
 - aid: bifrost:bifrost-go-sdk
   name: Bifrost Go SDK
@@ -134,7 +134,7 @@ common:
     description: Route to Azure-hosted OpenAI deployments.
   - name: Google Vertex AI
     description: Route to Gemini and other models on Google Vertex AI.
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.getbifrost.ai/llms.txt
 maintainers:
 - FN: Kin Lane
