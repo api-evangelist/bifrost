@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bifrost-http-gateway-api.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: BifrostProviderAuth
+  type: apiKey
+  in: header
+  parameter: x-bf-provider-key
+  description: Provider API key passed as x-bf-provider-key header. Alternatively, provider
+    keys can be configured server-side in bifrost configuration.
+  sources:
+  - openapi/bifrost-http-gateway-api.yaml

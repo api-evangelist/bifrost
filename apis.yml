@@ -72,6 +72,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/maximhq/bifrost
 common:
+- type: TrustCenter
+  url: security/bifrost-trust-center.yml
+- type: DomainSecurity
+  url: security/bifrost-domain-security.yml
+- type: Authentication
+  url: authentication/bifrost-authentication.yml
 - type: Portal
   url: https://www.getmaxim.ai/bifrost/enterprise
 - type: Documentation
