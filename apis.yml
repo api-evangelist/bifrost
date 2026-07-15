@@ -72,6 +72,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/maximhq/bifrost
 common:
+- type: AgenticAccess
+  url: agentic-access/bifrost-agentic-access.yml
 - type: TrustCenter
   url: security/bifrost-trust-center.yml
 - type: DomainSecurity
