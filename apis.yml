@@ -4,7 +4,20 @@ description: Bifrost is a high-performance open-source AI gateway that unifies a
   OpenAI-compatible API. It supports 1,000+ models with adaptive load balancing, automatic failover, semantic caching, and
   enterprise observability features. Bifrost is open-source under Apache 2.0.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bifrost.png
 tags:
 - AI Gateway
 - LLM
@@ -17,31 +30,11 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: bifrost:bifrost-http-gateway-api
-  name: Bifrost HTTP Gateway API
-  description: The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful interface that routes requests to any of
-    20+ supported AI providers. Requests specify the provider and model using provider/model-name in the model field, enabling
-    seamless provider switching without client code changes.
-  humanURL: https://docs.getbifrost.ai/quickstart/gateway/setting-up
-  baseURL: http://localhost:8080
-  tags:
-  - AI Gateway
-  - LLM
-  - OpenAI Compatible
-  - REST
-  properties:
-  - type: Documentation
-    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/bifrost/refs/heads/main/openapi/bifrost-http-gateway-api.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-chat.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-health.yaml
 - aid: bifrost:bifrost-go-sdk
   name: Bifrost Go SDK
-  description: The Bifrost Go SDK provides a native Go client for embedding the Bifrost AI gateway directly into Go applications
-    using the github.com/maximhq/bifrost/core package.
+  description: >-
+    The Bifrost Go SDK provides a native Go client for embedding the Bifrost AI gateway directly into
+    Go applications using the github.com/maximhq/bifrost/core package.
   humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
   baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
   tags:
@@ -58,8 +51,9 @@ apis:
     url: https://github.com/maximhq/bifrost
 - aid: bifrost:bifrost-mcp-gateway
   name: Bifrost MCP Gateway
-  description: The Bifrost Model Context Protocol (MCP) Gateway enables AI agents to discover and execute external tools through
-    a standardized protocol, with OAuth 2.0 authentication and tool approval controls.
+  description: >-
+    The Bifrost Model Context Protocol (MCP) Gateway enables AI agents to discover and execute external
+    tools through a standardized protocol, with OAuth 2.0 authentication and tool approval controls.
   humanURL: https://docs.getbifrost.ai/features/mcp
   tags:
   - AI Agents
@@ -71,6 +65,38 @@ apis:
     url: https://docs.getbifrost.ai/features/mcp
   - type: GitHubRepository
     url: https://github.com/maximhq/bifrost
+- aid: bifrost:bifrost-chat-api
+  name: Bifrost Chat API
+  description: Chat completions compatible with OpenAI chat API
+  humanURL: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+  baseURL: http://localhost:8080
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-chat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+  - type: X-NaftikoCapability
+    url: capabilities/http-gateway-chat.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/http-gateway-health.yaml
+- aid: bifrost:bifrost-health-api
+  name: Bifrost Health API
+  description: Gateway health and status endpoints
+  humanURL: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+  baseURL: http://localhost:8080
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+  - type: X-NaftikoCapability
+    url: capabilities/http-gateway-chat.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/http-gateway-health.yaml
 common:
 - type: AgenticAccess
   url: agentic-access/bifrost-agentic-access.yml
