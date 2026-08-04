@@ -1,0 +1,16 @@
+{
+  "provider": "bifrost",
+  "sources": [
+    "bifrost-chat-api-openapi.yml",
+    "bifrost-health-api-openapi.yml"
+  ],
+  "outputs": [
+    "bifrost-chat-api-openapi.yml",
+    "bifrost-health-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

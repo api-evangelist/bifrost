@@ -1,0 +1,356 @@
+openapi: 3.0.3
+info:
+  title: Bifrost HTTP Gateway API
+  description: >-
+    The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful interface
+    that routes requests to any of 20+ supported AI providers through a single
+    unified endpoint. Requests specify the provider and model using the format
+    provider/model-name in the model field, enabling seamless provider switching
+    without client code changes.
+  version: v1
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Bifrost Community
+    url: https://github.com/maximhq/bifrost
+  x-generated-from: documentation
+servers:
+  - url: http://localhost:8080
+    description: Bifrost HTTP Gateway (default local port 8080)
+tags:
+  - name: Chat
+    description: Chat completions compatible with OpenAI chat API
+  - name: Health
+    description: Gateway health and status endpoints
+paths:
+  /v1/chat/completions:
+    post:
+      operationId: createChatCompletion
+      summary: Bifrost Create Chat Completion
+      description: >-
+        Creates a chat completion routed to the specified AI provider and model.
+        Use the format provider/model-name in the model field (e.g.,
+        openai/gpt-4o, anthropic/claude-3-5-sonnet-20241022).
+      tags:
+        - Chat
+      security:
+        - BifrostProviderAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+            examples:
+              CreateChatCompletion201Example:
+                summary: Default createChatCompletion request example
+                x-microcks-default: true
+                value:
+                  model: openai/gpt-4o
+                  messages:
+                    - role: user
+                      content: Hello, how are you?
+                  temperature: 0.7
+                  max_tokens: 256
+      responses:
+        '200':
+          description: Chat completion response from the AI provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+              examples:
+                CreateChatCompletion200Example:
+                  summary: Default createChatCompletion 200 response
+                  x-microcks-default: true
+                  value:
+                    id: chatcmpl-abc123
+                    object: chat.completion
+                    created: 1713000000
+                    model: openai/gpt-4o
+                    choices:
+                      - index: 0
+                        message:
+                          role: assistant
+                          content: Hello! I'm doing well, thank you for asking.
+                        finish_reason: stop
+                    usage:
+                      prompt_tokens: 12
+                      completion_tokens: 14
+                      total_tokens: 26
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Upstream provider error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v1/chat/completions/stream:
+    post:
+      operationId: streamChatCompletion
+      summary: Bifrost Stream Chat Completion
+      description: >-
+        Creates a streaming chat completion. Returns server-sent events (SSE)
+        with incremental token chunks from the AI provider.
+      tags:
+        - Chat
+      security:
+        - BifrostProviderAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+            examples:
+              StreamChatCompletion201Example:
+                summary: Default streamChatCompletion request example
+                x-microcks-default: true
+                value:
+                  model: anthropic/claude-3-5-sonnet-20241022
+                  messages:
+                    - role: user
+                      content: Tell me a short joke.
+                  stream: true
+      responses:
+        '200':
+          description: Server-sent event stream of chat completion chunks.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+              examples:
+                StreamChatCompletion200Example:
+                  summary: Default streamChatCompletion 200 response
+                  x-microcks-default: true
+                  value: "data: {\"id\":\"chatcmpl-xyz\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"delta\":{\"content\":\"Hello\"},\"index\":0}]}\n\ndata: [DONE]\n"
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /health:
+    get:
+      operationId: getHealth
+      summary: Bifrost Get Health
+      description: Returns the health status of the Bifrost gateway.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Gateway is healthy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                GetHealth200Example:
+                  summary: Default getHealth 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    version: v1.0.0
+                    providers:
+                      - name: openai
+                        status: healthy
+                      - name: anthropic
+                        status: healthy
+                      - name: cohere
+                        status: healthy
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    BifrostProviderAuth:
+      type: apiKey
+      in: header
+      name: x-bf-provider-key
+      description: >-
+        Provider API key passed as x-bf-provider-key header. Alternatively,
+        provider keys can be configured server-side in bifrost configuration.
+  schemas:
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: invalid model format
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+    ChatMessage:
+      title: Chat Message
+      description: A single message in a chat conversation.
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          description: Role of the message author.
+          enum:
+            - system
+            - user
+            - assistant
+          example: user
+        content:
+          type: string
+          description: Content of the message.
+          example: Hello, how are you?
+    ChatCompletionRequest:
+      title: Chat Completion Request
+      description: Request body for creating a chat completion.
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          description: >-
+            Provider and model name in the format provider/model-name
+            (e.g., openai/gpt-4o, anthropic/claude-3-5-sonnet-20241022).
+          example: openai/gpt-4o
+        messages:
+          type: array
+          description: Array of messages comprising the conversation.
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+        temperature:
+          type: number
+          description: Sampling temperature between 0 and 2.
+          example: 0.7
+        max_tokens:
+          type: integer
+          description: Maximum number of tokens to generate.
+          example: 256
+        stream:
+          type: boolean
+          description: Whether to stream the response as SSE.
+          example: false
+        top_p:
+          type: number
+          description: Nucleus sampling probability.
+          example: 1.0
+        n:
+          type: integer
+          description: Number of completions to generate.
+          example: 1
+    ChatChoice:
+      title: Chat Choice
+      description: A single completion choice in the response.
+      type: object
+      properties:
+        index:
+          type: integer
+          description: Index of this choice.
+          example: 0
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        finish_reason:
+          type: string
+          description: Reason the generation stopped.
+          enum:
+            - stop
+            - length
+            - content_filter
+          example: stop
+    UsageStats:
+      title: Usage Stats
+      description: Token usage statistics for the completion.
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt.
+          example: 12
+        completion_tokens:
+          type: integer
+          description: Number of tokens generated.
+          example: 14
+        total_tokens:
+          type: integer
+          description: Total tokens used.
+          example: 26
+    ChatCompletionResponse:
+      title: Chat Completion Response
+      description: Response from a chat completion request.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the completion.
+          example: chatcmpl-abc123
+        object:
+          type: string
+          description: Object type, always chat.completion.
+          example: chat.completion
+        created:
+          type: integer
+          description: Unix timestamp of when the completion was created.
+          example: 1713000000
+        model:
+          type: string
+          description: Provider and model used for the completion.
+          example: openai/gpt-4o
+        choices:
+          type: array
+          description: Array of completion choices.
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+        usage:
+          $ref: '#/components/schemas/UsageStats'
+    ProviderStatus:
+      title: Provider Status
+      description: Status of a configured AI provider.
+      type: object
+      properties:
+        name:
+          type: string
+          description: Provider name.
+          example: openai
+        status:
+          type: string
+          description: Provider health status.
+          enum:
+            - healthy
+            - degraded
+            - unavailable
+          example: healthy
+    HealthResponse:
+      title: Health Response
+      description: Gateway health status response.
+      type: object
+      properties:
+        status:
+          type: string
+          description: Overall gateway status.
+          example: ok
+        version:
+          type: string
+          description: Gateway version.
+          example: v1.0.0
+        providers:
+          type: array
+          description: Status of configured providers.
+          items:
+            $ref: '#/components/schemas/ProviderStatus'
