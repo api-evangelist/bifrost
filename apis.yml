@@ -77,10 +77,6 @@ apis:
     url: openapi/bifrost-chat-api-openapi.yml
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-chat.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-health.yaml
 - aid: bifrost:bifrost-health-api
   name: Bifrost Health API
   description: Gateway health and status endpoints
@@ -93,11 +89,25 @@ apis:
     url: openapi/bifrost-health-api-openapi.yml
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-chat.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/http-gateway-health.yaml
 common:
+- type: Blog
+  url: https://www.getmaxim.ai/blog
+- type: Webhooks
+  url: https://docs.getbifrost.ai/features/webhooks
+- type: CLI
+  url: https://docs.getbifrost.ai/quickstart/cli/getting-started
+- type: SDKs
+  url: https://www.getmaxim.ai/docs/sdk/overview
+- type: StatusPage
+  url: https://status.getmaxim.ai/
+- type: PrivacyPolicy
+  url: https://www.getmaxim.ai/privacy-policy
+- type: TermsOfService
+  url: https://www.getmaxim.ai/terms-of-service
+- type: Pricing
+  url: https://www.getmaxim.ai/pricing
+- type: SignUp
+  url: https://app.getmaxim.ai/sign-up
 - type: AgenticAccess
   url: agentic-access/bifrost-agentic-access.yml
 - type: TrustCenter
