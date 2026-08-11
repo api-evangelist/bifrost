@@ -4,6 +4,20 @@ description: Bifrost is a high-performance open-source AI gateway that unifies a
   OpenAI-compatible API. It supports 1,000+ models with adaptive load balancing, automatic failover, semantic caching, and
   enterprise observability features. Bifrost is open-source under Apache 2.0.
 type: Index
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-11'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -90,6 +104,15 @@ apis:
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
 common:
+- type: IssueTracker
+  url: https://github.com/maximhq/bifrost/issues
+- type: SecurityPolicy
+  url: https://github.com/maximhq/bifrost/blob/dev/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/maximhq/bifrost/blob/dev/CODE_OF_CONDUCT.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/maximhq/bifrost/blob/dev/LICENSE
 - type: Blog
   url: https://www.getmaxim.ai/blog
 - type: Webhooks
