@@ -106,7 +106,7 @@ common:
   url: https://www.getmaxim.ai/terms-of-service
 - type: Pricing
   url: https://www.getmaxim.ai/pricing
-- type: SignUp
+- type: Signup
   url: https://app.getmaxim.ai/sign-up
 - type: AgenticAccess
   url: agentic-access/bifrost-agentic-access.yml
