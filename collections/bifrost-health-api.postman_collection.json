@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "79d675e8-1c8a-4ff1-9ae4-31106bbf65ec",
+      "name": "Health",
+      "description": {
+        "content": "Gateway health and status endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8933a047-80e1-4971-9517-ef0cc7a40d57",
+          "name": "Bifrost Get Health",
+          "request": {
+            "name": "Bifrost Get Health",
+            "description": {
+              "content": "Returns the health status of the Bifrost gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e1ac21b-1f49-42c6-990a-c77c01f9f9b8",
+              "name": "Gateway is healthy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"version\": \"v1.0.0\",\n  \"providers\": [\n    {\n      \"name\": \"openai\",\n      \"status\": \"healthy\"\n    },\n    {\n      \"name\": \"anthropic\",\n      \"status\": \"healthy\"\n    },\n    {\n      \"name\": \"cohere\",\n      \"status\": \"healthy\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cfe2dfad-6dbb-4d08-8274-4c24c672bc3d",
+    "name": "Bifrost HTTP Gateway Chat Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful interface that routes requests to any of 20+ supported AI providers through a single unified endpoint. Requests specify the provider and model using the format provider/model-name in the model field, enabling seamless provider switching without client code changes.\n\nContact Support:\n Name: Bifrost Community",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bifrost HTTP Gateway Chat API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bifrost Create Chat Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-bf-provider-key",
+              "value": "{{x-bf-provider-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a chat completion routed to the specified AI provider and model. Use the format provider/model-name in the model field (e.g., openai/gpt-4o, anthropic/claude-3-5-sonnet-20241022)."
+        },
+        {
+          "info": {
+            "name": "Bifrost Stream Chat Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/v1/chat/completions/stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-bf-provider-key",
+              "value": "{{x-bf-provider-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a streaming chat completion. Returns server-sent events (SSE) with incremental token chunks from the AI provider."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
