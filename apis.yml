@@ -36,6 +36,13 @@ tags:
 - AI Gateway
 - LLM
 - Load Balancing
+- Open-Source
+- OpenAI-Compatible
+- MCP
+tags_raw:
+- AI Gateway
+- LLM
+- Load Balancing
 - Open Source
 - OpenAI Compatible
 - MCP
@@ -70,6 +77,11 @@ apis:
     tools through a standardized protocol, with OAuth 2.0 authentication and tool approval controls.
   humanURL: https://docs.getbifrost.ai/features/mcp
   tags:
+  - AI Agents
+  - MCP
+  - Authentication
+  - Tool Execution
+  tags_raw:
   - AI Agents
   - MCP
   - OAuth
