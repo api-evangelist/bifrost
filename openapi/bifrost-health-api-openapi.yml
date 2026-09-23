@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Bifrost HTTP Gateway Chat Health API
+  title: Bifrost HTTP Gateway Health API
   description: The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful interface that routes requests to any of 20+ supported AI providers through a single unified endpoint. Requests specify the provider and model using the format provider/model-name in the model field, enabling seamless provider switching without client code changes.
   version: v1
   license:
@@ -50,23 +50,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ProviderStatus:
-      title: Provider Status
-      description: Status of a configured AI provider.
-      type: object
-      properties:
-        name:
-          type: string
-          description: Provider name.
-          example: openai
-        status:
-          type: string
-          description: Provider health status.
-          enum:
-          - healthy
-          - degraded
-          - unavailable
-          example: healthy
     HealthResponse:
       title: Health Response
       description: Gateway health status response.
@@ -85,6 +68,23 @@ components:
           description: Status of configured providers.
           items:
             $ref: '#/components/schemas/ProviderStatus'
+    ProviderStatus:
+      title: Provider Status
+      description: Status of a configured AI provider.
+      type: object
+      properties:
+        name:
+          type: string
+          description: Provider name.
+          example: openai
+        status:
+          type: string
+          description: Provider health status.
+          enum:
+          - healthy
+          - degraded
+          - unavailable
+          example: healthy
   securitySchemes:
     BifrostProviderAuth:
       type: apiKey
