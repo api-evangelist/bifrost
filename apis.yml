@@ -40,7 +40,7 @@ tags:
 - AI Gateway
 - LLM
 - Load Balancing
-- Open-Source
+- Open Source
 - OpenAI-Compatible
 - MCP
 tags_raw:
@@ -50,6 +50,7 @@ tags_raw:
 - Open Source
 - OpenAI Compatible
 - MCP
+- Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/bifrost/refs/heads/main/apis.yml
 created: '2026-03-16'
 modified: '2026-05-19'

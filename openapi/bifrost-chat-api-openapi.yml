@@ -174,26 +174,6 @@ components:
           type: integer
           description: Number of completions to generate.
           example: 1
-    ChatMessage:
-      title: Chat Message
-      description: A single message in a chat conversation.
-      type: object
-      required:
-      - role
-      - content
-      properties:
-        role:
-          type: string
-          description: Role of the message author.
-          enum:
-          - system
-          - user
-          - assistant
-          example: user
-        content:
-          type: string
-          description: Content of the message.
-          example: Hello, how are you?
     ChatCompletionResponse:
       title: Chat Completion Response
       description: Response from a chat completion request.
@@ -222,6 +202,36 @@ components:
             $ref: '#/components/schemas/ChatChoice'
         usage:
           $ref: '#/components/schemas/UsageStats'
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: invalid model format
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+    UsageStats:
+      title: Usage Stats
+      description: Token usage statistics for the completion.
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt.
+          example: 12
+        completion_tokens:
+          type: integer
+          description: Number of tokens generated.
+          example: 14
+        total_tokens:
+          type: integer
+          description: Total tokens used.
+          example: 26
     ChatChoice:
       title: Chat Choice
       description: A single completion choice in the response.
@@ -241,36 +251,26 @@ components:
           - length
           - content_filter
           example: stop
-    UsageStats:
-      title: Usage Stats
-      description: Token usage statistics for the completion.
+    ChatMessage:
+      title: Chat Message
+      description: A single message in a chat conversation.
       type: object
+      required:
+      - role
+      - content
       properties:
-        prompt_tokens:
-          type: integer
-          description: Number of tokens in the prompt.
-          example: 12
-        completion_tokens:
-          type: integer
-          description: Number of tokens generated.
-          example: 14
-        total_tokens:
-          type: integer
-          description: Total tokens used.
-          example: 26
-    ErrorResponse:
-      title: Error Response
-      description: Standard error response.
-      type: object
-      properties:
-        error:
+        role:
           type: string
-          description: Error message.
-          example: invalid model format
-        code:
-          type: integer
-          description: HTTP status code.
-          example: 400
+          description: Role of the message author.
+          enum:
+          - system
+          - user
+          - assistant
+          example: user
+        content:
+          type: string
+          description: Content of the message.
+          example: Hello, how are you?
   securitySchemes:
     BifrostProviderAuth:
       type: apiKey
