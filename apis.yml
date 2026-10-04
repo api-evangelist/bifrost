@@ -96,18 +96,6 @@ apis:
     url: https://docs.getbifrost.ai/features/mcp
   - type: GitHubRepository
     url: https://github.com/maximhq/bifrost
-- aid: bifrost:bifrost-chat-api
-  name: Bifrost Chat API
-  description: Chat completions compatible with OpenAI chat API
-  humanURL: https://docs.getbifrost.ai/quickstart/gateway/setting-up
-  baseURL: http://localhost:8080
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/bifrost-chat-api-openapi.yml
-  - type: Documentation
-    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
 - aid: bifrost:bifrost-health-api
   name: Bifrost Health API
   description: Gateway health and status endpoints
@@ -118,6 +106,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/bifrost-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+- aid: bifrost:bifrost-chat-completions-api
+  name: Bifrost Chat Completions API
+  description: Chat completions compatible with OpenAI chat API
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
 common:
