@@ -121,6 +121,8 @@ apis:
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
 common:
+- type: Plans
+  url: plans/bifrost-plans-pricing.yml
 - type: IssueTracker
   url: https://github.com/maximhq/bifrost/issues
 - type: SecurityPolicy
