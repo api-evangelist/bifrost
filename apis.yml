@@ -121,6 +121,10 @@ apis:
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
 common:
+- type: RateLimits
+  url: rate-limits/bifrost-rate-limits.yml
+- type: FinOps
+  url: finops/bifrost-finops.yml
 - type: Plans
   url: plans/bifrost-plans-pricing.yml
 - type: IssueTracker
