@@ -1,139 +1,52 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Bifrost
-providerId: bifrost
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - AI Gateway
-  - LLM
-  - Load Balancing
-  - Open Source
-  - OpenAI Compatible
-  - MCP
-description: Bifrost is an open-source AI gateway distributed under Apache 2.0 with two commercial shapes —
-  a free, fully-featured self-hosted OSS edition (no published usage caps) and a custom-priced Enterprise
-  edition for VPC, on-premise, and air-gapped deployments. Bifrost itself does not bill per request; LLM
-  provider costs flow through transparently to whichever upstream provider (OpenAI, Anthropic, etc.) the
-  gateway routes to.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.getmaxim.ai/pricing
 sources:
-  - https://getbifrost.ai/pricing
-  - https://docs.getbifrost.ai/
+- https://www.getmaxim.ai/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: negotiated
+delivery:
+  delivery: open-core
+  method: page
+  read: '2026-10-07'
+  evidence: Free Forever OSS For developers, small teams, and self-managed deployments
+  free_edition: Free Forever OSS
+  open_source_license: Apache 2.0
+published: false
+note: 'No numeric price is published on the pricing page; Two tiers: free self-hosted OSS (Apache 2.0)
+  and Enterprise with custom pricing; no numeric prices. 14-day free trial mentioned.'
+plan_count: 2
 plans:
-  - id: bifrost-oss
-    name: OSS (Open Source)
-    type: freemium
-    description: Free forever self-hosted edition. Distributed under Apache 2.0 via Docker, Kubernetes,
-      or a Go binary. Includes drop-in replacement for AI SDK connections, OpenTelemetry, virtual-key
-      budgets and rate limits, automatic fallbacks, semantic caching, MCP gateway, and prompt repository.
-    entries:
-      - label: License
-        description: Apache 2.0 license — no usage caps imposed by the project itself
-        name: license
-        type: flat
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - http://localhost:8080
-          - https://pkg.go.dev/github.com/maximhq/bifrost/core
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Self-Hosted Compute
-        description: Infrastructure cost is the operator's responsibility (compute, network, storage to
-          run the gateway)
-        name: self_hosted_infra
-        type: metered
-        metric: varies
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - http://localhost:8080
-        unit: 1
-        price: see operator's cloud bill
-        userMultiplied: false
-      - label: Upstream LLM Cost
-        description: Bifrost passes requests to upstream providers (OpenAI, Anthropic, etc.); upstream
-          token/request charges apply
-        name: upstream_llm
-        type: metered
-        metric: varies
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - http://localhost:8080
-        unit: 1
-        price: see upstream provider pricing
-        userMultiplied: false
-    elements:
-      - name: Drop-in Replacement for AI SDK Connections
-      - name: OpenTelemetry Metrics and Traces
-      - name: Virtual Keys with Budget and Rate Limits
-      - name: Automatic Fallbacks Between Providers
-      - name: Semantic and Simple Caching
-      - name: MCP Gateway with Code Mode
-      - name: Prompt Repository / Playground
-      - name: Community Support (Documentation + Discord)
-      - name: Bifrost HTTP Gateway API
-      - name: Bifrost Go SDK
-      - name: Bifrost MCP Gateway
-  - id: bifrost-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-priced edition for VPC, on-premise, and air-gapped environments. Adds guardrails,
-      cluster mode, adaptive load balancing, SAML/OIDC SSO, vault integrations, RBAC, audit logs, and
-      SLA-backed support. 14-day free trial available upon request.
-    entries:
-      - label: Enterprise License
-        description: Custom-negotiated annual license including support and the enterprise feature set
-        name: enterprise_license
-        type: subscription
-        metric: year
-        limit: 1
-        timeFrame: year
-        geo: configurable
-        domains:
-          - http://localhost:8080
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-      - label: Free Trial
-        description: 14-day evaluation of the Enterprise edition
-        name: enterprise_trial
-        type: flat
-        metric: day
-        limit: 14
-        timeFrame: usage
-        geo: global
-        domains:
-          - http://localhost:8080
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: VPC / On-Premise / Air-Gapped Deployment
-      - name: Content Safety Guardrails
-      - name: Cluster Mode for High Availability
-      - name: Adaptive Load Balancing
-      - name: SAML / OpenID Connect SSO
-      - name: Vault Integrations (HashiCorp, AWS, Google, Azure)
-      - name: Role-Based Access Control
-      - name: Audit Logs and Log Exports
-      - name: SLA-Backed Enterprise Support
-      - name: Custom Plugin Development Services
-      - name: SOC 2 / GDPR / ISO 27001 / HIPAA Alignment
-      - name: Bifrost HTTP Gateway API
-      - name: Bifrost Go SDK
-      - name: Bifrost MCP Gateway
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: OSS
+  price_text: Free Forever
+  period: none
+  included_quota: 'Self-hosted: Docker | K8s | Go binary; core gateway, routing, governance, observability'
+- name: Enterprise
+  price_text: Custom Pricing
+  period: none
+  included_quota: Everything in OSS plus guardrails, cluster mode, SSO, RBAC, SLA support
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: OSS
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none

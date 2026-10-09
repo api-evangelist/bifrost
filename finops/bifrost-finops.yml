@@ -135,10 +135,8 @@ apis:
 unitEconomics:
   - name: Cost per Cached Request Avoided
     metric: upstream_savings / cache_hits
-    target: maximize cache hit rate
   - name: Cost per Virtual Key
     metric: (upstream_llm_cost + amortized_license) / active_virtual_keys
-    target: align with team/product P&L
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
