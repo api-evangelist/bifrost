@@ -50,6 +50,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ProviderStatus:
+      title: Provider Status
+      description: Status of a configured AI provider.
+      type: object
+      properties:
+        name:
+          type: string
+          description: Provider name.
+          example: openai
+        status:
+          type: string
+          description: Provider health status.
+          enum:
+          - healthy
+          - degraded
+          - unavailable
+          example: healthy
     HealthResponse:
       title: Health Response
       description: Gateway health status response.
@@ -68,23 +85,6 @@ components:
           description: Status of configured providers.
           items:
             $ref: '#/components/schemas/ProviderStatus'
-    ProviderStatus:
-      title: Provider Status
-      description: Status of a configured AI provider.
-      type: object
-      properties:
-        name:
-          type: string
-          description: Provider name.
-          example: openai
-        status:
-          type: string
-          description: Provider health status.
-          enum:
-          - healthy
-          - degraded
-          - unavailable
-          example: healthy
   securitySchemes:
     BifrostProviderAuth:
       type: apiKey

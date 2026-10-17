@@ -137,19 +137,34 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      title: Error Response
-      description: Standard error response.
+    ChatCompletionResponse:
+      title: Chat Completion Response
+      description: Response from a chat completion request.
       type: object
       properties:
-        error:
+        id:
           type: string
-          description: Error message.
-          example: invalid model format
-        code:
+          description: Unique identifier for the completion.
+          example: chatcmpl-abc123
+        object:
+          type: string
+          description: Object type, always chat.completion.
+          example: chat.completion
+        created:
           type: integer
-          description: HTTP status code.
-          example: 400
+          description: Unix timestamp of when the completion was created.
+          example: 1713000000
+        model:
+          type: string
+          description: Provider and model used for the completion.
+          example: openai/gpt-4o
+        choices:
+          type: array
+          description: Array of completion choices.
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+        usage:
+          $ref: '#/components/schemas/UsageStats'
     ChatCompletionRequest:
       title: Chat Completion Request
       description: Request body for creating a chat completion.
@@ -187,34 +202,19 @@ components:
           type: integer
           description: Number of completions to generate.
           example: 1
-    ChatCompletionResponse:
-      title: Chat Completion Response
-      description: Response from a chat completion request.
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
       type: object
       properties:
-        id:
+        error:
           type: string
-          description: Unique identifier for the completion.
-          example: chatcmpl-abc123
-        object:
-          type: string
-          description: Object type, always chat.completion.
-          example: chat.completion
-        created:
+          description: Error message.
+          example: invalid model format
+        code:
           type: integer
-          description: Unix timestamp of when the completion was created.
-          example: 1713000000
-        model:
-          type: string
-          description: Provider and model used for the completion.
-          example: openai/gpt-4o
-        choices:
-          type: array
-          description: Array of completion choices.
-          items:
-            $ref: '#/components/schemas/ChatChoice'
-        usage:
-          $ref: '#/components/schemas/UsageStats'
+          description: HTTP status code.
+          example: 400
     ChatMessage:
       title: Chat Message
       description: A single message in a chat conversation.
