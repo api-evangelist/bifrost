@@ -1,0 +1,514 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport Provider Management API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Provider Management
+  description: Manage AI provider configurations
+paths:
+  /api/providers:
+    get:
+      summary: List Providers
+      description: Get a list of all configured AI providers with their settings and capabilities.
+      operationId: listProviders
+      tags:
+      - Provider Management
+      responses:
+        '200':
+          description: List of providers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProvidersResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Add Provider
+      description: Add a new AI provider configuration with API keys, network settings, and concurrency options.
+      operationId: addProvider
+      tags:
+      - Provider Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProviderRequest'
+            examples:
+              openai_provider:
+                summary: Add OpenAI Provider
+                value:
+                  provider: openai
+                  keys:
+                  - value: env.OPENAI_API_KEY
+                    weight: 1.0
+                    models:
+                    - gpt-4o
+                    - gpt-4o-mini
+                  concurrency_and_buffer_size:
+                    concurrency: 10
+                    buffer_size: 100
+      responses:
+        '200':
+          description: Provider added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/providers/{provider}:
+    get:
+      summary: Get Provider
+      description: Get detailed configuration for a specific AI provider.
+      operationId: getProvider
+      tags:
+      - Provider Management
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/ModelProvider'
+        description: Provider name
+      responses:
+        '200':
+          description: Provider configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderResponse'
+        '404':
+          description: Provider not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BifrostError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update Provider
+      description: Update an existing AI provider's configuration including API keys, network settings, and concurrency options.
+      operationId: updateProvider
+      tags:
+      - Provider Management
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/ModelProvider'
+        description: Provider name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProviderRequest'
+      responses:
+        '200':
+          description: Provider updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Provider not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BifrostError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete Provider
+      description: Remove an AI provider configuration from the system.
+      operationId: deleteProvider
+      tags:
+      - Provider Management
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/ModelProvider'
+        description: Provider name
+      responses:
+        '200':
+          description: Provider deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Provider not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BifrostError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ProviderResponse:
+      type: object
+      required:
+      - name
+      - keys
+      - network_config
+      - concurrency_and_buffer_size
+      properties:
+        name:
+          $ref: '#/components/schemas/ModelProvider'
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/Key'
+          description: API keys for the provider
+        network_config:
+          $ref: '#/components/schemas/NetworkConfig'
+        concurrency_and_buffer_size:
+          $ref: '#/components/schemas/ConcurrencyAndBufferSize'
+        proxy_config:
+          $ref: '#/components/schemas/ProxyConfig'
+    UpdateProviderRequest:
+      type: object
+      required:
+      - keys
+      - network_config
+      - concurrency_and_buffer_size
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/Key'
+          description: API keys for the provider
+        network_config:
+          $ref: '#/components/schemas/NetworkConfig'
+        concurrency_and_buffer_size:
+          $ref: '#/components/schemas/ConcurrencyAndBufferSize'
+        proxy_config:
+          $ref: '#/components/schemas/ProxyConfig'
+    AddProviderRequest:
+      type: object
+      required:
+      - provider
+      - keys
+      properties:
+        provider:
+          $ref: '#/components/schemas/ModelProvider'
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/Key'
+          description: API keys for the provider
+        network_config:
+          $ref: '#/components/schemas/NetworkConfig'
+        concurrency_and_buffer_size:
+          $ref: '#/components/schemas/ConcurrencyAndBufferSize'
+        proxy_config:
+          $ref: '#/components/schemas/ProxyConfig'
+    Key:
+      type: object
+      required:
+      - value
+      properties:
+        value:
+          type: string
+          description: API key value or environment variable reference
+          example: env.OPENAI_API_KEY
+        weight:
+          type: number
+          description: Weight for load balancing
+          example: 1.0
+        models:
+          type: array
+          items:
+            type: string
+          description: Models this key can access
+          example:
+          - gpt-4o
+          - gpt-4o-mini
+        azure_key_config:
+          type: object
+          properties:
+            endpoint:
+              type: string
+              description: Azure endpoint
+              example: https://your-resource.openai.azure.com
+            deployments:
+              type: object
+              description: Azure deployments
+              example:
+                gpt-4o: gpt-4o-deployment
+            api_version:
+              type: string
+              description: Azure API version
+              example: 2024-02-15-preview
+          description: Azure key configuration
+        vertex_key_config:
+          type: object
+          properties:
+            project_id:
+              type: string
+              description: Vertex project ID
+              example: your-project-id
+            region:
+              type: string
+              description: Vertex region
+              example: us-central1
+            auth_credentials:
+              type: string
+              description: Vertex auth credentials
+              example: env.VERTEX_AUTH_CREDENTIALS
+          description: Vertex key configuration
+        bedrock_key_config:
+          type: object
+          properties:
+            access_key:
+              type: string
+              description: Bedrock access key
+              example: env.AWS_ACCESS_KEY_ID
+            secret_key:
+              type: string
+              description: Bedrock secret key
+              example: env.AWS_SECRET_ACCESS_KEY
+            session_token:
+              type: string
+              description: Bedrock session token
+              example: env.AWS_SESSION_TOKEN
+            region:
+              type: string
+              description: Bedrock region
+              example: us-east-1
+            arn:
+              type: string
+              description: Bedrock ARN
+              example: arn:aws:iam::123456789012:role/BedrockRole
+            deployments:
+              type: object
+              description: Bedrock deployments
+              example:
+                gpt-4o: gpt-4o-deployment
+    SuccessResponse:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          description: Operation status
+          example: success
+        message:
+          type: string
+          description: Success message
+          example: Operation completed successfully
+    ListProvidersResponse:
+      type: object
+      required:
+      - providers
+      - total
+      properties:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProviderResponse'
+          description: List of configured providers
+        total:
+          type: integer
+          description: Total number of providers
+          example: 3
+    ConcurrencyAndBufferSize:
+      type: object
+      properties:
+        concurrency:
+          type: integer
+          description: Maximum concurrent requests
+          example: 10
+        buffer_size:
+          type: integer
+          description: Request buffer size
+          example: 100
+    ProxyConfig:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Proxy URL
+          example: http://proxy.example.com:8080
+        username:
+          type: string
+          description: Proxy username
+        password:
+          type: string
+          description: Proxy password
+    NetworkConfig:
+      type: object
+      properties:
+        timeout:
+          type: integer
+          description: Request timeout in seconds
+          example: 30
+        max_retries:
+          type: integer
+          description: Maximum number of retries
+          example: 3
+    ModelProvider:
+      type: string
+      enum:
+      - openai
+      - anthropic
+      - azure
+      - bedrock
+      - cohere
+      - vertex
+      - mistral
+      - ollama
+      - groq
+      - sgl
+      description: AI model provider
+      example: openai
+    BifrostError:
+      type: object
+      required:
+      - is_bifrost_error
+      - error
+      properties:
+        event_id:
+          type: string
+          description: Unique error event ID
+          example: evt_123
+        type:
+          type: string
+          description: Error type
+          example: invalid_request_error
+        is_bifrost_error:
+          type: boolean
+          description: Whether error originated from Bifrost
+          example: true
+        status_code:
+          type: integer
+          description: HTTP status code
+          example: 400
+        error:
+          $ref: '#/components/schemas/ErrorField'
+    ErrorField:
+      type: object
+      required:
+      - message
+      properties:
+        type:
+          type: string
+          description: Error type
+          example: invalid_request_error
+        code:
+          type: string
+          description: Error code
+          example: missing_required_parameter
+        message:
+          type: string
+          description: Human-readable error message
+          example: Provider is required
+        param:
+          description: Parameter that caused the error
+          example: provider
+        event_id:
+          type: string
+          description: Error event ID
+          example: evt_123

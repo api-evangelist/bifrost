@@ -1,22 +1,42 @@
 {
   "provider": "bifrost",
   "sources": [
+    "_original/bifrost-openapi.json",
     "_ae-authored/bifrost-http-gateway-api.yaml"
   ],
   "outputs": [
+    "bifrost-audio-api-openapi.yml",
+    "bifrost-chat-completions-api-openapi.yml",
+    "bifrost-configuration-api-openapi.yml",
+    "bifrost-integration-anthropic-api-openapi.yml",
+    "bifrost-integration-gemini-api-openapi.yml",
+    "bifrost-integration-litellm-api-openapi.yml",
+    "bifrost-integration-openai-api-openapi.yml",
+    "bifrost-logging-api-openapi.yml",
+    "bifrost-mcp-management-api-openapi.yml",
+    "bifrost-mcp-tools-api-openapi.yml",
+    "bifrost-monitoring-api-openapi.yml",
+    "bifrost-openai-integration-api-openapi.yml",
+    "bifrost-provider-management-api-openapi.yml",
+    "bifrost-text-completions-api-openapi.yml",
+    "bifrost-websocket-api-openapi.yml",
     "bifrost-chat-api-openapi.yml",
     "bifrost-health-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
+  "archived": [],
+  "errors": [
+    "bifrost-openapi.json: dangling $ref: #/components/responses/BadRequest",
+    "bifrost-openapi.json: dangling $ref: #/components/responses/InternalServerError",
+    "bifrost-openapi.json: dangling $ref: #/components/responses/RateLimited",
+    "bifrost-openapi.json: dangling $ref: #/components/responses/Unauthorized"
   ],
-  "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bifrost-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bifrost-openapi.json: declared missing tag: OpenAI Integration",
     "bifrost-http-gateway-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "superseded outputs removed: bifrost-chat-completions-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 4 total)"
+    "apis.yml register: written (+15 apis, 19 total)"
   ],
   "skipped": [
     "bifrost-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",

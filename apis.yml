@@ -120,6 +120,146 @@ apis:
     url: openapi/bifrost-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://docs.getbifrost.ai/quickstart/gateway/setting-up
+- aid: bifrost:bifrost-audio-api
+  name: Bifrost Audio API
+  description: Speech synthesis and audio transcription
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-audio-api-openapi.yml
+- aid: bifrost:bifrost-configuration-api
+  name: Bifrost Configuration API
+  description: System configuration management
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-configuration-api-openapi.yml
+- aid: bifrost:bifrost-integration-anthropic-api
+  name: Bifrost Integration - Anthropic API
+  description: Anthropic-compatible endpoints
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Integration - Anthropic
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-integration-anthropic-api-openapi.yml
+- aid: bifrost:bifrost-integration-gemini-api
+  name: Bifrost Integration - Gemini API
+  description: Google Gemini-compatible endpoints
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Integration - Gemini
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-integration-gemini-api-openapi.yml
+- aid: bifrost:bifrost-integration-litellm-api
+  name: Bifrost Integration - LiteLLM API
+  description: LiteLLM-compatible endpoints
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Integration - LiteLLM
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-integration-litellm-api-openapi.yml
+- aid: bifrost:bifrost-integration-openai-api
+  name: Bifrost Integration - OpenAI API
+  description: OpenAI-compatible endpoints
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Integration - OpenAI
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-integration-openai-api-openapi.yml
+- aid: bifrost:bifrost-logging-api
+  name: Bifrost Logging API
+  description: Application logs and dropped requests
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Logging
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-logging-api-openapi.yml
+- aid: bifrost:bifrost-mcp-management-api
+  name: Bifrost MCP Management API
+  description: Manage MCP client configurations and connections
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - MCP Management
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-mcp-management-api-openapi.yml
+- aid: bifrost:bifrost-mcp-tools-api
+  name: Bifrost MCP Tools API
+  description: Execute MCP tools
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - MCP Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-mcp-tools-api-openapi.yml
+- aid: bifrost:bifrost-monitoring-api
+  name: Bifrost Monitoring API
+  description: Monitoring and observability endpoint
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-monitoring-api-openapi.yml
+- aid: bifrost:bifrost-openai-integration-api
+  name: Bifrost OpenAI Integration API
+  description: The OpenAI Integration API from Bifrost — 4 operation(s) for openai integration.
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - OpenAI Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-openai-integration-api-openapi.yml
+- aid: bifrost:bifrost-provider-management-api
+  name: Bifrost Provider Management API
+  description: Manage AI provider configurations
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Provider Management
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-provider-management-api-openapi.yml
+- aid: bifrost:bifrost-text-completions-api
+  name: Bifrost Text Completions API
+  description: Create text completions from prompts
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - Text Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-text-completions-api-openapi.yml
+- aid: bifrost:bifrost-websocket-api
+  name: Bifrost WebSocket API
+  description: Real-time WebSocket connections
+  humanURL: https://docs.getbifrost.ai/quickstart/go-sdk/setting-up
+  baseURL: https://pkg.go.dev/github.com/maximhq/bifrost/core
+  tags:
+  - WebSocket
+  properties:
+  - type: OpenAPI
+    url: openapi/bifrost-websocket-api-openapi.yml
 common:
 - type: RateLimits
   url: rate-limits/bifrost-rate-limits.yml

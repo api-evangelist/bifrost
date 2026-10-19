@@ -1,0 +1,177 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport Configuration API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Configuration
+  description: System configuration management
+paths:
+  /api/config:
+    get:
+      summary: Get Configuration
+      description: Get the current system configuration including logging, pool size, and other runtime settings.
+      operationId: getConfig
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Current configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfig'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update Configuration
+      description: Update system configuration settings. Supports hot-reloading of certain settings like drop_excess_requests.
+      operationId: updateConfig
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientConfig'
+      responses:
+        '200':
+          description: Configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          description: Operation status
+          example: success
+        message:
+          type: string
+          description: Success message
+          example: Operation completed successfully
+    ClientConfig:
+      type: object
+      properties:
+        initial_pool_size:
+          type: integer
+          description: Initial pool size for sync pools
+          example: 100
+        drop_excess_requests:
+          type: boolean
+          description: Whether to drop requests when queue is full
+          example: false
+        enable_logging:
+          type: boolean
+          description: Whether logging is enabled
+          example: true
+        prometheus_labels:
+          type: array
+          items:
+            type: string
+          description: Prometheus metric labels
+          example:
+          - environment
+          - service

@@ -1,0 +1,137 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport WebSocket API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Websocket
+  description: Real-time WebSocket connections
+paths:
+  /ws/logs:
+    get:
+      summary: WebSocket Log Stream
+      description: Establish a WebSocket connection for real-time log streaming. Supports filtering similar to the /api/logs endpoint via query parameters.
+      operationId: logWebSocket
+      tags:
+      - Websocket
+      parameters:
+      - name: Upgrade
+        in: header
+        required: true
+        schema:
+          type: string
+          enum:
+          - websocket
+      - name: Connection
+        in: header
+        required: true
+        schema:
+          type: string
+          enum:
+          - Upgrade
+      responses:
+        '101':
+          description: WebSocket connection established
+          headers:
+            Upgrade:
+              schema:
+                type: string
+                enum:
+                - websocket
+            Connection:
+              schema:
+                type: string
+                enum:
+                - Upgrade
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'

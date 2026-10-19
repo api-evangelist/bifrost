@@ -1,0 +1,340 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport Logging API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Logging
+  description: Application logs and dropped requests
+paths:
+  /api/logs:
+    get:
+      summary: Get Application Logs
+      description: Retrieve application logs with filtering, search, and pagination. Supports filtering by provider, model, status, time range, latency, tokens, and content search.
+      operationId: getLogs
+      tags:
+      - Logging
+      parameters:
+      - name: providers
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of providers to filter by
+      - name: models
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of models to filter by
+      - name: status
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of statuses to filter by (success, error)
+      - name: objects
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of object types to filter by (chat.completion, text.completion)
+      - name: start_time
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Start time for filtering (RFC3339 format)
+      - name: end_time
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: End time for filtering (RFC3339 format)
+      - name: min_latency
+        in: query
+        schema:
+          type: number
+        description: Minimum latency in seconds
+      - name: max_latency
+        in: query
+        schema:
+          type: number
+        description: Maximum latency in seconds
+      - name: min_tokens
+        in: query
+        schema:
+          type: integer
+        description: Minimum token count
+      - name: max_tokens
+        in: query
+        schema:
+          type: integer
+        description: Maximum token count
+      - name: content_search
+        in: query
+        schema:
+          type: string
+        description: Search term for message content
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 50
+        description: Number of logs to return (1-1000)
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+        description: Number of logs to skip
+      responses:
+        '200':
+          description: Application logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/logs/dropped:
+    get:
+      summary: Get Dropped Requests
+      description: Get information about requests that were dropped due to queue overflow or other capacity limits.
+      operationId: getDroppedRequests
+      tags:
+      - Logging
+      responses:
+        '200':
+          description: Dropped requests information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DroppedRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    LogEntry:
+      type: object
+      required:
+      - id
+      - timestamp
+      - level
+      - message
+      properties:
+        id:
+          type: string
+          description: Unique log entry ID
+          example: log_123
+        timestamp:
+          type: string
+          format: date-time
+          description: Log entry timestamp
+          example: '2023-12-01T10:30:00Z'
+        level:
+          type: string
+          enum:
+          - debug
+          - info
+          - warn
+          - error
+          description: Log level
+          example: info
+        message:
+          type: string
+          description: Log message
+          example: Request completed successfully
+        provider:
+          $ref: '#/components/schemas/ModelProvider'
+        model:
+          type: string
+          description: Model name used
+          example: gpt-4o
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Request status
+          example: success
+        latency:
+          type: number
+          description: Request latency in seconds
+          example: 1.234
+        tokens:
+          type: integer
+          description: Total tokens used
+          example: 87
+        object:
+          type: string
+          enum:
+          - chat.completion
+          - text.completion
+          description: Request object type
+          example: chat.completion
+    DroppedRequest:
+      type: object
+      required:
+      - timestamp
+      - reason
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: When the request was dropped
+          example: '2023-12-01T10:30:00Z'
+        reason:
+          type: string
+          description: Reason for dropping the request
+          example: Queue overflow
+        provider:
+          $ref: '#/components/schemas/ModelProvider'
+        model:
+          type: string
+          description: Model name requested
+          example: gpt-4o
+    DroppedRequestsResponse:
+      type: object
+      required:
+      - total_dropped
+      - recent_drops
+      properties:
+        total_dropped:
+          type: integer
+          description: Total number of dropped requests
+          example: 5
+        recent_drops:
+          type: array
+          items:
+            $ref: '#/components/schemas/DroppedRequest'
+          description: Recent dropped requests
+    ModelProvider:
+      type: string
+      enum:
+      - openai
+      - anthropic
+      - azure
+      - bedrock
+      - cohere
+      - vertex
+      - mistral
+      - ollama
+      - groq
+      - sgl
+      description: AI model provider
+      example: openai
+    LogSearchResponse:
+      type: object
+      required:
+      - logs
+      - total
+      - limit
+      - offset
+      properties:
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+          description: Array of log entries
+        total:
+          type: integer
+          description: Total number of matching logs
+          example: 156
+        limit:
+          type: integer
+          description: Number of logs per page
+          example: 50
+        offset:
+          type: integer
+          description: Number of logs skipped
+          example: 0

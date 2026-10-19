@@ -1,0 +1,666 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport Integration - OpenAI API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Integration - OpenAI
+  description: OpenAI-compatible endpoints
+paths:
+  /openai/chat/completions:
+    post:
+      summary: OpenAI Compatible Chat Completions
+      description: OpenAI-compatible chat completions endpoint that converts requests to Bifrost format and returns OpenAI-compatible responses.
+      operationId: openaiChatCompletions
+      tags:
+      - Integration - OpenAI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: OpenAI-compatible chat completion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BifrostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ImageURLStruct:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: Image URL or data URI
+          example: https://example.com/image.jpg
+        detail:
+          type: string
+          enum:
+          - low
+          - high
+          - auto
+          description: Image detail level
+          example: auto
+    Function:
+      type: object
+      required:
+      - name
+      - description
+      - parameters
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: get_weather
+        description:
+          type: string
+          description: Function description
+          example: Get current weather for a location
+        parameters:
+          $ref: '#/components/schemas/FunctionParameters'
+    ModelParameters:
+      type: object
+      properties:
+        temperature:
+          type: number
+          minimum: 0.0
+          maximum: 2.0
+          description: Controls randomness in the output
+          example: 0.7
+        top_p:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          description: Nucleus sampling parameter
+          example: 0.9
+        top_k:
+          type: integer
+          minimum: 1
+          description: Top-k sampling parameter
+          example: 40
+        max_tokens:
+          type: integer
+          minimum: 1
+          description: Maximum number of tokens to generate
+          example: 1000
+        stop_sequences:
+          type: array
+          items:
+            type: string
+          description: Sequences that stop generation
+          example:
+          - '
+
+
+            '
+          - END
+        presence_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          description: Penalizes repeated tokens
+          example: 0.0
+        frequency_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          description: Penalizes frequent tokens
+          example: 0.0
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+          description: Available tools for the model
+        tool_choice:
+          $ref: '#/components/schemas/ToolChoice'
+        parallel_tool_calls:
+          type: boolean
+          description: Enable parallel tool execution
+          example: true
+    CompletionTokensDetails:
+      type: object
+      properties:
+        reasoning_tokens:
+          type: integer
+          description: Tokens used for reasoning
+        audio_tokens:
+          type: integer
+          description: Tokens used for audio
+        accepted_prediction_tokens:
+          type: integer
+          description: Accepted prediction tokens
+        rejected_prediction_tokens:
+          type: integer
+          description: Rejected prediction tokens
+    ContentLogProb:
+      type: object
+      required:
+      - logprob
+      - token
+      properties:
+        bytes:
+          type: array
+          items:
+            type: integer
+          description: Byte representation
+        logprob:
+          type: number
+          description: Log probability
+          example: -0.123
+        token:
+          type: string
+          description: Token
+          example: hello
+        top_logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogProb'
+          description: Top log probabilities
+    BifrostResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique response identifier
+          example: chatcmpl-123
+        object:
+          type: string
+          enum:
+          - chat.completion
+          - text.completion
+          description: Response type
+          example: chat.completion
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/BifrostResponseChoice'
+          description: Array of completion choices
+        model:
+          type: string
+          description: Model used for generation
+          example: gpt-4o
+        created:
+          type: integer
+          description: Unix timestamp of creation
+          example: 1677652288
+        service_tier:
+          type: string
+          description: Service tier used
+        system_fingerprint:
+          type: string
+          description: System fingerprint
+        usage:
+          $ref: '#/components/schemas/LLMUsage'
+        extra_fields:
+          $ref: '#/components/schemas/BifrostResponseExtraFields'
+    LLMUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Tokens in the prompt
+          example: 56
+        completion_tokens:
+          type: integer
+          description: Tokens in the completion
+          example: 31
+        total_tokens:
+          type: integer
+          description: Total tokens used
+          example: 87
+        completion_tokens_details:
+          $ref: '#/components/schemas/CompletionTokensDetails'
+    ChatCompletionRequest:
+      type: object
+      required:
+      - model
+      - messages
+      properties:
+        model:
+          type: string
+          description: Model identifier in 'provider/model' format (e.g., 'openai/gpt-4o-mini', 'anthropic/claude-3-sonnet-20240229')
+          example: openai/gpt-4o-mini
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/BifrostMessage'
+          description: Array of chat messages
+          minItems: 1
+        max_tokens:
+          type: integer
+          minimum: 1
+          description: Maximum number of tokens to generate
+          example: 1000
+        fallbacks:
+          type: array
+          items:
+            type: string
+          description: Fallback model names in 'provider/model' format
+          example:
+          - anthropic/claude-3-sonnet-20240229
+          - openai/gpt-4o
+    ToolChoice:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - none
+          - auto
+          - any
+          - function
+          - required
+          description: How tools should be chosen
+          example: auto
+        function:
+          $ref: '#/components/schemas/ToolChoiceFunction'
+    FunctionParameters:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Parameter type
+          example: object
+        description:
+          type: string
+          description: Parameter description
+        properties:
+          type: object
+          additionalProperties: true
+          description: Parameter properties (JSON Schema)
+        required:
+          type: array
+          items:
+            type: string
+          description: Required parameter names
+        enum:
+          type: array
+          items:
+            type: string
+          description: Enum values for parameters
+    ToolChoiceFunction:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the function to call
+          example: get_weather
+    FunctionCall:
+      type: object
+      required:
+      - name
+      - arguments
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: get_weather
+        arguments:
+          type: string
+          description: JSON string of function arguments
+          example: '{"location": "San Francisco, CA"}'
+    ToolCall:
+      type: object
+      required:
+      - function
+      properties:
+        id:
+          type: string
+          description: Unique tool call identifier
+          example: tool_123
+        type:
+          type: string
+          enum:
+          - function
+          description: Tool call type
+          example: function
+        function:
+          $ref: '#/components/schemas/FunctionCall'
+    BifrostResponseChoice:
+      type: object
+      required:
+      - index
+      - message
+      properties:
+        index:
+          type: integer
+          description: Choice index
+          example: 0
+        message:
+          $ref: '#/components/schemas/BifrostMessage'
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          - tool_calls
+          - content_filter
+          - function_call
+          description: Reason completion stopped
+          example: stop
+        stop:
+          type: string
+          description: Stop sequence that ended generation
+        log_probs:
+          $ref: '#/components/schemas/LogProbs'
+    LogProb:
+      type: object
+      required:
+      - logprob
+      - token
+      properties:
+        bytes:
+          type: array
+          items:
+            type: integer
+          description: Byte representation
+        logprob:
+          type: number
+          description: Log probability
+          example: -0.456
+        token:
+          type: string
+          description: Token
+          example: world
+    BilledLLMUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: number
+          description: Billed prompt tokens
+        completion_tokens:
+          type: number
+          description: Billed completion tokens
+        search_units:
+          type: number
+          description: Billed search units
+        classifications:
+          type: number
+          description: Billed classifications
+    BifrostResponseExtraFields:
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/ModelProvider'
+        model_params:
+          $ref: '#/components/schemas/ModelParameters'
+        latency:
+          type: number
+          description: Request latency in seconds
+          example: 1.234
+        chat_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/BifrostMessage'
+          description: Full conversation history
+        billed_usage:
+          $ref: '#/components/schemas/BilledLLMUsage'
+        raw_response:
+          type: object
+          description: Raw provider response
+    MessageRole:
+      type: string
+      enum:
+      - user
+      - assistant
+      - system
+      - tool
+      description: Role of the message sender
+      example: user
+    ModelProvider:
+      type: string
+      enum:
+      - openai
+      - anthropic
+      - azure
+      - bedrock
+      - cohere
+      - vertex
+      - mistral
+      - ollama
+      - groq
+      - sgl
+      description: AI model provider
+      example: openai
+    ContentBlock:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      oneOf:
+      - type: object
+        required:
+        - type
+        - text
+        properties:
+          type:
+            type: string
+            enum:
+            - text
+            description: Content type for text blocks
+            example: text
+          text:
+            type: string
+            description: Text content
+            example: What do you see in this image?
+        additionalProperties: false
+      - type: object
+        required:
+        - type
+        - image_url
+        properties:
+          type:
+            type: string
+            enum:
+            - image_url
+            description: Content type for image blocks
+            example: image_url
+          image_url:
+            $ref: '#/components/schemas/ImageURLStruct'
+            description: Image data
+        additionalProperties: false
+    LogProbs:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentLogProb'
+          description: Log probabilities for content
+        refusal:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogProb'
+          description: Log probabilities for refusal
+    Annotation:
+      type: object
+      required:
+      - type
+      - url_citation
+      properties:
+        type:
+          type: string
+          description: Annotation type
+        url_citation:
+          $ref: '#/components/schemas/Citation'
+    BifrostMessage:
+      type: object
+      required:
+      - role
+      properties:
+        role:
+          $ref: '#/components/schemas/MessageRole'
+        content:
+          oneOf:
+          - type: string
+            description: Simple text content
+            example: Hello, how are you?
+          - type: array
+            items:
+              $ref: '#/components/schemas/ContentBlock'
+            description: Structured content with text and images
+          description: Message content - can be simple text or structured content with text and images
+        tool_call_id:
+          type: string
+          description: ID of the tool call (for tool messages)
+        tool_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolCall'
+          description: Tool calls made by assistant
+        refusal:
+          type: string
+          description: Refusal message from assistant
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+          description: Message annotations
+        thought:
+          type: string
+          description: Assistant's internal thought process
+    Tool:
+      type: object
+      required:
+      - type
+      - function
+      properties:
+        id:
+          type: string
+          description: Unique tool identifier
+        type:
+          type: string
+          enum:
+          - function
+          description: Tool type
+          example: function
+        function:
+          $ref: '#/components/schemas/Function'
+    Citation:
+      type: object
+      required:
+      - start_index
+      - end_index
+      - title
+      properties:
+        start_index:
+          type: integer
+          description: Start index in the text
+        end_index:
+          type: integer
+          description: End index in the text
+        title:
+          type: string
+          description: Citation title
+        url:
+          type: string
+          description: Citation URL
+        sources:
+          description: Citation sources
+        type:
+          type: string
+          description: Citation type

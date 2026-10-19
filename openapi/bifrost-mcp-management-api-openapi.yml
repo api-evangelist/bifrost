@@ -1,0 +1,413 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport MCP Management API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: MCP Management
+  description: Manage MCP client configurations and connections
+paths:
+  /api/mcp/clients:
+    get:
+      summary: List MCP Clients
+      description: Get information about all configured MCP (Model Context Protocol) clients including their connection state, available tools, and configuration.
+      operationId: listMCPClients
+      tags:
+      - MCP Management
+      responses:
+        '200':
+          description: List of MCP clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MCPClient'
+              examples:
+                mcp_clients:
+                  summary: MCP clients list
+                  value:
+                  - name: filesystem
+                    config:
+                      name: filesystem
+                      connection_type: stdio
+                      stdio_config:
+                        command: npx
+                        args:
+                        - -y
+                        - '@modelcontextprotocol/server-filesystem'
+                      tools_to_execute:
+                      - read_file
+                      - list_directory
+                    tools:
+                    - read_file
+                    - list_directory
+                    - write_file
+                    state: connected
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/mcp/client:
+    post:
+      summary: Add MCP Client
+      description: Add a new MCP client configuration and establish connection. Supports STDIO, HTTP, and SSE connection types.
+      operationId: addMCPClient
+      tags:
+      - MCP Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MCPClientConfig'
+            examples:
+              stdio_client:
+                summary: STDIO MCP Client
+                value:
+                  name: filesystem
+                  connection_type: stdio
+                  stdio_config:
+                    command: npx
+                    args:
+                    - -y
+                    - '@modelcontextprotocol/server-filesystem'
+                    envs:
+                    - HOME
+                  tools_to_execute:
+                  - read_file
+                  - list_directory
+              http_client:
+                summary: HTTP MCP Client
+                value:
+                  name: remote-api
+                  connection_type: http
+                  connection_string: https://api.example.com/mcp
+      responses:
+        '200':
+          description: MCP client added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/mcp/client/{name}:
+    put:
+      summary: Edit MCP Client Tools
+      description: Modify which tools are available from an MCP client by updating tool filters.
+      operationId: editMCPClientTools
+      tags:
+      - MCP Management
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the MCP client to edit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MCPClientToolsEdit'
+            examples:
+              whitelist_tools:
+                summary: Allow only specific tools
+                value:
+                  tools_to_execute:
+                  - read_file
+                  - list_directory
+              blacklist_tools:
+                summary: Block dangerous tools
+                value:
+                  tools_to_skip:
+                  - delete_file
+                  - write_file
+      responses:
+        '200':
+          description: MCP client tools updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Remove MCP Client
+      description: Remove an MCP client configuration and disconnect it from the system.
+      operationId: removeMCPClient
+      tags:
+      - MCP Management
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the MCP client to remove
+      responses:
+        '200':
+          description: MCP client removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/mcp/client/{name}/reconnect:
+    post:
+      summary: Reconnect MCP Client
+      description: Reconnect a disconnected or errored MCP client.
+      operationId: reconnectMCPClient
+      tags:
+      - MCP Management
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the MCP client to reconnect
+      responses:
+        '200':
+          description: MCP client reconnected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    MCPStdioConfig:
+      type: object
+      required:
+      - command
+      - args
+      properties:
+        command:
+          type: string
+          description: Executable command to run
+          example: npx
+        args:
+          type: array
+          items:
+            type: string
+          description: Command line arguments
+          example:
+          - -y
+          - '@modelcontextprotocol/server-filesystem'
+        envs:
+          type: array
+          items:
+            type: string
+          description: Environment variables required
+          example:
+          - HOME
+          - USER
+    MCPClient:
+      type: object
+      required:
+      - name
+      - config
+      - tools
+      - state
+      properties:
+        name:
+          type: string
+          description: Unique name for this MCP client
+          example: filesystem
+        config:
+          $ref: '#/components/schemas/MCPClientConfig'
+        tools:
+          type: array
+          items:
+            type: string
+          description: Available tools from this client
+          example:
+          - read_file
+          - list_directory
+          - write_file
+        state:
+          $ref: '#/components/schemas/MCPConnectionState'
+    MCPConnectionState:
+      type: string
+      enum:
+      - connected
+      - disconnected
+      - error
+      description: Connection state of MCP client
+      example: connected
+    MCPClientConfig:
+      type: object
+      required:
+      - name
+      - connection_type
+      properties:
+        name:
+          type: string
+          description: Client name
+          example: filesystem
+        connection_type:
+          $ref: '#/components/schemas/MCPConnectionType'
+        connection_string:
+          type: string
+          description: HTTP or SSE URL (required for HTTP or SSE connections)
+          example: https://api.example.com/mcp
+        stdio_config:
+          $ref: '#/components/schemas/MCPStdioConfig'
+        tools_to_skip:
+          type: array
+          items:
+            type: string
+          description: Tools to exclude from this client
+          example:
+          - delete_file
+          - write_file
+        tools_to_execute:
+          type: array
+          items:
+            type: string
+          description: Tools to include from this client (if specified, only these are used)
+          example:
+          - read_file
+          - list_directory
+    SuccessResponse:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          description: Operation status
+          example: success
+        message:
+          type: string
+          description: Success message
+          example: Operation completed successfully
+    MCPClientToolsEdit:
+      type: object
+      properties:
+        tools_to_execute:
+          type: array
+          items:
+            type: string
+          description: Tools to allow from this client (whitelist)
+          example:
+          - read_file
+          - list_directory
+        tools_to_skip:
+          type: array
+          items:
+            type: string
+          description: Tools to block from this client (blacklist)
+          example:
+          - delete_file
+          - write_file
+    MCPConnectionType:
+      type: string
+      enum:
+      - http
+      - stdio
+      - sse
+      description: Communication protocol for MCP connections
+      example: stdio

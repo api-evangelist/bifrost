@@ -1,0 +1,1215 @@
+openapi: 3.2.0
+info:
+  title: Bifrost HTTP Transport Audio API
+  description: 'A unified HTTP API for accessing multiple AI model providers:
+
+
+    • openai
+
+    • anthropic
+
+    • azure
+
+    • bedrock
+
+    • cohere
+
+    • vertex
+
+    • mistral
+
+    • ollama
+
+    • groq
+
+    • sgl
+
+
+    Bifrost provides:
+
+
+    **Core Features:**
+
+    • Standardized **OpenAI Compatible** endpoints for text and chat completions
+
+    • Built-in fallback support across providers
+
+    • Comprehensive monitoring and logging
+
+    • Real-time WebSocket streaming
+
+
+    **Audio Processing:**
+
+    • Speech synthesis (text-to-speech) with multiple voices and formats
+
+    • Audio transcription (speech-to-text) with timing information
+
+    • Streaming support for both speech and transcription
+
+    • OpenAI-compatible audio endpoints
+
+
+    **MCP Integration:**
+
+    • Model Context Protocol (MCP) support for external tool integration
+
+    • Dynamic MCP client management (add/remove/edit clients)
+
+    • STDIO, HTTP, and SSE connection types
+
+    • Automatic tool discovery and execution
+
+
+    **Management APIs:**
+
+    • Provider configuration management (CRUD operations)
+
+    • System configuration hot-reloading
+
+    • Application logs with advanced filtering
+
+    • Dropped request monitoring
+
+
+    **Integration Endpoints:**
+
+    • OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`
+
+    • Anthropic-compatible: `/anthropic/v1/messages`
+
+    • Google Gemini-compatible: `/genai/v1beta/models/{model}`
+
+    • LiteLLM-compatible: `/chat/completions`'
+  version: 1.1.2
+  contact:
+    name: Bifrost API Support
+    url: https://github.com/maximhq/bifrost
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+- url: http://localhost:8080
+  description: Local development server
+tags:
+- name: Audio
+  description: Speech synthesis and audio transcription
+paths:
+  /v1/audio/speech:
+    post:
+      summary: Create Speech (Text-to-Speech)
+      description: Converts text to spoken audio using AI voice synthesis. Supports multiple voices, audio formats, and streaming capabilities.
+      operationId: createSpeech
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpeechRequest'
+            examples:
+              basic_speech:
+                summary: Basic speech synthesis
+                value:
+                  model: openai/tts-1
+                  input: Hello! This is a test of speech synthesis.
+                  voice: alloy
+                  response_format: mp3
+              advanced_speech:
+                summary: Advanced speech with instructions
+                value:
+                  model: openai/tts-1-hd
+                  input: The weather today is sunny with a high of 72 degrees.
+                  voice: nova
+                  response_format: wav
+                  instructions: Speak slowly and clearly like a weather reporter
+              streaming_speech:
+                summary: Streaming speech synthesis
+                value:
+                  model: openai/tts-1
+                  input: This is a longer text that will be streamed as audio chunks.
+                  voice: fable
+                  response_format: mp3
+                  stream_format: sse
+      responses:
+        '200':
+          description: Audio data or streaming response
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+            audio/wav:
+              schema:
+                type: string
+                format: binary
+            text/event-stream:
+              schema:
+                type: string
+              examples:
+                streaming_audio:
+                  summary: Streaming audio chunks
+                  value: 'data: {"object":"audio.speech.chunk","audio":"<base64_audio_data>","type":"audio.chunk"}
+
+
+                    data: [DONE]
+
+
+                    '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/audio/transcriptions:
+    post:
+      summary: Create Transcription (Speech-to-Text)
+      description: Transcribes audio files to text using AI speech recognition. Supports multiple audio formats, languages, and detailed timing information.
+      operationId: createTranscription
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TranscriptionRequest'
+            examples:
+              basic_transcription:
+                summary: Basic audio transcription
+                value:
+                  model: openai/whisper-1
+                  file: <audio_file_binary>
+                  language: en
+                  response_format: json
+              detailed_transcription:
+                summary: Detailed transcription with timing
+                value:
+                  model: openai/whisper-1
+                  file: <audio_file_binary>
+                  language: en
+                  response_format: verbose_json
+                  prompt: This is a recording of a technical presentation about AI.
+                  temperature: 0.0
+              streaming_transcription:
+                summary: Streaming transcription
+                value:
+                  model: openai/whisper-1
+                  file: <audio_file_binary>
+                  stream: 'true'
+                  response_format: json
+      responses:
+        '200':
+          description: Transcription result or streaming response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BifrostResponse'
+              examples:
+                transcription_response:
+                  summary: Transcription response
+                  value:
+                    object: audio.transcription
+                    text: Hello, this is a test of audio transcription.
+                    language: english
+                    duration: 3.45
+                    segments:
+                    - id: 0
+                      start: 0.0
+                      end: 3.45
+                      text: Hello, this is a test of audio transcription.
+                      temperature: 0.0
+                      avg_logprob: -0.23
+                      compression_ratio: 1.2
+                      no_speech_prob: 0.01
+                    usage:
+                      total_duration: 3.45
+                    extra_fields:
+                      provider: openai
+            text/event-stream:
+              schema:
+                type: string
+              examples:
+                streaming_transcription:
+                  summary: Streaming transcription chunks
+                  value: 'data: {"object":"audio.transcription.chunk","text":"Hello","type":"transcript.text.delta"}
+
+
+                    data: {"object":"audio.transcription.chunk","text":" world","type":"transcript.text.delta"}
+
+
+                    data: [DONE]
+
+
+                    '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /openai/v1/audio/speech:
+    post:
+      summary: OpenAI Compatible - Create Speech
+      description: OpenAI-compatible speech synthesis endpoint. Drop-in replacement for OpenAI's audio/speech API with identical request/response format.
+      operationId: createOpenAISpeech
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAISpeechRequest'
+            examples:
+              openai_speech:
+                summary: OpenAI speech synthesis
+                value:
+                  model: tts-1
+                  input: The quick brown fox jumps over the lazy dog.
+                  voice: alloy
+                  response_format: mp3
+                  speed: 1.0
+      responses:
+        '200':
+          description: Audio data
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+            audio/wav:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - BearerAuth: []
+  /openai/audio/speech:
+    post:
+      summary: OpenAI Compatible - Create Speech (Alternative)
+      description: Alternative OpenAI-compatible speech synthesis endpoint without version prefix.
+      operationId: createOpenAISpeechAlt
+      tags:
+      - Audio
+      requestBody:
+        $ref: '#/paths/~1openai~1v1~1audio~1speech/post/requestBody'
+      responses:
+        $ref: '#/paths/~1openai~1v1~1audio~1speech/post/responses'
+      security:
+      - BearerAuth: []
+  /openai/v1/audio/transcriptions:
+    post:
+      summary: OpenAI Compatible - Create Transcription
+      description: OpenAI-compatible audio transcription endpoint. Drop-in replacement for OpenAI's audio/transcriptions API with identical request/response format.
+      operationId: createOpenAITranscription
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OpenAITranscriptionRequest'
+            examples:
+              openai_transcription:
+                summary: OpenAI transcription
+                value:
+                  model: whisper-1
+                  file: <audio_file_binary>
+                  language: en
+                  prompt: Technical presentation about AI
+                  response_format: verbose_json
+                  temperature: 0.0
+      responses:
+        '200':
+          description: Transcription result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAITranscriptionResponse'
+              examples:
+                openai_transcription_response:
+                  summary: OpenAI transcription response
+                  value:
+                    text: Hello, this is a test of audio transcription.
+                    task: transcribe
+                    language: english
+                    duration: 3.45
+                    segments:
+                    - id: 0
+                      seek: 0
+                      start: 0.0
+                      end: 3.45
+                      text: Hello, this is a test of audio transcription.
+                      tokens:
+                      - 15496
+                      - 11
+                      - 341
+                      - 307
+                      - 257
+                      - 1500
+                      - 295
+                      - 264
+                      - 6278
+                      - 35288
+                      - 4122
+                      - 13
+                      temperature: 0.0
+                      avg_logprob: -0.23
+                      compression_ratio: 1.2
+                      no_speech_prob: 0.01
+                    words:
+                    - word: Hello
+                      start: 0.0
+                      end: 0.5
+                    - word: this
+                      start: 0.6
+                      end: 0.8
+                    - word: is
+                      start: 0.9
+                      end: 1.0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - BearerAuth: []
+  /openai/audio/transcriptions:
+    post:
+      summary: OpenAI Compatible - Create Transcription (Alternative)
+      description: Alternative OpenAI-compatible transcription endpoint without version prefix.
+      operationId: createOpenAITranscriptionAlt
+      tags:
+      - Audio
+      requestBody:
+        $ref: '#/paths/~1openai~1v1~1audio~1transcriptions/post/requestBody'
+      responses:
+        $ref: '#/paths/~1openai~1v1~1audio~1transcriptions/post/responses'
+      security:
+      - BearerAuth: []
+components:
+  schemas:
+    ImageURLStruct:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: Image URL or data URI
+          example: https://example.com/image.jpg
+        detail:
+          type: string
+          enum:
+          - low
+          - high
+          - auto
+          description: Image detail level
+          example: auto
+    Function:
+      type: object
+      required:
+      - name
+      - description
+      - parameters
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: get_weather
+        description:
+          type: string
+          description: Function description
+          example: Get current weather for a location
+        parameters:
+          $ref: '#/components/schemas/FunctionParameters'
+    ModelParameters:
+      type: object
+      properties:
+        temperature:
+          type: number
+          minimum: 0.0
+          maximum: 2.0
+          description: Controls randomness in the output
+          example: 0.7
+        top_p:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          description: Nucleus sampling parameter
+          example: 0.9
+        top_k:
+          type: integer
+          minimum: 1
+          description: Top-k sampling parameter
+          example: 40
+        max_tokens:
+          type: integer
+          minimum: 1
+          description: Maximum number of tokens to generate
+          example: 1000
+        stop_sequences:
+          type: array
+          items:
+            type: string
+          description: Sequences that stop generation
+          example:
+          - '
+
+
+            '
+          - END
+        presence_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          description: Penalizes repeated tokens
+          example: 0.0
+        frequency_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          description: Penalizes frequent tokens
+          example: 0.0
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+          description: Available tools for the model
+        tool_choice:
+          $ref: '#/components/schemas/ToolChoice'
+        parallel_tool_calls:
+          type: boolean
+          description: Enable parallel tool execution
+          example: true
+    CompletionTokensDetails:
+      type: object
+      properties:
+        reasoning_tokens:
+          type: integer
+          description: Tokens used for reasoning
+        audio_tokens:
+          type: integer
+          description: Tokens used for audio
+        accepted_prediction_tokens:
+          type: integer
+          description: Accepted prediction tokens
+        rejected_prediction_tokens:
+          type: integer
+          description: Rejected prediction tokens
+    ContentLogProb:
+      type: object
+      required:
+      - logprob
+      - token
+      properties:
+        bytes:
+          type: array
+          items:
+            type: integer
+          description: Byte representation
+        logprob:
+          type: number
+          description: Log probability
+          example: -0.123
+        token:
+          type: string
+          description: Token
+          example: hello
+        top_logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogProb'
+          description: Top log probabilities
+    OpenAITranscriptionResponse:
+      type: object
+      required:
+      - text
+      properties:
+        text:
+          type: string
+          description: The transcribed text
+          example: Imagine the wildest idea that you've ever had, and you're curious about how it might scale to something that's a 100, a 1,000 times bigger.
+        task:
+          type: string
+          description: Task that was performed
+          example: transcribe
+        language:
+          type: string
+          description: Detected language of the input audio
+          example: english
+        duration:
+          type: number
+          description: Duration of the input audio in seconds
+          example: 8.470000267028809
+        segments:
+          type: array
+          description: Segments of the transcribed text and their corresponding details
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Unique identifier of the segment
+              seek:
+                type: integer
+                description: Seek offset of the segment
+              start:
+                type: number
+                description: Start time of the segment in seconds
+              end:
+                type: number
+                description: End time of the segment in seconds
+              text:
+                type: string
+                description: Text content of the segment
+              tokens:
+                type: array
+                items:
+                  type: integer
+                description: Array of token IDs for the text content
+              temperature:
+                type: number
+                description: Temperature parameter used for generating the segment
+              avg_logprob:
+                type: number
+                description: Average logprob of the segment
+              compression_ratio:
+                type: number
+                description: Compression ratio of the segment
+              no_speech_prob:
+                type: number
+                description: Probability of no speech in the segment
+        words:
+          type: array
+          description: Individual words and their corresponding timestamps
+          items:
+            type: object
+            properties:
+              word:
+                type: string
+                description: The text content of the word
+              start:
+                type: number
+                description: Start time of the word in seconds
+              end:
+                type: number
+                description: End time of the word in seconds
+    BifrostResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique response identifier
+          example: chatcmpl-123
+        object:
+          type: string
+          enum:
+          - chat.completion
+          - text.completion
+          description: Response type
+          example: chat.completion
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/BifrostResponseChoice'
+          description: Array of completion choices
+        model:
+          type: string
+          description: Model used for generation
+          example: gpt-4o
+        created:
+          type: integer
+          description: Unix timestamp of creation
+          example: 1677652288
+        service_tier:
+          type: string
+          description: Service tier used
+        system_fingerprint:
+          type: string
+          description: System fingerprint
+        usage:
+          $ref: '#/components/schemas/LLMUsage'
+        extra_fields:
+          $ref: '#/components/schemas/BifrostResponseExtraFields'
+    LLMUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Tokens in the prompt
+          example: 56
+        completion_tokens:
+          type: integer
+          description: Tokens in the completion
+          example: 31
+        total_tokens:
+          type: integer
+          description: Total tokens used
+          example: 87
+        completion_tokens_details:
+          $ref: '#/components/schemas/CompletionTokensDetails'
+    OpenAISpeechRequest:
+      type: object
+      required:
+      - model
+      - input
+      - voice
+      properties:
+        model:
+          type: string
+          description: TTS model to use
+          enum:
+          - tts-1
+          - tts-1-hd
+          example: tts-1
+        input:
+          type: string
+          description: Text to generate audio for (max 4096 characters)
+          example: The quick brown fox jumped over the lazy dog.
+          maxLength: 4096
+        voice:
+          type: string
+          description: Voice to use when generating the audio
+          enum:
+          - alloy
+          - echo
+          - fable
+          - onyx
+          - nova
+          - shimmer
+          example: alloy
+        response_format:
+          type: string
+          description: Format to audio in
+          enum:
+          - mp3
+          - opus
+          - aac
+          - flac
+          - wav
+          - pcm
+          default: mp3
+          example: mp3
+        speed:
+          type: number
+          description: Speed of the generated audio (0.25 to 4.0)
+          minimum: 0.25
+          maximum: 4.0
+          default: 1.0
+          example: 1.0
+        instructions:
+          type: string
+          description: Additional instructions for voice synthesis
+          example: Speak slowly and clearly
+        stream_format:
+          type: string
+          description: Enable streaming with Server-Sent Events
+          enum:
+          - sse
+          example: sse
+    ToolChoice:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - none
+          - auto
+          - any
+          - function
+          - required
+          description: How tools should be chosen
+          example: auto
+        function:
+          $ref: '#/components/schemas/ToolChoiceFunction'
+    FunctionParameters:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Parameter type
+          example: object
+        description:
+          type: string
+          description: Parameter description
+        properties:
+          type: object
+          additionalProperties: true
+          description: Parameter properties (JSON Schema)
+        required:
+          type: array
+          items:
+            type: string
+          description: Required parameter names
+        enum:
+          type: array
+          items:
+            type: string
+          description: Enum values for parameters
+    ToolChoiceFunction:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the function to call
+          example: get_weather
+    FunctionCall:
+      type: object
+      required:
+      - name
+      - arguments
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: get_weather
+        arguments:
+          type: string
+          description: JSON string of function arguments
+          example: '{"location": "San Francisco, CA"}'
+    ToolCall:
+      type: object
+      required:
+      - function
+      properties:
+        id:
+          type: string
+          description: Unique tool call identifier
+          example: tool_123
+        type:
+          type: string
+          enum:
+          - function
+          description: Tool call type
+          example: function
+        function:
+          $ref: '#/components/schemas/FunctionCall'
+    SpeechRequest:
+      type: object
+      required:
+      - model
+      - input
+      - voice
+      properties:
+        model:
+          type: string
+          description: Model to use for speech synthesis in 'provider/model' format
+          example: openai/tts-1
+        input:
+          type: string
+          description: Text to convert to speech (max 4096 characters)
+          example: Hello! This is a test of speech synthesis.
+          maxLength: 4096
+        voice:
+          type: string
+          description: Voice to use for speech synthesis
+          enum:
+          - alloy
+          - echo
+          - fable
+          - onyx
+          - nova
+          - shimmer
+          example: alloy
+        response_format:
+          type: string
+          description: Audio format for the response
+          enum:
+          - mp3
+          - opus
+          - aac
+          - flac
+          - wav
+          - pcm
+          default: mp3
+          example: mp3
+        instructions:
+          type: string
+          description: Additional instructions for voice synthesis
+          example: Speak slowly and clearly
+        stream_format:
+          type: string
+          description: Enable streaming with Server-Sent Events
+          enum:
+          - sse
+          example: sse
+    BifrostResponseChoice:
+      type: object
+      required:
+      - index
+      - message
+      properties:
+        index:
+          type: integer
+          description: Choice index
+          example: 0
+        message:
+          $ref: '#/components/schemas/BifrostMessage'
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          - tool_calls
+          - content_filter
+          - function_call
+          description: Reason completion stopped
+          example: stop
+        stop:
+          type: string
+          description: Stop sequence that ended generation
+        log_probs:
+          $ref: '#/components/schemas/LogProbs'
+    LogProb:
+      type: object
+      required:
+      - logprob
+      - token
+      properties:
+        bytes:
+          type: array
+          items:
+            type: integer
+          description: Byte representation
+        logprob:
+          type: number
+          description: Log probability
+          example: -0.456
+        token:
+          type: string
+          description: Token
+          example: world
+    BilledLLMUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: number
+          description: Billed prompt tokens
+        completion_tokens:
+          type: number
+          description: Billed completion tokens
+        search_units:
+          type: number
+          description: Billed search units
+        classifications:
+          type: number
+          description: Billed classifications
+    BifrostResponseExtraFields:
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/ModelProvider'
+        model_params:
+          $ref: '#/components/schemas/ModelParameters'
+        latency:
+          type: number
+          description: Request latency in seconds
+          example: 1.234
+        chat_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/BifrostMessage'
+          description: Full conversation history
+        billed_usage:
+          $ref: '#/components/schemas/BilledLLMUsage'
+        raw_response:
+          type: object
+          description: Raw provider response
+    OpenAITranscriptionRequest:
+      type: object
+      required:
+      - model
+      - file
+      properties:
+        model:
+          type: string
+          description: ID of the model to use
+          enum:
+          - whisper-1
+          example: whisper-1
+        file:
+          type: string
+          format: binary
+          description: Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)
+        language:
+          type: string
+          description: Language of the input audio (ISO-639-1 format)
+          example: en
+        prompt:
+          type: string
+          description: Optional text to guide the model's style or continue a previous audio segment
+          example: ZyntriQix, Digique Plus, CynapseFive, VortiQore V8, EchoNix Pro, CyberLeap
+        response_format:
+          type: string
+          description: Format of the transcript output
+          enum:
+          - json
+          - text
+          - srt
+          - verbose_json
+          - vtt
+          default: json
+          example: json
+        temperature:
+          type: number
+          description: Sampling temperature (0 to 1)
+          minimum: 0
+          maximum: 1
+          default: 0
+          example: 0
+        include:
+          type: array
+          items:
+            type: string
+            enum:
+            - segments
+          description: Additional data to include in the response
+        timestamp_granularities:
+          type: array
+          items:
+            type: string
+            enum:
+            - word
+            - segment
+          description: Timestamp granularities to populate for this transcription
+          default:
+          - segment
+        stream:
+          type: boolean
+          description: Enable streaming transcription
+          default: false
+          example: false
+    MessageRole:
+      type: string
+      enum:
+      - user
+      - assistant
+      - system
+      - tool
+      description: Role of the message sender
+      example: user
+    ModelProvider:
+      type: string
+      enum:
+      - openai
+      - anthropic
+      - azure
+      - bedrock
+      - cohere
+      - vertex
+      - mistral
+      - ollama
+      - groq
+      - sgl
+      description: AI model provider
+      example: openai
+    TranscriptionRequest:
+      type: object
+      required:
+      - model
+      - file
+      properties:
+        model:
+          type: string
+          description: Model to use for transcription in 'provider/model' format
+          example: openai/whisper-1
+        file:
+          type: string
+          format: binary
+          description: Audio file to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)
+        language:
+          type: string
+          description: Language of the input audio (ISO-639-1 format)
+          example: en
+        prompt:
+          type: string
+          description: Optional text to guide the model's style or continue a previous audio segment
+          example: This is a recording of a technical presentation about AI.
+        response_format:
+          type: string
+          description: Format of the transcript output
+          enum:
+          - json
+          - text
+          - srt
+          - verbose_json
+          - vtt
+          default: json
+          example: verbose_json
+        temperature:
+          type: number
+          description: Sampling temperature (0 to 1)
+          minimum: 0
+          maximum: 1
+          example: 0.0
+        stream:
+          type: string
+          description: Enable streaming transcription
+          enum:
+          - 'true'
+          - 'false'
+          example: 'true'
+    ContentBlock:
+      type: object
+      required:
+      - type
+      discriminator:
+        propertyName: type
+      oneOf:
+      - type: object
+        required:
+        - type
+        - text
+        properties:
+          type:
+            type: string
+            enum:
+            - text
+            description: Content type for text blocks
+            example: text
+          text:
+            type: string
+            description: Text content
+            example: What do you see in this image?
+        additionalProperties: false
+      - type: object
+        required:
+        - type
+        - image_url
+        properties:
+          type:
+            type: string
+            enum:
+            - image_url
+            description: Content type for image blocks
+            example: image_url
+          image_url:
+            $ref: '#/components/schemas/ImageURLStruct'
+            description: Image data
+        additionalProperties: false
+    LogProbs:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentLogProb'
+          description: Log probabilities for content
+        refusal:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogProb'
+          description: Log probabilities for refusal
+    Annotation:
+      type: object
+      required:
+      - type
+      - url_citation
+      properties:
+        type:
+          type: string
+          description: Annotation type
+        url_citation:
+          $ref: '#/components/schemas/Citation'
+    BifrostMessage:
+      type: object
+      required:
+      - role
+      properties:
+        role:
+          $ref: '#/components/schemas/MessageRole'
+        content:
+          oneOf:
+          - type: string
+            description: Simple text content
+            example: Hello, how are you?
+          - type: array
+            items:
+              $ref: '#/components/schemas/ContentBlock'
+            description: Structured content with text and images
+          description: Message content - can be simple text or structured content with text and images
+        tool_call_id:
+          type: string
+          description: ID of the tool call (for tool messages)
+        tool_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolCall'
+          description: Tool calls made by assistant
+        refusal:
+          type: string
+          description: Refusal message from assistant
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+          description: Message annotations
+        thought:
+          type: string
+          description: Assistant's internal thought process
+    Tool:
+      type: object
+      required:
+      - type
+      - function
+      properties:
+        id:
+          type: string
+          description: Unique tool identifier
+        type:
+          type: string
+          enum:
+          - function
+          description: Tool type
+          example: function
+        function:
+          $ref: '#/components/schemas/Function'
+    Citation:
+      type: object
+      required:
+      - start_index
+      - end_index
+      - title
+      properties:
+        start_index:
+          type: integer
+          description: Start index in the text
+        end_index:
+          type: integer
+          description: End index in the text
+        title:
+          type: string
+          description: Citation title
+        url:
+          type: string
+          description: Citation URL
+        sources:
+          description: Citation sources
+        type:
+          type: string
+          description: Citation type
