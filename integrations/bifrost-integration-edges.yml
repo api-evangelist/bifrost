@@ -6,14 +6,14 @@ edges:
   channel: provider-built
   relationship: compatible
   direction: provider-built
-  evidence: https://github.com/api-evangelist/bifrost/blob/main/openapi/bifrost-chat-completions-api-openapi.yml#L4
+  evidence: https://github.com/api-evangelist/bifrost/blob/main/openapi/bifrost-chat-completions-api-openapi.yml#L33
   contract_reference:
     repo: bifrost
     spec_file: bifrost-chat-completions-api-openapi.yml
     property: description
     value: OpenAI-compatible
-    note: 'bifrost declares OpenAI compatibility: ''description: The Bifrost HTTP Gateway API provides an OpenAI-compatible
-      RESTful interface that routes requests to any of 20+ supported AI providers through a si'''
+    note: 'bifrost declares OpenAI compatibility: ''• Standardized **OpenAI Compatible** endpoints for text and
+      chat completions'''
     detected_by: sweep-model-routing.py
     detected: '2026-10-15'
   detected_by: sweep-model-routing.py
