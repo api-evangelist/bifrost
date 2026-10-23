@@ -9,18 +9,63 @@ artifacts:
   authentication/bifrost-authentication.yml:
     method: derived
     evidence: declared in the artifact
+  collections/bifrost-audio-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-audio-api
   collections/bifrost-chat-api.opencollection.json:
-    method: derived
-    evidence: openapi/bifrost-chat-api
+    method: unknown
+    evidence: no authorship recorded
   collections/bifrost-chat-api.postman_collection.json:
+    method: unknown
+    evidence: no authorship recorded
+  collections/bifrost-chat-completions-api.postman_collection.json:
     method: derived
-    evidence: openapi/bifrost-chat-api
+    evidence: openapi/bifrost-chat-completions-api
+  collections/bifrost-configuration-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-configuration-api
   collections/bifrost-health-api.opencollection.json:
     method: derived
     evidence: openapi/bifrost-health-api
   collections/bifrost-health-api.postman_collection.json:
     method: derived
     evidence: openapi/bifrost-health-api
+  collections/bifrost-integration-anthropic-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-integration-anthropic-api
+  collections/bifrost-integration-gemini-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-integration-gemini-api
+  collections/bifrost-integration-litellm-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-integration-litellm-api
+  collections/bifrost-integration-openai-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-integration-openai-api
+  collections/bifrost-logging-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-logging-api
+  collections/bifrost-mcp-management-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-mcp-management-api
+  collections/bifrost-mcp-tools-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-mcp-tools-api
+  collections/bifrost-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-monitoring-api
+  collections/bifrost-openai-integration-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-openai-integration-api
+  collections/bifrost-provider-management-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-provider-management-api
+  collections/bifrost-text-completions-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-text-completions-api
+  collections/bifrost-websocket-api.postman_collection.json:
+    method: derived
+    evidence: openapi/bifrost-websocket-api
   examples/bifrost-chat-choice-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -44,6 +89,12 @@ artifacts:
     evidence: no authorship recorded
   finops/bifrost-finops.yml:
     method: generated
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/bifrost-integration-edges.yml:
+    method: searched
     evidence: declared in the artifact
   json-ld/bifrost-context.jsonld:
     method: unknown
@@ -90,127 +141,7 @@ artifacts:
   json-structure/bifrost-usage-stats-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -294,17 +225,84 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   llms/bifrost-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
-  openapi/bifrost-chat-api-openapi.yml:
+  mcp/bifrost-mcp-tools.json:
     method: unknown
     evidence: no authorship recorded
+  mcp/bifrost-mcp.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/_original/bifrost-openapi.json:
+    method: harvested
+    evidence: byte-identical to https://docs.getbifrost.ai/openapi.json (sha256 e70d3ae3c0d0, fetched
+      2026-10-19)
+  openapi/bifrost-audio-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-chat-completions-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/bifrost-configuration-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/bifrost-health-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/bifrost-integration-anthropic-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-integration-gemini-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-integration-litellm-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-integration-openai-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-logging-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-mcp-management-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-mcp-tools-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-monitoring-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-openai-integration-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-provider-management-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-text-completions-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/bifrost-websocket-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   plans/bifrost-plans-pricing.yml:
-    method: generated
+    method: searched
     evidence: declared in the artifact
   rate-limits/bifrost-rate-limits.yml:
     method: generated
@@ -321,6 +319,9 @@ artifacts:
   security/bifrost-trust-center.yml:
     method: searched
     evidence: declared in the artifact
+  vendors/bifrost-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/bifrost-vocabulary.yaml:
     method: unknown
     evidence: no authorship recorded
