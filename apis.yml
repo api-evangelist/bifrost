@@ -261,6 +261,8 @@ apis:
   - type: OpenAPI
     url: openapi/bifrost-websocket-api-openapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/bifrost/overview
 - type: RateLimits
   url: rate-limits/bifrost-rate-limits.yml
 - type: FinOps
