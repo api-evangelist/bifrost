@@ -1,0 +1,1212 @@
+{
+  "info": {
+    "_postman_id": "118065b6-60fe-44a3-9ed7-13efbb0db941",
+    "name": "Bifrost HTTP Transport OpenAI Integration API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:06:09.000Z",
+    "updatedAt": "2026-10-22T01:06:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-118065b6-60fe-44a3-9ed7-13efbb0db941"
+  },
+  "item": [
+    {
+      "name": "openai",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "audio",
+              "item": [
+                {
+                  "name": "speech",
+                  "item": [
+                    {
+                      "name": "OpenAI Compatible - Create Speech",
+                      "id": "6a04c069-ede1-4890-87e1-bfc3b3eff424",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "audio/mpeg"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "v1",
+                            "audio",
+                            "speech"
+                          ]
+                        },
+                        "description": "OpenAI-compatible speech synthesis endpoint. Drop-in replacement for OpenAI's audio/speech API with identical request/response format."
+                      },
+                      "response": [
+                        {
+                          "id": "9915d240-176d-4135-8602-b2ca73bbb475",
+                          "name": "Audio data",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "audio/mpeg"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "speech"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "audio/mpeg"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<binary>",
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-9915d240-176d-4135-8602-b2ca73bbb475"
+                        },
+                        {
+                          "id": "3a2250cd-6b15-4e85-ae17-7b59233305ac",
+                          "name": "400 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "speech"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-3a2250cd-6b15-4e85-ae17-7b59233305ac"
+                        },
+                        {
+                          "id": "c3b151cd-8309-46d7-be65-89f693a0965f",
+                          "name": "401 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "speech"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-c3b151cd-8309-46d7-be65-89f693a0965f"
+                        },
+                        {
+                          "id": "4855abc2-f7f0-430b-8a3b-1448dd8b292a",
+                          "name": "429 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "speech"
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-4855abc2-f7f0-430b-8a3b-1448dd8b292a"
+                        },
+                        {
+                          "id": "29494d4f-6776-41a3-8530-2c3c2a7d05a1",
+                          "name": "500 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/speech",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "speech"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-29494d4f-6776-41a3-8530-2c3c2a7d05a1"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:06:09.000Z",
+                      "updatedAt": "2026-10-22T01:06:09.000Z",
+                      "uid": "35240-6a04c069-ede1-4890-87e1-bfc3b3eff424"
+                    }
+                  ],
+                  "id": "f7691e83-3cfa-4246-831d-9e0ccac94e41",
+                  "createdAt": "2026-10-22T01:06:09.000Z",
+                  "updatedAt": "2026-10-22T01:06:09.000Z",
+                  "uid": "35240-f7691e83-3cfa-4246-831d-9e0ccac94e41"
+                },
+                {
+                  "name": "transcriptions",
+                  "item": [
+                    {
+                      "name": "OpenAI Compatible - Create Transcription",
+                      "id": "b04e6542-88e7-4f3b-b3ec-d1660c75a04a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                              "key": "model",
+                              "value": "whisper-1",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                              "key": "file",
+                              "type": "file",
+                              "value": null
+                            },
+                            {
+                              "description": "Language of the input audio (ISO-639-1 format)",
+                              "key": "language",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Optional text to guide the model's style or continue a previous audio segment",
+                              "key": "prompt",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                              "key": "response_format",
+                              "value": "json",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Sampling temperature (0 to 1)",
+                              "key": "temperature",
+                              "value": "0",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Additional data to include in the response",
+                              "key": "include",
+                              "value": "segments,segments",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Timestamp granularities to populate for this transcription",
+                              "key": "timestamp_granularities",
+                              "value": "segment",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Enable streaming transcription",
+                              "key": "stream",
+                              "value": "false",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "v1",
+                            "audio",
+                            "transcriptions"
+                          ]
+                        },
+                        "description": "OpenAI-compatible audio transcription endpoint. Drop-in replacement for OpenAI's audio/transcriptions API with identical request/response format."
+                      },
+                      "response": [
+                        {
+                          "id": "62a692e2-d86e-4975-a4d4-486cd51de474",
+                          "name": "Transcription result",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                                  "key": "model",
+                                  "value": "whisper-1",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                                  "key": "file",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Language of the input audio (ISO-639-1 format)",
+                                  "key": "language",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Optional text to guide the model's style or continue a previous audio segment",
+                                  "key": "prompt",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                                  "key": "response_format",
+                                  "value": "json",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Sampling temperature (0 to 1)",
+                                  "key": "temperature",
+                                  "value": "0",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Additional data to include in the response",
+                                  "key": "include",
+                                  "value": "segments,segments",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Timestamp granularities to populate for this transcription",
+                                  "key": "timestamp_granularities",
+                                  "value": "segment",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Enable streaming transcription",
+                                  "key": "stream",
+                                  "value": "false",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "transcriptions"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"text\": \"<string>\",\n  \"task\": \"<string>\",\n  \"language\": \"<string>\",\n  \"duration\": \"<number>\",\n  \"segments\": [\n    {\n      \"id\": \"<integer>\",\n      \"seek\": \"<integer>\",\n      \"start\": \"<number>\",\n      \"end\": \"<number>\",\n      \"text\": \"<string>\",\n      \"tokens\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"temperature\": \"<number>\",\n      \"avg_logprob\": \"<number>\",\n      \"compression_ratio\": \"<number>\",\n      \"no_speech_prob\": \"<number>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"seek\": \"<integer>\",\n      \"start\": \"<number>\",\n      \"end\": \"<number>\",\n      \"text\": \"<string>\",\n      \"tokens\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"temperature\": \"<number>\",\n      \"avg_logprob\": \"<number>\",\n      \"compression_ratio\": \"<number>\",\n      \"no_speech_prob\": \"<number>\"\n    }\n  ],\n  \"words\": [\n    {\n      \"word\": \"<string>\",\n      \"start\": \"<number>\",\n      \"end\": \"<number>\"\n    },\n    {\n      \"word\": \"<string>\",\n      \"start\": \"<number>\",\n      \"end\": \"<number>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-62a692e2-d86e-4975-a4d4-486cd51de474"
+                        },
+                        {
+                          "id": "0cb58c95-32e3-44e3-a137-a2b9855561bb",
+                          "name": "400 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                                  "key": "model",
+                                  "value": "whisper-1",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                                  "key": "file",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Language of the input audio (ISO-639-1 format)",
+                                  "key": "language",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Optional text to guide the model's style or continue a previous audio segment",
+                                  "key": "prompt",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                                  "key": "response_format",
+                                  "value": "json",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Sampling temperature (0 to 1)",
+                                  "key": "temperature",
+                                  "value": "0",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Additional data to include in the response",
+                                  "key": "include",
+                                  "value": "segments,segments",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Timestamp granularities to populate for this transcription",
+                                  "key": "timestamp_granularities",
+                                  "value": "segment",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Enable streaming transcription",
+                                  "key": "stream",
+                                  "value": "false",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "transcriptions"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-0cb58c95-32e3-44e3-a137-a2b9855561bb"
+                        },
+                        {
+                          "id": "547d1c5d-4fd3-4457-9f10-50fdf84c3d5f",
+                          "name": "401 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                                  "key": "model",
+                                  "value": "whisper-1",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                                  "key": "file",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Language of the input audio (ISO-639-1 format)",
+                                  "key": "language",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Optional text to guide the model's style or continue a previous audio segment",
+                                  "key": "prompt",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                                  "key": "response_format",
+                                  "value": "json",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Sampling temperature (0 to 1)",
+                                  "key": "temperature",
+                                  "value": "0",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Additional data to include in the response",
+                                  "key": "include",
+                                  "value": "segments,segments",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Timestamp granularities to populate for this transcription",
+                                  "key": "timestamp_granularities",
+                                  "value": "segment",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Enable streaming transcription",
+                                  "key": "stream",
+                                  "value": "false",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "transcriptions"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-547d1c5d-4fd3-4457-9f10-50fdf84c3d5f"
+                        },
+                        {
+                          "id": "d4263fc9-709c-461b-bbb4-6606bcf431b5",
+                          "name": "429 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                                  "key": "model",
+                                  "value": "whisper-1",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                                  "key": "file",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Language of the input audio (ISO-639-1 format)",
+                                  "key": "language",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Optional text to guide the model's style or continue a previous audio segment",
+                                  "key": "prompt",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                                  "key": "response_format",
+                                  "value": "json",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Sampling temperature (0 to 1)",
+                                  "key": "temperature",
+                                  "value": "0",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Additional data to include in the response",
+                                  "key": "include",
+                                  "value": "segments,segments",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Timestamp granularities to populate for this transcription",
+                                  "key": "timestamp_granularities",
+                                  "value": "segment",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Enable streaming transcription",
+                                  "key": "stream",
+                                  "value": "false",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "transcriptions"
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-d4263fc9-709c-461b-bbb4-6606bcf431b5"
+                        },
+                        {
+                          "id": "78660cc8-bc68-4e8e-8867-11ad16c7d86b",
+                          "name": "500 response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                                  "key": "model",
+                                  "value": "whisper-1",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                                  "key": "file",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Language of the input audio (ISO-639-1 format)",
+                                  "key": "language",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Optional text to guide the model's style or continue a previous audio segment",
+                                  "key": "prompt",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                                  "key": "response_format",
+                                  "value": "json",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Sampling temperature (0 to 1)",
+                                  "key": "temperature",
+                                  "value": "0",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Additional data to include in the response",
+                                  "key": "include",
+                                  "value": "segments,segments",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Timestamp granularities to populate for this transcription",
+                                  "key": "timestamp_granularities",
+                                  "value": "segment",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Enable streaming transcription",
+                                  "key": "stream",
+                                  "value": "false",
+                                  "type": "text"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/openai/v1/audio/transcriptions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "openai",
+                                "v1",
+                                "audio",
+                                "transcriptions"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:06:09.000Z",
+                          "updatedAt": "2026-10-22T01:06:09.000Z",
+                          "uid": "35240-78660cc8-bc68-4e8e-8867-11ad16c7d86b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:06:09.000Z",
+                      "updatedAt": "2026-10-22T01:06:09.000Z",
+                      "uid": "35240-b04e6542-88e7-4f3b-b3ec-d1660c75a04a"
+                    }
+                  ],
+                  "id": "97f5d26e-0fdb-471e-b30c-73816c9d7503",
+                  "createdAt": "2026-10-22T01:06:09.000Z",
+                  "updatedAt": "2026-10-22T01:06:09.000Z",
+                  "uid": "35240-97f5d26e-0fdb-471e-b30c-73816c9d7503"
+                }
+              ],
+              "id": "d2f5706f-ac99-4e90-b3d9-264b4a8a0816",
+              "createdAt": "2026-10-22T01:06:09.000Z",
+              "updatedAt": "2026-10-22T01:06:09.000Z",
+              "uid": "35240-d2f5706f-ac99-4e90-b3d9-264b4a8a0816"
+            }
+          ],
+          "id": "1192d49a-7241-48ec-937e-5f5ba03d804b",
+          "createdAt": "2026-10-22T01:06:09.000Z",
+          "updatedAt": "2026-10-22T01:06:09.000Z",
+          "uid": "35240-1192d49a-7241-48ec-937e-5f5ba03d804b"
+        },
+        {
+          "name": "audio",
+          "item": [
+            {
+              "name": "speech",
+              "item": [
+                {
+                  "name": "OpenAI Compatible - Create Speech (Alternative)",
+                  "id": "d8f0bd49-8352-45c9-9af4-ac074a7982d8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/openai/audio/speech",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "openai",
+                        "audio",
+                        "speech"
+                      ]
+                    },
+                    "description": "Alternative OpenAI-compatible speech synthesis endpoint without version prefix."
+                  },
+                  "response": [
+                    {
+                      "id": "2fdb2305-a57c-4ebc-a433-4be4820b9f47",
+                      "name": "$ref response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"tts-1-hd\",\n  \"input\": \"<string>\",\n  \"voice\": \"onyx\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1,\n  \"instructions\": \"<string>\",\n  \"stream_format\": \"sse\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/audio/speech",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "audio",
+                            "speech"
+                          ]
+                        }
+                      },
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:09.000Z",
+                      "updatedAt": "2026-10-22T01:06:09.000Z",
+                      "uid": "35240-2fdb2305-a57c-4ebc-a433-4be4820b9f47"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:09.000Z",
+                  "updatedAt": "2026-10-22T01:06:09.000Z",
+                  "uid": "35240-d8f0bd49-8352-45c9-9af4-ac074a7982d8"
+                }
+              ],
+              "id": "fd8e55ef-1438-4a9d-aba4-8a2d38f3aeac",
+              "createdAt": "2026-10-22T01:06:09.000Z",
+              "updatedAt": "2026-10-22T01:06:09.000Z",
+              "uid": "35240-fd8e55ef-1438-4a9d-aba4-8a2d38f3aeac"
+            },
+            {
+              "name": "transcriptions",
+              "item": [
+                {
+                  "name": "OpenAI Compatible - Create Transcription (Alternative)",
+                  "id": "9f1608b2-9331-40e6-9705-96fd7b1af296",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                          "key": "model",
+                          "value": "whisper-1",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                          "key": "file",
+                          "type": "file",
+                          "value": null
+                        },
+                        {
+                          "description": "Language of the input audio (ISO-639-1 format)",
+                          "key": "language",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Optional text to guide the model's style or continue a previous audio segment",
+                          "key": "prompt",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                          "key": "response_format",
+                          "value": "json",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Sampling temperature (0 to 1)",
+                          "key": "temperature",
+                          "value": "0",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Additional data to include in the response",
+                          "key": "include",
+                          "value": "segments,segments",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Timestamp granularities to populate for this transcription",
+                          "key": "timestamp_granularities",
+                          "value": "segment",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Enable streaming transcription",
+                          "key": "stream",
+                          "value": "false",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/openai/audio/transcriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "openai",
+                        "audio",
+                        "transcriptions"
+                      ]
+                    },
+                    "description": "Alternative OpenAI-compatible transcription endpoint without version prefix."
+                  },
+                  "response": [
+                    {
+                      "id": "a0b5a9c9-8576-4f10-b595-2be090bb4559",
+                      "name": "$ref response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) ID of the model to use (This can only be one of whisper-1)",
+                              "key": "model",
+                              "value": "whisper-1",
+                              "type": "text"
+                            },
+                            {
+                              "description": "(Required) Audio file object to transcribe (mp3, mp4, mpeg, mpga, m4a, wav, webm, max 25MB)",
+                              "key": "file",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Language of the input audio (ISO-639-1 format)",
+                              "key": "language",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Optional text to guide the model's style or continue a previous audio segment",
+                              "key": "prompt",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Format of the transcript output (This can only be one of json,text,srt,verbose_json,vtt)",
+                              "key": "response_format",
+                              "value": "json",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Sampling temperature (0 to 1)",
+                              "key": "temperature",
+                              "value": "0",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Additional data to include in the response",
+                              "key": "include",
+                              "value": "segments,segments",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Timestamp granularities to populate for this transcription",
+                              "key": "timestamp_granularities",
+                              "value": "segment",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Enable streaming transcription",
+                              "key": "stream",
+                              "value": "false",
+                              "type": "text"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/audio/transcriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "audio",
+                            "transcriptions"
+                          ]
+                        }
+                      },
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:09.000Z",
+                      "updatedAt": "2026-10-22T01:06:09.000Z",
+                      "uid": "35240-a0b5a9c9-8576-4f10-b595-2be090bb4559"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:09.000Z",
+                  "updatedAt": "2026-10-22T01:06:09.000Z",
+                  "uid": "35240-9f1608b2-9331-40e6-9705-96fd7b1af296"
+                }
+              ],
+              "id": "fc4b85f0-8e57-415d-80cd-7ae04d0bddd2",
+              "createdAt": "2026-10-22T01:06:09.000Z",
+              "updatedAt": "2026-10-22T01:06:09.000Z",
+              "uid": "35240-fc4b85f0-8e57-415d-80cd-7ae04d0bddd2"
+            }
+          ],
+          "id": "4244c654-bc99-467d-94ef-8586de65e817",
+          "createdAt": "2026-10-22T01:06:09.000Z",
+          "updatedAt": "2026-10-22T01:06:09.000Z",
+          "uid": "35240-4244c654-bc99-467d-94ef-8586de65e817"
+        }
+      ],
+      "id": "6398377f-1285-43a9-9f84-70d7f02a658e",
+      "createdAt": "2026-10-22T01:06:09.000Z",
+      "updatedAt": "2026-10-22T01:06:09.000Z",
+      "uid": "35240-6398377f-1285-43a9-9f84-70d7f02a658e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

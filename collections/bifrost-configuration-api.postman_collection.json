@@ -1,0 +1,320 @@
+{
+  "info": {
+    "_postman_id": "8cc869f3-7759-428a-aa47-683f558eec33",
+    "name": "Bifrost HTTP Transport Configuration API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:05:13.000Z",
+    "updatedAt": "2026-10-22T01:05:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8cc869f3-7759-428a-aa47-683f558eec33"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "config",
+          "item": [
+            {
+              "name": "Get Configuration",
+              "id": "52d35766-a692-435a-b2fe-ca20acdbc32f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/config",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "config"
+                  ]
+                },
+                "description": "Get the current system configuration including logging, pool size, and other runtime settings."
+              },
+              "response": [
+                {
+                  "id": "8e015b5a-e0ac-49cf-8a1c-314627726ab9",
+                  "name": "Current configuration",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "config"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"initial_pool_size\": \"<integer>\",\n  \"drop_excess_requests\": \"<boolean>\",\n  \"enable_logging\": \"<boolean>\",\n  \"prometheus_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-8e015b5a-e0ac-49cf-8a1c-314627726ab9"
+                },
+                {
+                  "id": "34b9a9fe-b4b8-4b43-9b35-d6b4becd910b",
+                  "name": "500 response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "config"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-34b9a9fe-b4b8-4b43-9b35-d6b4becd910b"
+                }
+              ],
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-52d35766-a692-435a-b2fe-ca20acdbc32f"
+            },
+            {
+              "name": "Update Configuration",
+              "id": "5dc66449-3d64-4287-b37f-2e1f7ee16ead",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"initial_pool_size\": \"<integer>\",\n  \"drop_excess_requests\": \"<boolean>\",\n  \"enable_logging\": \"<boolean>\",\n  \"prometheus_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/config",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "config"
+                  ]
+                },
+                "description": "Update system configuration settings. Supports hot-reloading of certain settings like drop_excess_requests."
+              },
+              "response": [
+                {
+                  "id": "473f924d-ba34-4670-b846-f8a27206a241",
+                  "name": "Configuration updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"initial_pool_size\": \"<integer>\",\n  \"drop_excess_requests\": \"<boolean>\",\n  \"enable_logging\": \"<boolean>\",\n  \"prometheus_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "config"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-473f924d-ba34-4670-b846-f8a27206a241"
+                },
+                {
+                  "id": "6cee75bc-7e8d-448d-8217-a6346aefe932",
+                  "name": "400 response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"initial_pool_size\": \"<integer>\",\n  \"drop_excess_requests\": \"<boolean>\",\n  \"enable_logging\": \"<boolean>\",\n  \"prometheus_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "config"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-6cee75bc-7e8d-448d-8217-a6346aefe932"
+                },
+                {
+                  "id": "03af1b10-b8d1-4841-9fa5-59e08fb577f1",
+                  "name": "500 response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"initial_pool_size\": \"<integer>\",\n  \"drop_excess_requests\": \"<boolean>\",\n  \"enable_logging\": \"<boolean>\",\n  \"prometheus_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "config"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-03af1b10-b8d1-4841-9fa5-59e08fb577f1"
+                }
+              ],
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-5dc66449-3d64-4287-b37f-2e1f7ee16ead"
+            }
+          ],
+          "id": "5ebed67b-92b6-4646-bb3d-7b9626b9cadf",
+          "createdAt": "2026-10-22T01:05:14.000Z",
+          "updatedAt": "2026-10-22T01:05:14.000Z",
+          "uid": "35240-5ebed67b-92b6-4646-bb3d-7b9626b9cadf"
+        }
+      ],
+      "id": "c6d77b04-5358-4bb4-ad1b-ac8b00e34ed8",
+      "createdAt": "2026-10-22T01:05:14.000Z",
+      "updatedAt": "2026-10-22T01:05:14.000Z",
+      "uid": "35240-c6d77b04-5358-4bb4-ad1b-ac8b00e34ed8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

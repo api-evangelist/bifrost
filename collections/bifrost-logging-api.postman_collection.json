@@ -1,0 +1,542 @@
+{
+  "info": {
+    "_postman_id": "a2138c97-c4ad-414d-a08a-031faf79be20",
+    "name": "Bifrost HTTP Transport Logging API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:05:44.000Z",
+    "updatedAt": "2026-10-22T01:05:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a2138c97-c4ad-414d-a08a-031faf79be20"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "logs",
+          "item": [
+            {
+              "name": "dropped",
+              "item": [
+                {
+                  "name": "Get Dropped Requests",
+                  "id": "1edc529e-a5ad-4c46-96d7-370e59565216",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/logs/dropped",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "logs",
+                        "dropped"
+                      ]
+                    },
+                    "description": "Get information about requests that were dropped due to queue overflow or other capacity limits."
+                  },
+                  "response": [
+                    {
+                      "id": "1bf8bc2b-3cdb-4d0b-bcb9-36a7fa95dc26",
+                      "name": "Dropped requests information",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/logs/dropped",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "logs",
+                            "dropped"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total_dropped\": \"<integer>\",\n  \"recent_drops\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"reason\": \"<string>\",\n      \"provider\": \"mistral\",\n      \"model\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"reason\": \"<string>\",\n      \"provider\": \"bedrock\",\n      \"model\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:05:44.000Z",
+                      "updatedAt": "2026-10-22T01:05:44.000Z",
+                      "uid": "35240-1bf8bc2b-3cdb-4d0b-bcb9-36a7fa95dc26"
+                    },
+                    {
+                      "id": "a4c9570b-bc15-40fd-a2e6-95d262ff25c3",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/logs/dropped",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "logs",
+                            "dropped"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:44.000Z",
+                      "updatedAt": "2026-10-22T01:05:44.000Z",
+                      "uid": "35240-a4c9570b-bc15-40fd-a2e6-95d262ff25c3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:05:44.000Z",
+                  "updatedAt": "2026-10-22T01:05:44.000Z",
+                  "uid": "35240-1edc529e-a5ad-4c46-96d7-370e59565216"
+                }
+              ],
+              "id": "5e6d09d1-2553-40d7-9566-ec547d7e8bae",
+              "createdAt": "2026-10-22T01:05:44.000Z",
+              "updatedAt": "2026-10-22T01:05:44.000Z",
+              "uid": "35240-5e6d09d1-2553-40d7-9566-ec547d7e8bae"
+            },
+            {
+              "name": "Get Application Logs",
+              "id": "c6ad72d5-eedc-4384-8f3d-e5a20987d946",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/logs?providers=<string>&models=<string>&status=<string>&objects=<string>&start_time=<dateTime>&end_time=<dateTime>&min_latency=<number>&max_latency=<number>&min_tokens=<integer>&max_tokens=<integer>&content_search=<string>&limit=50&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated list of providers to filter by",
+                      "key": "providers",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of models to filter by",
+                      "key": "models",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of statuses to filter by (success, error)",
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of object types to filter by (chat.completion, text.completion)",
+                      "key": "objects",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start time for filtering (RFC3339 format)",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End time for filtering (RFC3339 format)",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Minimum latency in seconds",
+                      "key": "min_latency",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Maximum latency in seconds",
+                      "key": "max_latency",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Minimum token count",
+                      "key": "min_tokens",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum token count",
+                      "key": "max_tokens",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Search term for message content",
+                      "key": "content_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Number of logs to return (1-1000)",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Number of logs to skip",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve application logs with filtering, search, and pagination. Supports filtering by provider, model, status, time range, latency, tokens, and content search."
+              },
+              "response": [
+                {
+                  "id": "584720a1-3f9f-4d7d-bc06-1655755f5055",
+                  "name": "Application logs",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/logs?providers=<string>&models=<string>&status=<string>&objects=<string>&start_time=<dateTime>&end_time=<dateTime>&min_latency=<number>&max_latency=<number>&min_tokens=<integer>&max_tokens=<integer>&content_search=<string>&limit=50&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "logs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of providers to filter by",
+                          "key": "providers",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of models to filter by",
+                          "key": "models",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of statuses to filter by (success, error)",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of object types to filter by (chat.completion, text.completion)",
+                          "key": "objects",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time for filtering (RFC3339 format)",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End time for filtering (RFC3339 format)",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Minimum latency in seconds",
+                          "key": "min_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Maximum latency in seconds",
+                          "key": "max_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Minimum token count",
+                          "key": "min_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum token count",
+                          "key": "max_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Search term for message content",
+                          "key": "content_search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of logs to return (1-1000)",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Number of logs to skip",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"logs\": [\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"level\": \"debug\",\n      \"message\": \"<string>\",\n      \"provider\": \"vertex\",\n      \"model\": \"<string>\",\n      \"status\": \"success\",\n      \"latency\": \"<number>\",\n      \"tokens\": \"<integer>\",\n      \"object\": \"text.completion\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"level\": \"info\",\n      \"message\": \"<string>\",\n      \"provider\": \"cohere\",\n      \"model\": \"<string>\",\n      \"status\": \"error\",\n      \"latency\": \"<number>\",\n      \"tokens\": \"<integer>\",\n      \"object\": \"text.completion\"\n    }\n  ],\n  \"total\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:05:44.000Z",
+                  "updatedAt": "2026-10-22T01:05:44.000Z",
+                  "uid": "35240-584720a1-3f9f-4d7d-bc06-1655755f5055"
+                },
+                {
+                  "id": "605ffe64-d25e-4c3b-91f8-c0252662d033",
+                  "name": "400 response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/logs?providers=<string>&models=<string>&status=<string>&objects=<string>&start_time=<dateTime>&end_time=<dateTime>&min_latency=<number>&max_latency=<number>&min_tokens=<integer>&max_tokens=<integer>&content_search=<string>&limit=50&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "logs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of providers to filter by",
+                          "key": "providers",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of models to filter by",
+                          "key": "models",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of statuses to filter by (success, error)",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of object types to filter by (chat.completion, text.completion)",
+                          "key": "objects",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time for filtering (RFC3339 format)",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End time for filtering (RFC3339 format)",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Minimum latency in seconds",
+                          "key": "min_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Maximum latency in seconds",
+                          "key": "max_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Minimum token count",
+                          "key": "min_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum token count",
+                          "key": "max_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Search term for message content",
+                          "key": "content_search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of logs to return (1-1000)",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Number of logs to skip",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:44.000Z",
+                  "updatedAt": "2026-10-22T01:05:44.000Z",
+                  "uid": "35240-605ffe64-d25e-4c3b-91f8-c0252662d033"
+                },
+                {
+                  "id": "f962c876-c759-4af4-8f3d-78491255dc47",
+                  "name": "500 response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/logs?providers=<string>&models=<string>&status=<string>&objects=<string>&start_time=<dateTime>&end_time=<dateTime>&min_latency=<number>&max_latency=<number>&min_tokens=<integer>&max_tokens=<integer>&content_search=<string>&limit=50&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "logs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of providers to filter by",
+                          "key": "providers",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of models to filter by",
+                          "key": "models",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of statuses to filter by (success, error)",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of object types to filter by (chat.completion, text.completion)",
+                          "key": "objects",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time for filtering (RFC3339 format)",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End time for filtering (RFC3339 format)",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Minimum latency in seconds",
+                          "key": "min_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Maximum latency in seconds",
+                          "key": "max_latency",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Minimum token count",
+                          "key": "min_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum token count",
+                          "key": "max_tokens",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Search term for message content",
+                          "key": "content_search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of logs to return (1-1000)",
+                          "key": "limit",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Number of logs to skip",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:44.000Z",
+                  "updatedAt": "2026-10-22T01:05:44.000Z",
+                  "uid": "35240-f962c876-c759-4af4-8f3d-78491255dc47"
+                }
+              ],
+              "createdAt": "2026-10-22T01:05:44.000Z",
+              "updatedAt": "2026-10-22T01:05:44.000Z",
+              "uid": "35240-c6ad72d5-eedc-4384-8f3d-e5a20987d946"
+            }
+          ],
+          "id": "31190b66-c34d-4fc6-91b5-5aa1407baf30",
+          "createdAt": "2026-10-22T01:05:44.000Z",
+          "updatedAt": "2026-10-22T01:05:44.000Z",
+          "uid": "35240-31190b66-c34d-4fc6-91b5-5aa1407baf30"
+        }
+      ],
+      "id": "35c8d62f-5017-484b-8729-47b971c14eae",
+      "createdAt": "2026-10-22T01:05:44.000Z",
+      "updatedAt": "2026-10-22T01:05:44.000Z",
+      "uid": "35240-35c8d62f-5017-484b-8729-47b971c14eae"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

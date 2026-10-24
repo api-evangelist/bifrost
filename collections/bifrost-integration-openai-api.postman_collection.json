@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "91e597fc-f77b-413a-9247-e5ff6f9b4646",
+    "name": "Bifrost HTTP Transport Integration - OpenAI API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:05:39.000Z",
+    "updatedAt": "2026-10-22T01:05:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-91e597fc-f77b-413a-9247-e5ff6f9b4646"
+  },
+  "item": [
+    {
+      "name": "openai",
+      "item": [
+        {
+          "name": "chat",
+          "item": [
+            {
+              "name": "completions",
+              "item": [
+                {
+                  "name": "OpenAI Compatible Chat Completions",
+                  "id": "454ed9b6-ccce-45bd-a985-4b90677f9f00",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/openai/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "openai",
+                        "chat",
+                        "completions"
+                      ]
+                    },
+                    "description": "OpenAI-compatible chat completions endpoint that converts requests to Bifrost format and returns OpenAI-compatible responses."
+                  },
+                  "response": [
+                    {
+                      "id": "6293eb9f-2535-4c5c-911d-a82537c95e1f",
+                      "name": "OpenAI-compatible chat completion response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"chat.completion\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"length\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"system\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"function_call\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    }\n  ],\n  \"model\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"service_tier\": \"<string>\",\n  \"system_fingerprint\": \"<string>\",\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\",\n      \"audio_tokens\": \"<integer>\",\n      \"accepted_prediction_tokens\": \"<integer>\",\n      \"rejected_prediction_tokens\": \"<integer>\"\n    }\n  },\n  \"extra_fields\": {\n    \"provider\": \"azure\",\n    \"model_params\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"top_k\": \"<integer>\",\n      \"max_tokens\": \"<integer>\",\n      \"stop_sequences\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"presence_penalty\": \"<number>\",\n      \"frequency_penalty\": \"<number>\",\n      \"tools\": [\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"reprehenderitc\": false,\n                \"ex_4\": 7780859,\n                \"adipisicing_87\": true\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        },\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"eiusmod_5b\": 22179625.649907827,\n                \"anim_7f\": -64011824\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        }\n      ],\n      \"tool_choice\": {\n        \"type\": \"function\",\n        \"function\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"parallel_tool_calls\": \"<boolean>\"\n    },\n    \"latency\": \"<number>\",\n    \"chat_history\": [\n      {\n        \"role\": \"user\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      {\n        \"role\": \"system\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      }\n    ],\n    \"billed_usage\": {\n      \"prompt_tokens\": \"<number>\",\n      \"completion_tokens\": \"<number>\",\n      \"search_units\": \"<number>\",\n      \"classifications\": \"<number>\"\n    },\n    \"raw_response\": {}\n  }\n}",
+                      "createdAt": "2026-10-22T01:05:39.000Z",
+                      "updatedAt": "2026-10-22T01:05:39.000Z",
+                      "uid": "35240-6293eb9f-2535-4c5c-911d-a82537c95e1f"
+                    },
+                    {
+                      "id": "e3ca6414-f97b-4bdf-a353-769d06d1be86",
+                      "name": "400 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:39.000Z",
+                      "updatedAt": "2026-10-22T01:05:39.000Z",
+                      "uid": "35240-e3ca6414-f97b-4bdf-a353-769d06d1be86"
+                    },
+                    {
+                      "id": "a112d601-8d73-44c4-ba0b-2a22d4ab4a87",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/openai/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "openai",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:39.000Z",
+                      "updatedAt": "2026-10-22T01:05:39.000Z",
+                      "uid": "35240-a112d601-8d73-44c4-ba0b-2a22d4ab4a87"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:05:39.000Z",
+                  "updatedAt": "2026-10-22T01:05:39.000Z",
+                  "uid": "35240-454ed9b6-ccce-45bd-a985-4b90677f9f00"
+                }
+              ],
+              "id": "6292a90a-f757-45dc-b4ac-4f9aa31ab849",
+              "createdAt": "2026-10-22T01:05:39.000Z",
+              "updatedAt": "2026-10-22T01:05:39.000Z",
+              "uid": "35240-6292a90a-f757-45dc-b4ac-4f9aa31ab849"
+            }
+          ],
+          "id": "18d3cfff-7339-4c31-9144-e8d45c5321d0",
+          "createdAt": "2026-10-22T01:05:39.000Z",
+          "updatedAt": "2026-10-22T01:05:39.000Z",
+          "uid": "35240-18d3cfff-7339-4c31-9144-e8d45c5321d0"
+        }
+      ],
+      "id": "eccc7eb0-038b-4550-ad08-ae1065e30c78",
+      "createdAt": "2026-10-22T01:05:39.000Z",
+      "updatedAt": "2026-10-22T01:05:39.000Z",
+      "uid": "35240-eccc7eb0-038b-4550-ad08-ae1065e30c78"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

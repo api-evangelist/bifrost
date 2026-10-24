@@ -1,0 +1,518 @@
+{
+  "info": {
+    "_postman_id": "b96c233c-02e5-4f01-9a8b-17121653b7d8",
+    "name": "Bifrost HTTP Transport Chat Completions API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:04:59.000Z",
+    "updatedAt": "2026-10-22T01:04:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b96c233c-02e5-4f01-9a8b-17121653b7d8"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "chat",
+          "item": [
+            {
+              "name": "completions",
+              "item": [
+                {
+                  "name": "stream",
+                  "item": [
+                    {
+                      "name": "Bifrost Stream Chat Completion",
+                      "id": "29f69e20-713d-4eca-a1f5-6f3e055ed1ad",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-bf-provider-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/event-stream"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions/stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions",
+                            "stream"
+                          ]
+                        },
+                        "description": "Creates a streaming chat completion. Returns server-sent events (SSE) with incremental token chunks from the AI provider."
+                      },
+                      "response": [
+                        {
+                          "id": "1f6207dc-aa66-4f23-8878-72ae42e340f9",
+                          "name": "Server-sent event stream of chat completion chunks.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/event-stream"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-bf-provider-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/chat/completions/stream",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "chat",
+                                "completions",
+                                "stream"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/event-stream"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-22T01:04:59.000Z",
+                          "updatedAt": "2026-10-22T01:04:59.000Z",
+                          "uid": "35240-1f6207dc-aa66-4f23-8878-72ae42e340f9"
+                        },
+                        {
+                          "id": "fe6d8275-3193-4c0b-8e2e-33f1af99d0f8",
+                          "name": "Invalid request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-bf-provider-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/chat/completions/stream",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "chat",
+                                "completions",
+                                "stream"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T01:04:59.000Z",
+                          "updatedAt": "2026-10-22T01:04:59.000Z",
+                          "uid": "35240-fe6d8275-3193-4c0b-8e2e-33f1af99d0f8"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-29f69e20-713d-4eca-a1f5-6f3e055ed1ad"
+                    }
+                  ],
+                  "id": "5d40b1f8-27ae-4981-8cf2-e46d176f72d4",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-5d40b1f8-27ae-4981-8cf2-e46d176f72d4"
+                },
+                {
+                  "name": "Create Chat Completion",
+                  "id": "70a44ad4-5abe-474d-9b08-0aaa7d115efa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "chat",
+                        "completions"
+                      ]
+                    },
+                    "description": "Creates a chat completion using conversational messages. Supports tool calling, image inputs, and multiple AI providers with automatic fallbacks."
+                  },
+                  "response": [
+                    {
+                      "id": "7a80fa90-744e-4535-b45c-e0bdbf4f8fe4",
+                      "name": "Successful chat completion",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"chat.completion\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"tool\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"length\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"tool\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"length\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    }\n  ],\n  \"model\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"service_tier\": \"<string>\",\n  \"system_fingerprint\": \"<string>\",\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\",\n      \"audio_tokens\": \"<integer>\",\n      \"accepted_prediction_tokens\": \"<integer>\",\n      \"rejected_prediction_tokens\": \"<integer>\"\n    }\n  },\n  \"extra_fields\": {\n    \"provider\": \"mistral\",\n    \"model_params\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"top_k\": \"<integer>\",\n      \"max_tokens\": \"<integer>\",\n      \"stop_sequences\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"presence_penalty\": \"<number>\",\n      \"frequency_penalty\": \"<number>\",\n      \"tools\": [\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"dolore__5\": -29337059,\n                \"Excepteurc27\": false\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        },\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"consequat32\": \"anim\",\n                \"dolore4\": \"minim ullamco dolor ipsum\"\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        }\n      ],\n      \"tool_choice\": {\n        \"type\": \"none\",\n        \"function\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"parallel_tool_calls\": \"<boolean>\"\n    },\n    \"latency\": \"<number>\",\n    \"chat_history\": [\n      {\n        \"role\": \"assistant\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      {\n        \"role\": \"assistant\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      }\n    ],\n    \"billed_usage\": {\n      \"prompt_tokens\": \"<number>\",\n      \"completion_tokens\": \"<number>\",\n      \"search_units\": \"<number>\",\n      \"classifications\": \"<number>\"\n    },\n    \"raw_response\": {}\n  }\n}",
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-7a80fa90-744e-4535-b45c-e0bdbf4f8fe4"
+                    },
+                    {
+                      "id": "07191056-8567-4ba8-b9d3-6761d096d64c",
+                      "name": "400 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-07191056-8567-4ba8-b9d3-6761d096d64c"
+                    },
+                    {
+                      "id": "372c9e84-0ba9-44af-9018-c220f5078126",
+                      "name": "401 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-372c9e84-0ba9-44af-9018-c220f5078126"
+                    },
+                    {
+                      "id": "cb1a3b9e-b7d3-412f-a2a3-2fe69c82f123",
+                      "name": "429 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-cb1a3b9e-b7d3-412f-a2a3-2fe69c82f123"
+                    },
+                    {
+                      "id": "8d97aede-1681-4fe1-8b8f-6c3b85ed179d",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"tool_call_id\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        },\n        {\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          },\n          \"id\": \"<string>\",\n          \"type\": \"function\"\n        }\n      ],\n      \"refusal\": \"<string>\",\n      \"annotations\": [\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"url_citation\": {\n            \"start_index\": \"<integer>\",\n            \"end_index\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"url\": \"<string>\",\n            \"sources\": {\n              \"description\": \"Citation sources\"\n            },\n            \"type\": \"<string>\"\n          }\n        }\n      ],\n      \"thought\": \"<string>\"\n    }\n  ],\n  \"max_tokens\": \"<integer>\",\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:04:59.000Z",
+                      "updatedAt": "2026-10-22T01:04:59.000Z",
+                      "uid": "35240-8d97aede-1681-4fe1-8b8f-6c3b85ed179d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-70a44ad4-5abe-474d-9b08-0aaa7d115efa"
+                }
+              ],
+              "id": "c19d72b9-5fd3-445c-99c6-c715970768d7",
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-c19d72b9-5fd3-445c-99c6-c715970768d7"
+            }
+          ],
+          "id": "e30fe635-d076-4aeb-bfeb-4a39a8268439",
+          "createdAt": "2026-10-22T01:04:59.000Z",
+          "updatedAt": "2026-10-22T01:04:59.000Z",
+          "uid": "35240-e30fe635-d076-4aeb-bfeb-4a39a8268439"
+        }
+      ],
+      "id": "b546982a-6b6a-49c3-9f1e-22e541904139",
+      "createdAt": "2026-10-22T01:04:59.000Z",
+      "updatedAt": "2026-10-22T01:04:59.000Z",
+      "uid": "35240-b546982a-6b6a-49c3-9f1e-22e541904139"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

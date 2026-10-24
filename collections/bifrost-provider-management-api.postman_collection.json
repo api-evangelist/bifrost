@@ -1,0 +1,924 @@
+{
+  "info": {
+    "_postman_id": "755c9252-3a28-45ff-b0b9-8fcbf4b3bfe7",
+    "name": "Bifrost HTTP Transport Provider Management API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:06:18.000Z",
+    "updatedAt": "2026-10-22T01:06:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-755c9252-3a28-45ff-b0b9-8fcbf4b3bfe7"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "providers",
+          "item": [
+            {
+              "name": "{provider}",
+              "item": [
+                {
+                  "name": "Get Provider",
+                  "id": "afa74e2e-2918-4da6-b032-2c97229e2f71",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "id": "74e0d236-779b-49dc-aa83-842c5a0f01ed",
+                          "key": "provider",
+                          "value": "ollama",
+                          "description": "(Required) Provider name"
+                        }
+                      ]
+                    },
+                    "description": "Get detailed configuration for a specific AI provider."
+                  },
+                  "response": [
+                    {
+                      "id": "419777bb-1a54-4757-91a6-cccbed5f3b0b",
+                      "name": "Provider configuration",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"sgl\",\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-419777bb-1a54-4757-91a6-cccbed5f3b0b"
+                    },
+                    {
+                      "id": "c0263d4a-ebff-40d7-9552-f97ef22a797e",
+                      "name": "Provider not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"is_bifrost_error\": \"<boolean>\",\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\",\n    \"param\": {\n      \"description\": \"Parameter that caused the error\",\n      \"example\": \"provider\"\n    },\n    \"event_id\": \"<string>\"\n  },\n  \"event_id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"status_code\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-c0263d4a-ebff-40d7-9552-f97ef22a797e"
+                    },
+                    {
+                      "id": "c3221dfe-fc3d-4aba-84ca-4be9b929a782",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-c3221dfe-fc3d-4aba-84ca-4be9b929a782"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-afa74e2e-2918-4da6-b032-2c97229e2f71"
+                },
+                {
+                  "name": "Update Provider",
+                  "id": "80236709-22da-4fd0-b988-7cdd1a116d1a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b84798f2-4216-4f7d-88af-89e6690f4830",
+                          "key": "provider",
+                          "value": "ollama",
+                          "description": "(Required) Provider name"
+                        }
+                      ]
+                    },
+                    "description": "Update an existing AI provider's configuration including API keys, network settings, and concurrency options."
+                  },
+                  "response": [
+                    {
+                      "id": "9dd53d03-bc1e-4f5d-9a02-60db489c5cd0",
+                      "name": "Provider updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-9dd53d03-bc1e-4f5d-9a02-60db489c5cd0"
+                    },
+                    {
+                      "id": "75aa5480-f681-464f-8061-a745eca1c2f7",
+                      "name": "400 response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-75aa5480-f681-464f-8061-a745eca1c2f7"
+                    },
+                    {
+                      "id": "d6d7e25c-d8b5-421c-a5f5-0e7b4aaa1b0d",
+                      "name": "Provider not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"is_bifrost_error\": \"<boolean>\",\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\",\n    \"param\": {\n      \"description\": \"Parameter that caused the error\",\n      \"example\": \"provider\"\n    },\n    \"event_id\": \"<string>\"\n  },\n  \"event_id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"status_code\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-d6d7e25c-d8b5-421c-a5f5-0e7b4aaa1b0d"
+                    },
+                    {
+                      "id": "5c4f2cb1-7cd8-4658-9b61-ff9e58f260d3",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-5c4f2cb1-7cd8-4658-9b61-ff9e58f260d3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-80236709-22da-4fd0-b988-7cdd1a116d1a"
+                },
+                {
+                  "name": "Delete Provider",
+                  "id": "aab55a87-4221-4845-b0b8-c7f3bbb0e30b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7335e42b-eef8-4af7-964b-ecc9153f20ac",
+                          "key": "provider",
+                          "value": "ollama",
+                          "description": "(Required) Provider name"
+                        }
+                      ]
+                    },
+                    "description": "Remove an AI provider configuration from the system."
+                  },
+                  "response": [
+                    {
+                      "id": "f7a5fb67-c55c-4210-a949-38b981ad77da",
+                      "name": "Provider deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-f7a5fb67-c55c-4210-a949-38b981ad77da"
+                    },
+                    {
+                      "id": "e459a2a0-9d55-452d-b82b-9ce75c8ce678",
+                      "name": "Provider not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"is_bifrost_error\": \"<boolean>\",\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\",\n    \"param\": {\n      \"description\": \"Parameter that caused the error\",\n      \"example\": \"provider\"\n    },\n    \"event_id\": \"<string>\"\n  },\n  \"event_id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"status_code\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-e459a2a0-9d55-452d-b82b-9ce75c8ce678"
+                    },
+                    {
+                      "id": "ef7a7b26-940d-4f10-bad2-944d0ba909e5",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/providers/:provider",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "providers",
+                            ":provider"
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:18.000Z",
+                      "updatedAt": "2026-10-22T01:06:18.000Z",
+                      "uid": "35240-ef7a7b26-940d-4f10-bad2-944d0ba909e5"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-aab55a87-4221-4845-b0b8-c7f3bbb0e30b"
+                }
+              ],
+              "id": "df7c4864-da1b-422a-91a6-1c5186f8df9f",
+              "createdAt": "2026-10-22T01:06:18.000Z",
+              "updatedAt": "2026-10-22T01:06:18.000Z",
+              "uid": "35240-df7c4864-da1b-422a-91a6-1c5186f8df9f"
+            },
+            {
+              "name": "List Providers",
+              "id": "7324086d-1c87-408d-95dc-3270bc8f2028",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/providers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "providers"
+                  ]
+                },
+                "description": "Get a list of all configured AI providers with their settings and capabilities."
+              },
+              "response": [
+                {
+                  "id": "28fb7637-13d4-4d9d-b96a-03a5efee52d6",
+                  "name": "List of providers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"providers\": [\n    {\n      \"name\": \"vertex\",\n      \"keys\": [\n        {\n          \"value\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"models\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"azure_key_config\": {\n            \"endpoint\": \"<string>\",\n            \"deployments\": {},\n            \"api_version\": \"<string>\"\n          },\n          \"vertex_key_config\": {\n            \"project_id\": \"<string>\",\n            \"region\": \"<string>\",\n            \"auth_credentials\": \"<string>\"\n          },\n          \"bedrock_key_config\": {\n            \"access_key\": \"<string>\",\n            \"secret_key\": \"<string>\",\n            \"session_token\": \"<string>\",\n            \"region\": \"<string>\",\n            \"arn\": \"<string>\",\n            \"deployments\": {}\n          }\n        },\n        {\n          \"value\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"models\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"azure_key_config\": {\n            \"endpoint\": \"<string>\",\n            \"deployments\": {},\n            \"api_version\": \"<string>\"\n          },\n          \"vertex_key_config\": {\n            \"project_id\": \"<string>\",\n            \"region\": \"<string>\",\n            \"auth_credentials\": \"<string>\"\n          },\n          \"bedrock_key_config\": {\n            \"access_key\": \"<string>\",\n            \"secret_key\": \"<string>\",\n            \"session_token\": \"<string>\",\n            \"region\": \"<string>\",\n            \"arn\": \"<string>\",\n            \"deployments\": {}\n          }\n        }\n      ],\n      \"network_config\": {\n        \"timeout\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      },\n      \"concurrency_and_buffer_size\": {\n        \"concurrency\": \"<integer>\",\n        \"buffer_size\": \"<integer>\"\n      },\n      \"proxy_config\": {\n        \"url\": \"<string>\",\n        \"username\": \"<string>\",\n        \"password\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"groq\",\n      \"keys\": [\n        {\n          \"value\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"models\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"azure_key_config\": {\n            \"endpoint\": \"<string>\",\n            \"deployments\": {},\n            \"api_version\": \"<string>\"\n          },\n          \"vertex_key_config\": {\n            \"project_id\": \"<string>\",\n            \"region\": \"<string>\",\n            \"auth_credentials\": \"<string>\"\n          },\n          \"bedrock_key_config\": {\n            \"access_key\": \"<string>\",\n            \"secret_key\": \"<string>\",\n            \"session_token\": \"<string>\",\n            \"region\": \"<string>\",\n            \"arn\": \"<string>\",\n            \"deployments\": {}\n          }\n        },\n        {\n          \"value\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"models\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"azure_key_config\": {\n            \"endpoint\": \"<string>\",\n            \"deployments\": {},\n            \"api_version\": \"<string>\"\n          },\n          \"vertex_key_config\": {\n            \"project_id\": \"<string>\",\n            \"region\": \"<string>\",\n            \"auth_credentials\": \"<string>\"\n          },\n          \"bedrock_key_config\": {\n            \"access_key\": \"<string>\",\n            \"secret_key\": \"<string>\",\n            \"session_token\": \"<string>\",\n            \"region\": \"<string>\",\n            \"arn\": \"<string>\",\n            \"deployments\": {}\n          }\n        }\n      ],\n      \"network_config\": {\n        \"timeout\": \"<integer>\",\n        \"max_retries\": \"<integer>\"\n      },\n      \"concurrency_and_buffer_size\": {\n        \"concurrency\": \"<integer>\",\n        \"buffer_size\": \"<integer>\"\n      },\n      \"proxy_config\": {\n        \"url\": \"<string>\",\n        \"username\": \"<string>\",\n        \"password\": \"<string>\"\n      }\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-28fb7637-13d4-4d9d-b96a-03a5efee52d6"
+                },
+                {
+                  "id": "e5f7eeac-019c-4c9f-b2f6-89e712ed4592",
+                  "name": "500 response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-e5f7eeac-019c-4c9f-b2f6-89e712ed4592"
+                }
+              ],
+              "createdAt": "2026-10-22T01:06:18.000Z",
+              "updatedAt": "2026-10-22T01:06:18.000Z",
+              "uid": "35240-7324086d-1c87-408d-95dc-3270bc8f2028"
+            },
+            {
+              "name": "Add Provider",
+              "id": "0a1b2ee4-3a25-40fa-bffb-8bf00a77871d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"openai\",\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/providers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "providers"
+                  ]
+                },
+                "description": "Add a new AI provider configuration with API keys, network settings, and concurrency options."
+              },
+              "response": [
+                {
+                  "id": "07288806-444f-4c83-acd2-7263ce5bd900",
+                  "name": "Provider added successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"provider\": \"openai\",\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-07288806-444f-4c83-acd2-7263ce5bd900"
+                },
+                {
+                  "id": "3a53115b-5dd0-4df3-957c-880960e73008",
+                  "name": "400 response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"provider\": \"openai\",\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-3a53115b-5dd0-4df3-957c-880960e73008"
+                },
+                {
+                  "id": "e29b50be-4c5f-493d-af9e-1f79c126abed",
+                  "name": "500 response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"provider\": \"openai\",\n  \"keys\": [\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    },\n    {\n      \"value\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"models\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"azure_key_config\": {\n        \"endpoint\": \"<string>\",\n        \"deployments\": {},\n        \"api_version\": \"<string>\"\n      },\n      \"vertex_key_config\": {\n        \"project_id\": \"<string>\",\n        \"region\": \"<string>\",\n        \"auth_credentials\": \"<string>\"\n      },\n      \"bedrock_key_config\": {\n        \"access_key\": \"<string>\",\n        \"secret_key\": \"<string>\",\n        \"session_token\": \"<string>\",\n        \"region\": \"<string>\",\n        \"arn\": \"<string>\",\n        \"deployments\": {}\n      }\n    }\n  ],\n  \"network_config\": {\n    \"timeout\": \"<integer>\",\n    \"max_retries\": \"<integer>\"\n  },\n  \"concurrency_and_buffer_size\": {\n    \"concurrency\": \"<integer>\",\n    \"buffer_size\": \"<integer>\"\n  },\n  \"proxy_config\": {\n    \"url\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "providers"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:06:18.000Z",
+                  "updatedAt": "2026-10-22T01:06:18.000Z",
+                  "uid": "35240-e29b50be-4c5f-493d-af9e-1f79c126abed"
+                }
+              ],
+              "createdAt": "2026-10-22T01:06:18.000Z",
+              "updatedAt": "2026-10-22T01:06:18.000Z",
+              "uid": "35240-0a1b2ee4-3a25-40fa-bffb-8bf00a77871d"
+            }
+          ],
+          "id": "89fd044e-0d20-4a77-b847-7b350e49c0d0",
+          "createdAt": "2026-10-22T01:06:18.000Z",
+          "updatedAt": "2026-10-22T01:06:18.000Z",
+          "uid": "35240-89fd044e-0d20-4a77-b847-7b350e49c0d0"
+        }
+      ],
+      "id": "6ee8d224-188c-45d0-8b4b-fe320db6939e",
+      "createdAt": "2026-10-22T01:06:18.000Z",
+      "updatedAt": "2026-10-22T01:06:18.000Z",
+      "uid": "35240-6ee8d224-188c-45d0-8b4b-fe320db6939e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

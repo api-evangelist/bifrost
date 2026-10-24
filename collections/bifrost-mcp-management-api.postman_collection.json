@@ -1,0 +1,896 @@
+{
+  "info": {
+    "_postman_id": "193858ad-223d-4085-b163-bca5126fad25",
+    "name": "Bifrost HTTP Transport MCP Management API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:05:48.000Z",
+    "updatedAt": "2026-10-22T01:05:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-193858ad-223d-4085-b163-bca5126fad25"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "mcp",
+          "item": [
+            {
+              "name": "clients",
+              "item": [
+                {
+                  "name": "List MCP Clients",
+                  "id": "59fc9a29-4bf0-411d-a198-2dc4204278fa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/mcp/clients",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "mcp",
+                        "clients"
+                      ]
+                    },
+                    "description": "Get information about all configured MCP (Model Context Protocol) clients including their connection state, available tools, and configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "78a68671-f38a-4ff9-aa6b-ec9e936cfb0a",
+                      "name": "List of MCP clients",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/clients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "clients"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"config\": {\n      \"name\": \"<string>\",\n      \"connection_type\": \"stdio\",\n      \"connection_string\": \"<string>\",\n      \"stdio_config\": {\n        \"command\": \"<string>\",\n        \"args\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"envs\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"tools_to_skip\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tools_to_execute\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"state\": \"error\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"config\": {\n      \"name\": \"<string>\",\n      \"connection_type\": \"http\",\n      \"connection_string\": \"<string>\",\n      \"stdio_config\": {\n        \"command\": \"<string>\",\n        \"args\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"envs\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"tools_to_skip\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tools_to_execute\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tools\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"state\": \"error\"\n  }\n]",
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-78a68671-f38a-4ff9-aa6b-ec9e936cfb0a"
+                    },
+                    {
+                      "id": "a81323b5-fbaf-4bde-bd5d-8797137e27cc",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/clients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "clients"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-a81323b5-fbaf-4bde-bd5d-8797137e27cc"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:05:49.000Z",
+                  "updatedAt": "2026-10-22T01:05:49.000Z",
+                  "uid": "35240-59fc9a29-4bf0-411d-a198-2dc4204278fa"
+                }
+              ],
+              "id": "07e5e201-aca1-4302-a20b-1aa275d1be17",
+              "createdAt": "2026-10-22T01:05:49.000Z",
+              "updatedAt": "2026-10-22T01:05:49.000Z",
+              "uid": "35240-07e5e201-aca1-4302-a20b-1aa275d1be17"
+            },
+            {
+              "name": "client",
+              "item": [
+                {
+                  "name": "{name}",
+                  "item": [
+                    {
+                      "name": "reconnect",
+                      "item": [
+                        {
+                          "name": "Reconnect MCP Client",
+                          "id": "f0727352-05e4-4f1d-8aec-fdaf22d11574",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name/reconnect",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name",
+                                "reconnect"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "38d5e96b-8045-43c6-b16e-6388e3d225da",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the MCP client to reconnect"
+                                }
+                              ]
+                            },
+                            "description": "Reconnect a disconnected or errored MCP client."
+                          },
+                          "response": [
+                            {
+                              "id": "ad4c3d05-e3da-4759-a298-9fa427822246",
+                              "name": "MCP client reconnected successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/mcp/client/:name/reconnect",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "mcp",
+                                    "client",
+                                    ":name",
+                                    "reconnect"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:05:49.000Z",
+                              "updatedAt": "2026-10-22T01:05:49.000Z",
+                              "uid": "35240-ad4c3d05-e3da-4759-a298-9fa427822246"
+                            },
+                            {
+                              "id": "c82f4ae1-7c58-44ac-ab0f-0e46539e0653",
+                              "name": "400 response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/mcp/client/:name/reconnect",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "mcp",
+                                    "client",
+                                    ":name",
+                                    "reconnect"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:05:49.000Z",
+                              "updatedAt": "2026-10-22T01:05:49.000Z",
+                              "uid": "35240-c82f4ae1-7c58-44ac-ab0f-0e46539e0653"
+                            },
+                            {
+                              "id": "370e0f00-9e28-4057-8d64-23e3755d2d0b",
+                              "name": "500 response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/mcp/client/:name/reconnect",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "mcp",
+                                    "client",
+                                    ":name",
+                                    "reconnect"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:05:49.000Z",
+                              "updatedAt": "2026-10-22T01:05:49.000Z",
+                              "uid": "35240-370e0f00-9e28-4057-8d64-23e3755d2d0b"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-f0727352-05e4-4f1d-8aec-fdaf22d11574"
+                        }
+                      ],
+                      "id": "74d2c740-e4bb-4eae-b4df-ee9c627d9b0f",
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-74d2c740-e4bb-4eae-b4df-ee9c627d9b0f"
+                    },
+                    {
+                      "name": "Edit MCP Client Tools",
+                      "id": "3abff691-e83a-46a9-9b5c-47623be3dd3c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/client/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "client",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "24b4e94e-c49d-45dd-840c-f3655d6d917f",
+                              "key": "name",
+                              "value": "<string>",
+                              "description": "(Required) Name of the MCP client to edit"
+                            }
+                          ]
+                        },
+                        "description": "Modify which tools are available from an MCP client by updating tool filters."
+                      },
+                      "response": [
+                        {
+                          "id": "8b105e12-e1af-446b-a677-04739ec2187c",
+                          "name": "MCP client tools updated successfully",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-8b105e12-e1af-446b-a677-04739ec2187c"
+                        },
+                        {
+                          "id": "e27dd077-3d7d-4293-b272-a47583a93444",
+                          "name": "400 response",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-e27dd077-3d7d-4293-b272-a47583a93444"
+                        },
+                        {
+                          "id": "c46d2a30-9768-400e-b68e-16ecf99ca92b",
+                          "name": "500 response",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-c46d2a30-9768-400e-b68e-16ecf99ca92b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-3abff691-e83a-46a9-9b5c-47623be3dd3c"
+                    },
+                    {
+                      "name": "Remove MCP Client",
+                      "id": "79761413-4da1-4838-8b22-c692176dfe21",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/client/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "client",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3d572308-c89f-4811-8f4a-d843fecf9531",
+                              "key": "name",
+                              "value": "<string>",
+                              "description": "(Required) Name of the MCP client to remove"
+                            }
+                          ]
+                        },
+                        "description": "Remove an MCP client configuration and disconnect it from the system."
+                      },
+                      "response": [
+                        {
+                          "id": "51250c8d-0369-49db-bfb2-35802a45efea",
+                          "name": "MCP client removed successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-51250c8d-0369-49db-bfb2-35802a45efea"
+                        },
+                        {
+                          "id": "99cfd23b-22e0-4d11-af38-009fe2577afd",
+                          "name": "400 response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-99cfd23b-22e0-4d11-af38-009fe2577afd"
+                        },
+                        {
+                          "id": "836299a5-1bb8-4774-a1c7-7ffd5908526d",
+                          "name": "500 response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/mcp/client/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "mcp",
+                                "client",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:05:49.000Z",
+                          "updatedAt": "2026-10-22T01:05:49.000Z",
+                          "uid": "35240-836299a5-1bb8-4774-a1c7-7ffd5908526d"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-79761413-4da1-4838-8b22-c692176dfe21"
+                    }
+                  ],
+                  "id": "bcf6a3df-d4c1-4b21-a6c6-bb375d3ae9b0",
+                  "createdAt": "2026-10-22T01:05:49.000Z",
+                  "updatedAt": "2026-10-22T01:05:49.000Z",
+                  "uid": "35240-bcf6a3df-d4c1-4b21-a6c6-bb375d3ae9b0"
+                },
+                {
+                  "name": "Add MCP Client",
+                  "id": "de2ede64-bf98-4ff1-aec3-6f9f451ff7bf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"connection_type\": \"stdio\",\n  \"connection_string\": \"<string>\",\n  \"stdio_config\": {\n    \"command\": \"<string>\",\n    \"args\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"envs\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/mcp/client",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "mcp",
+                        "client"
+                      ]
+                    },
+                    "description": "Add a new MCP client configuration and establish connection. Supports STDIO, HTTP, and SSE connection types."
+                  },
+                  "response": [
+                    {
+                      "id": "3a1b168b-4c67-4520-9e74-075cd6559f45",
+                      "name": "MCP client added successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"connection_type\": \"stdio\",\n  \"connection_string\": \"<string>\",\n  \"stdio_config\": {\n    \"command\": \"<string>\",\n    \"args\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"envs\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/client",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "client"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-3a1b168b-4c67-4520-9e74-075cd6559f45"
+                    },
+                    {
+                      "id": "e57378b3-4cd5-4482-b1ce-fdc83967b1ae",
+                      "name": "400 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"connection_type\": \"stdio\",\n  \"connection_string\": \"<string>\",\n  \"stdio_config\": {\n    \"command\": \"<string>\",\n    \"args\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"envs\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/client",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "client"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-e57378b3-4cd5-4482-b1ce-fdc83967b1ae"
+                    },
+                    {
+                      "id": "bee60933-2ace-423d-ae95-d9cd81c90ea3",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"connection_type\": \"stdio\",\n  \"connection_string\": \"<string>\",\n  \"stdio_config\": {\n    \"command\": \"<string>\",\n    \"args\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"envs\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tools_to_skip\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools_to_execute\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/mcp/client",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "mcp",
+                            "client"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:05:49.000Z",
+                      "updatedAt": "2026-10-22T01:05:49.000Z",
+                      "uid": "35240-bee60933-2ace-423d-ae95-d9cd81c90ea3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:05:49.000Z",
+                  "updatedAt": "2026-10-22T01:05:49.000Z",
+                  "uid": "35240-de2ede64-bf98-4ff1-aec3-6f9f451ff7bf"
+                }
+              ],
+              "id": "ee44f81e-e952-4384-9fbc-6581312392db",
+              "createdAt": "2026-10-22T01:05:49.000Z",
+              "updatedAt": "2026-10-22T01:05:49.000Z",
+              "uid": "35240-ee44f81e-e952-4384-9fbc-6581312392db"
+            }
+          ],
+          "id": "a8dfb805-8071-46f3-976a-ab7ede055953",
+          "createdAt": "2026-10-22T01:05:49.000Z",
+          "updatedAt": "2026-10-22T01:05:49.000Z",
+          "uid": "35240-a8dfb805-8071-46f3-976a-ab7ede055953"
+        }
+      ],
+      "id": "122df2b9-b4df-4d60-ab20-e80db29892df",
+      "createdAt": "2026-10-22T01:05:49.000Z",
+      "updatedAt": "2026-10-22T01:05:49.000Z",
+      "uid": "35240-122df2b9-b4df-4d60-ab20-e80db29892df"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

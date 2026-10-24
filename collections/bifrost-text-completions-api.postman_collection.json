@@ -1,0 +1,323 @@
+{
+  "info": {
+    "_postman_id": "d31af7f8-ef28-4207-b601-e72ca3561cd8",
+    "name": "Bifrost HTTP Transport Text Completions API",
+    "description": "A unified HTTP API for accessing multiple AI model providers:\n\n\u2022 openai\n\u2022 anthropic\n\u2022 azure\n\u2022 bedrock\n\u2022 cohere\n\u2022 vertex\n\u2022 mistral\n\u2022 ollama\n\u2022 groq\n\u2022 sgl\n\nBifrost provides:\n\n**Core Features:**\n\u2022 Standardized **OpenAI Compatible** endpoints for text and chat completions\n\u2022 Built-in fallback support across providers\n\u2022 Comprehensive monitoring and logging\n\u2022 Real-time WebSocket streaming\n\n**Audio Processing:**\n\u2022 Speech synthesis (text-to-speech) with multiple voices and formats\n\u2022 Audio transcription (speech-to-text) with timing information\n\u2022 Streaming support for both speech and transcription\n\u2022 OpenAI-compatible audio endpoints\n\n**MCP Integration:**\n\u2022 Model Context Protocol (MCP) support for external tool integration\n\u2022 Dynamic MCP client management (add/remove/edit clients)\n\u2022 STDIO, HTTP, and SSE connection types\n\u2022 Automatic tool discovery and execution\n\n**Management APIs:**\n\u2022 Provider configuration management (CRUD operations)\n\u2022 System configuration hot-reloading\n\u2022 Application logs with advanced filtering\n\u2022 Dropped request monitoring\n\n**Integration Endpoints:**\n\u2022 OpenAI-compatible: `/openai/chat/completions`, `/openai/audio/speech`, `/openai/audio/transcriptions`\n\u2022 Anthropic-compatible: `/anthropic/v1/messages`\n\u2022 Google Gemini-compatible: `/genai/v1beta/models/{model}`\n\u2022 LiteLLM-compatible: `/chat/completions`\n\nContact Support:\n Name: Bifrost API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:06:22.000Z",
+    "updatedAt": "2026-10-22T01:06:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d31af7f8-ef28-4207-b601-e72ca3561cd8"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "text",
+          "item": [
+            {
+              "name": "completions",
+              "item": [
+                {
+                  "name": "Create Text Completion",
+                  "id": "3e6c40a5-05f8-4f3f-91f6-fcd3a72f0265",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/text/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "text",
+                        "completions"
+                      ]
+                    },
+                    "description": "Creates a text completion from a prompt. Useful for text generation, summarization, and other non-conversational tasks."
+                  },
+                  "response": [
+                    {
+                      "id": "82cde923-0d93-40ad-9be0-6edfe69f7cdb",
+                      "name": "Successful text completion",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/text/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "text",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"text.completion\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"user\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"stop\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"tool\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      \"finish_reason\": \"stop\",\n      \"stop\": \"<string>\",\n      \"log_probs\": {\n        \"content\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ],\n            \"top_logprobs\": [\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"logprob\": \"<number>\",\n                \"token\": \"<string>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"logprob\": \"<number>\",\n            \"token\": \"<string>\",\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    }\n  ],\n  \"model\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"service_tier\": \"<string>\",\n  \"system_fingerprint\": \"<string>\",\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\",\n      \"audio_tokens\": \"<integer>\",\n      \"accepted_prediction_tokens\": \"<integer>\",\n      \"rejected_prediction_tokens\": \"<integer>\"\n    }\n  },\n  \"extra_fields\": {\n    \"provider\": \"sgl\",\n    \"model_params\": {\n      \"temperature\": \"<number>\",\n      \"top_p\": \"<number>\",\n      \"top_k\": \"<integer>\",\n      \"max_tokens\": \"<integer>\",\n      \"stop_sequences\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"presence_penalty\": \"<number>\",\n      \"frequency_penalty\": \"<number>\",\n      \"tools\": [\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"consequat6b\": false,\n                \"exercitation_8f\": \"nostrud veniam ut\",\n                \"sed22\": 64086489.64985749\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        },\n        {\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"description\": \"<string>\",\n            \"parameters\": {\n              \"type\": \"<string>\",\n              \"description\": \"<string>\",\n              \"properties\": {\n                \"ut5f_\": false,\n                \"aute9\": 68756166.30645567\n              },\n              \"required\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enum\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          \"id\": \"<string>\"\n        }\n      ],\n      \"tool_choice\": {\n        \"type\": \"any\",\n        \"function\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"parallel_tool_calls\": \"<boolean>\"\n    },\n    \"latency\": \"<number>\",\n    \"chat_history\": [\n      {\n        \"role\": \"user\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": \"<string>\",\n        \"tool_call_id\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          },\n          {\n            \"function\": {\n              \"name\": \"<string>\",\n              \"arguments\": \"<string>\"\n            },\n            \"id\": \"<string>\",\n            \"type\": \"function\"\n          }\n        ],\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\",\n              \"sources\": {\n                \"description\": \"Citation sources\"\n              },\n              \"type\": \"<string>\"\n            }\n          }\n        ],\n        \"thought\": \"<string>\"\n      }\n    ],\n    \"billed_usage\": {\n      \"prompt_tokens\": \"<number>\",\n      \"completion_tokens\": \"<number>\",\n      \"search_units\": \"<number>\",\n      \"classifications\": \"<number>\"\n    },\n    \"raw_response\": {}\n  }\n}",
+                      "createdAt": "2026-10-22T01:06:23.000Z",
+                      "updatedAt": "2026-10-22T01:06:23.000Z",
+                      "uid": "35240-82cde923-0d93-40ad-9be0-6edfe69f7cdb"
+                    },
+                    {
+                      "id": "22ac48c9-4cdc-4268-a0ee-ac9b839a28e9",
+                      "name": "400 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/text/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "text",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:23.000Z",
+                      "updatedAt": "2026-10-22T01:06:23.000Z",
+                      "uid": "35240-22ac48c9-4cdc-4268-a0ee-ac9b839a28e9"
+                    },
+                    {
+                      "id": "b01f6796-bd75-419c-b82a-f8322692beec",
+                      "name": "401 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/text/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "text",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:23.000Z",
+                      "updatedAt": "2026-10-22T01:06:23.000Z",
+                      "uid": "35240-b01f6796-bd75-419c-b82a-f8322692beec"
+                    },
+                    {
+                      "id": "b1a1f69f-ceeb-4145-b805-7afca46f8445",
+                      "name": "429 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/text/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "text",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:23.000Z",
+                      "updatedAt": "2026-10-22T01:06:23.000Z",
+                      "uid": "35240-b1a1f69f-ceeb-4145-b805-7afca46f8445"
+                    },
+                    {
+                      "id": "9fb96036-3df7-4af5-bc8b-03dfa1887946",
+                      "name": "500 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"text\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fallbacks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/text/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "text",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:06:23.000Z",
+                      "updatedAt": "2026-10-22T01:06:23.000Z",
+                      "uid": "35240-9fb96036-3df7-4af5-bc8b-03dfa1887946"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:06:23.000Z",
+                  "updatedAt": "2026-10-22T01:06:23.000Z",
+                  "uid": "35240-3e6c40a5-05f8-4f3f-91f6-fcd3a72f0265"
+                }
+              ],
+              "id": "49f67fe3-65b7-4b41-ae56-4d954ef3a2f8",
+              "createdAt": "2026-10-22T01:06:23.000Z",
+              "updatedAt": "2026-10-22T01:06:23.000Z",
+              "uid": "35240-49f67fe3-65b7-4b41-ae56-4d954ef3a2f8"
+            }
+          ],
+          "id": "73bb6099-e777-42db-8dbc-20df12a2e62e",
+          "createdAt": "2026-10-22T01:06:23.000Z",
+          "updatedAt": "2026-10-22T01:06:23.000Z",
+          "uid": "35240-73bb6099-e777-42db-8dbc-20df12a2e62e"
+        }
+      ],
+      "id": "b028733a-7cd2-44a7-a49f-0dc90a299e7e",
+      "createdAt": "2026-10-22T01:06:23.000Z",
+      "updatedAt": "2026-10-22T01:06:23.000Z",
+      "uid": "35240-b028733a-7cd2-44a7-a49f-0dc90a299e7e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
