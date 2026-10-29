@@ -1,4 +1,4 @@
-# Bifrost (bifrost)
+# Bifrost
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,133 +66,151 @@
 
 Bifrost is a high-performance open-source AI gateway that unifies access to 20+ AI providers through a single OpenAI-compatible API. It supports 1,000+ models with adaptive load balancing, automatic failover, semantic caching, and enterprise observability features. Bifrost is open-source under Apache 2.0.
 
-**URL:** [https://docs.getbifrost.ai](https://docs.getbifrost.ai)
+**Areas:** AI Gateway · LLM · Load Balancing · Open Source · OpenAI-Compatible · MCP
 
-## Tags:
+## Bifrost on APIs.io
 
- - AI Gateway, LLM, Load Balancing, Open Source, OpenAI Compatible, MCP
+Everything profiled for Bifrost is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bifrost/](https://apis.io/providers/bifrost/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-19
+- [Bifrost Go SDK](https://apis.io/apis/bifrost/bifrost-go-sdk/) — The Bifrost Go SDK provides a native Go client for embedding the Bifrost AI gateway directly into Go applications using the github.com/maximhq/bifrost/core…
+- [Bifrost MCP Gateway](https://apis.io/apis/bifrost/bifrost-mcp-gateway/) — The Bifrost Model Context Protocol (MCP) Gateway enables AI agents to discover and execute external tools through a standardized protocol, with OAuth 2.0…
+- [Bifrost Health API](https://apis.io/apis/bifrost/bifrost-health-api/) — Gateway health and status endpoints
+- [Bifrost Chat Completions API](https://apis.io/apis/bifrost/bifrost-chat-completions-api/) — Chat completions compatible with OpenAI chat API
 
-## APIs
+### Published properties
 
-### Bifrost HTTP Gateway API
-The Bifrost HTTP Gateway API provides an OpenAI-compatible RESTful interface that routes requests to any of 20+ supported AI providers. Requests specify the provider and model using provider/model-name in the model field, enabling seamless provider switching without client code changes.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Human URL:** [https://docs.getbifrost.ai/quickstart/gateway/setting-up](https://docs.getbifrost.ai/quickstart/gateway/setting-up)
+#### MCP servers (1)
 
-#### Tags:
+Model Context Protocol servers that expose the API to agents.
 
- - AI Gateway, LLM, OpenAI Compatible, REST
+- [bifrost](https://apis.io/servers/bifrost/bifrost/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://docs.getbifrost.ai/quickstart/gateway/setting-up)
-- [OpenAPI](openapi/bifrost-http-gateway-api.yaml)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Bifrost Go SDK
-The Bifrost Go SDK provides a native Go client for embedding the Bifrost AI gateway directly into Go applications using the github.com/maximhq/bifrost/core package.
+- [Bifrost Agentic Access](https://apis.io/agentic-access/bifrost/bifrost-agentic-access/)
 
-**Human URL:** [https://docs.getbifrost.ai/quickstart/go-sdk/setting-up](https://docs.getbifrost.ai/quickstart/go-sdk/setting-up)
+#### JSON Schema (7)
 
-#### Tags:
+The data models the API reads and writes.
 
- - AI Gateway, Go, LLM, SDK
+- [ChatChoice](https://apis.io/schemas/bifrost/bifrost-chat-choice/)
+- [ChatCompletionRequest](https://apis.io/schemas/bifrost/bifrost-chat-completion-request/)
+- [ChatCompletionResponse](https://apis.io/schemas/bifrost/bifrost-chat-completion-response/)
+- [ChatMessage](https://apis.io/schemas/bifrost/bifrost-chat-message/)
+- [HealthResponse](https://apis.io/schemas/bifrost/bifrost-health-response/)
+- [ProviderStatus](https://apis.io/schemas/bifrost/bifrost-provider-status/)
+- [UsageStats](https://apis.io/schemas/bifrost/bifrost-usage-stats/)
 
-### Bifrost MCP Gateway
-The Bifrost Model Context Protocol (MCP) Gateway enables AI agents to discover and execute external tools through a standardized protocol, with OAuth 2.0 authentication and tool approval controls.
+#### JSON Structure (7)
 
-**Human URL:** [https://docs.getbifrost.ai/features/mcp](https://docs.getbifrost.ai/features/mcp)
+Data models expressed in JSON Structure.
 
-#### Tags:
+- [Bifrost Chat Choice Structure](https://apis.io/json-structure/bifrost/bifrost-chat-choice-structure/)
+- [Bifrost Chat Completion Request Structure](https://apis.io/json-structure/bifrost/bifrost-chat-completion-request-structure/)
+- [Bifrost Chat Completion Response Structure](https://apis.io/json-structure/bifrost/bifrost-chat-completion-response-structure/)
+- [Bifrost Chat Message Structure](https://apis.io/json-structure/bifrost/bifrost-chat-message-structure/)
+- [Bifrost Health Response Structure](https://apis.io/json-structure/bifrost/bifrost-health-response-structure/)
+- [Bifrost Provider Status Structure](https://apis.io/json-structure/bifrost/bifrost-provider-status-structure/)
+- [Bifrost Usage Stats Structure](https://apis.io/json-structure/bifrost/bifrost-usage-stats-structure/)
 
- - AI Agents, MCP, OAuth, Tool Execution
+#### JSON-LD (1)
 
-## Common Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [Portal](https://www.getmaxim.ai/bifrost/enterprise)
+- [Bifrost Context](https://apis.io/jsonld/bifrost/bifrost-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Bifrost Vocabulary](https://apis.io/vocabularies/bifrost/bifrost-vocabulary/)
+
+#### Examples (7)
+
+Example requests and responses.
+
+- [Bifrost Chat Choice Example](https://apis.io/examples/bifrost/bifrost-chat-choice-example/)
+- [Bifrost Chat Completion Request Example](https://apis.io/examples/bifrost/bifrost-chat-completion-request-example/)
+- [Bifrost Chat Completion Response Example](https://apis.io/examples/bifrost/bifrost-chat-completion-response-example/)
+- [Bifrost Chat Message Example](https://apis.io/examples/bifrost/bifrost-chat-message-example/)
+- [Bifrost Health Response Example](https://apis.io/examples/bifrost/bifrost-health-response-example/)
+- [Bifrost Provider Status Example](https://apis.io/examples/bifrost/bifrost-provider-status-example/)
+- [Bifrost Usage Stats Example](https://apis.io/examples/bifrost/bifrost-usage-stats-example/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Bifrost HTTP Gateway Chat API](https://apis.io/collections/bifrost/open-bifrost-chat-api/)
+- [Bifrost HTTP Gateway Chat Health API](https://apis.io/collections/bifrost/open-bifrost-health-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Bifrost — jsonschema rules](https://apis.io/rules/bifrost/bifrost-jsonschema-spectral-rules/)
+- [Bifrost API Rules](https://apis.io/rules/bifrost/bifrost-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bifrost Authentication](https://apis.io/security/bifrost/bifrost-authentication/)
+- [Bifrost Domain Security](https://apis.io/security/bifrost/bifrost-domain-security/)
+- [Bifrost Trust Center](https://apis.io/security/bifrost/bifrost-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Bifrost Plans Pricing](https://apis.io/plans/bifrost/bifrost-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Bifrost Rate Limits](https://apis.io/rate-limits/bifrost/bifrost-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Bifrost Finops](https://apis.io/finops/bifrost/bifrost-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Documentation](https://docs.getbifrost.ai)
-- [GettingStarted](https://docs.getbifrost.ai/quickstart/gateway/setting-up)
-- [GitHubRepository](https://github.com/maximhq/bifrost)
-- [GitHubOrganization](https://github.com/maximhq)
-- [ChangeLog](https://github.com/maximhq/bifrost/releases)
-- [Community](https://discord.gg/exN5KAydbU)
+- [Getting started](https://docs.getbifrost.ai/quickstart/gateway/setting-up)
+- [Pricing](https://www.getmaxim.ai/pricing)
+- [Changelog](https://github.com/maximhq/bifrost/releases)
+- [Blog](https://www.getmaxim.ai/blog)
+- [Terms of service](https://www.getmaxim.ai/terms-of-service)
+- [Privacy policy](https://www.getmaxim.ai/privacy-policy)
+- [GitHub](https://github.com/maximhq)
+- [Status](https://status.getmaxim.ai/)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| OpenAI-Compatible API | Single API interface compatible with OpenAI SDK for all 20+ providers. |
-| Adaptive Load Balancing | Distribute requests across providers and models based on availability and performance. |
-| Automatic Failover | Automatically retry failed requests on alternative providers without client changes. |
-| Semantic Caching | Cache semantically similar prompts to reduce latency and API costs. |
-| MCP Gateway | Model Context Protocol gateway for AI agent tool discovery and execution. |
-| Go SDK | Native Go library for embedding Bifrost gateway directly into applications. |
-| Enterprise Observability | Built-in metrics, tracing, and logging for production AI gateway deployments. |
-| Provider Key Management | Centralized API key management for all connected AI providers. |
+**Unrated** — no public website could be reached for this company, so there was almost nothing to measure and nothing a reader could check.
 
-## Use Cases
+This is not a score of zero. No rating is published for this company. If that is wrong because something public exists that we missed, say so on this repository or email [info@apievangelist.com](mailto:info@apievangelist.com) and it will be re-run — free, and no justification needed.
 
-| Name | Description |
-|------|-------------|
-| Multi-Provider AI Applications | Build applications that can seamlessly switch between OpenAI, Anthropic, and other providers. |
-| Cost Optimization | Route requests to cheaper providers during peak costs or use caching to reduce API spend. |
-| High Availability AI | Ensure AI features remain available by failing over across multiple provider accounts. |
-| AI Agent Tooling | Enable AI agents to discover and execute tools through the MCP gateway protocol. |
-| LLM Provider Evaluation | A/B test different models and providers without changing application code. |
+## How this profile is made
 
-## Integrations
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-| Name | Description |
-|------|-------------|
-| OpenAI | Route to OpenAI GPT-4o, GPT-4, and other OpenAI models. |
-| Anthropic | Route to Claude 3.5 Sonnet, Claude 3 Opus, and other Anthropic models. |
-| Cohere | Route to Cohere Command and other Cohere models. |
-| AWS Bedrock | Route to models hosted on AWS Bedrock including Titan and Claude. |
-| Azure OpenAI | Route to Azure-hosted OpenAI deployments. |
-| Google Vertex AI | Route to Gemini and other models on Google Vertex AI. |
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bifrost: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-## Artifacts
+## Open an issue
 
-### OpenAPI
-
-- [Bifrost HTTP Gateway API](openapi/bifrost-http-gateway-api.yaml)
-
-### JSON Schema
-
-- [bifrost-chat-completion-request-schema.json](json-schema/bifrost-chat-completion-request-schema.json)
-- [bifrost-chat-completion-response-schema.json](json-schema/bifrost-chat-completion-response-schema.json)
-- [bifrost-chat-message-schema.json](json-schema/bifrost-chat-message-schema.json)
-- [bifrost-chat-choice-schema.json](json-schema/bifrost-chat-choice-schema.json)
-- [bifrost-usage-stats-schema.json](json-schema/bifrost-usage-stats-schema.json)
-- [bifrost-health-response-schema.json](json-schema/bifrost-health-response-schema.json)
-- [bifrost-provider-status-schema.json](json-schema/bifrost-provider-status-schema.json)
-
-## Capabilities
-
-### Shared Per-API Definitions
-
-- [Bifrost HTTP Gateway API](capabilities/shared/bifrost.yaml) — 3 operations for chat completions and health
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [AI Chat Routing](capabilities/ai-chat-routing.yaml) | Bifrost | 3 | AI Engineer, Platform Engineer |
-
-## Vocabulary
-
-- [Bifrost Vocabulary](vocabulary/bifrost-vocabulary.yaml) — Unified taxonomy mapping 2 resources, 3 actions, 1 workflow, and 2 personas
-
-## Rules
-
-- [Bifrost Spectral Rules](rules/bifrost-spectral-rules.yml) — 24 rules across 9 categories enforcing Bifrost API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bifrost/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
